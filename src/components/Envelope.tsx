@@ -38,9 +38,9 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
 
         {/* Carta Interior */}
         <div className={`card ${isOpen && !isExiting ? 'visible' : ''}`}>
-          <h2 style={{ fontFamily: "var(--font-serif)", color: "var(--gold)", fontSize: "2rem", marginBottom: "10px" }}>Estás Invitado</h2>
-          <div style={{ width: "60px", height: "1px", background: "var(--gold)", margin: "20px auto", opacity: 0.3 }} />
-          <p style={{ textTransform: "uppercase", letterSpacing: "3px", color: "var(--gray-500)", fontSize: "0.8rem" }}>
+          <h2 className="card-title">Estás Invitado</h2>
+          <div className="card-divider" />
+          <p className="card-names">
             María & Alejandro
           </p>
         </div>

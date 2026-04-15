@@ -103,22 +103,40 @@ body {
   max-width: 600px;
   height: 100%;
   cursor: pointer;
-  background-color: var(--white);
-  box-shadow: 0 0 50px rgba(0,0,0,0.1);
+  background-color: #fdfdfd;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+  overflow: hidden;
+  border-radius: 2px;
 }
 
 .flap {
   position: absolute;
   inset: 0;
   z-index: 10;
-  transition: transform 1.2s ease-in-out;
-  background-color: var(--white);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #ffffff 0%, #f4f4f4 100%);
+}
+
+.flap::before, .lid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* More pronounced paper texture combining noise and a subtle grain */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0.02) 100%);
+  background-blend-mode: overlay;
+  opacity: 0.08;
+  pointer-events: none;
 }
 
 .flap-bottom {
   top: 50% !important;
   height: 50%;
   transform-origin: bottom;
+  border-top: 1px solid rgba(0,0,0,0.02);
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 .flap-bottom.open {
@@ -133,9 +151,15 @@ body {
   width: 100%;
   height: 50%;
   z-index: 20;
-  transition: transform 1.2s ease-in-out;
-  background-color: var(--white);
-  box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.3);
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #ffffff 0%, #f4f4f4 100%);
+  /* Triple shadow for depth and elevation */
+  box-shadow: 
+    0 2px 2px rgba(0, 0, 0, 0.2),      /* Physical joint line */
+    0 8px 15px rgba(0, 0, 0, 0.1),     /* Soft ambient shadow */
+    0 15px 30px rgba(0, 0, 0, 0.05),    /* Elevation simulation */
+    inset 1px 1px 0 rgba(255,255,255,1);
+  border-bottom: 1px solid rgba(0,0,0,0.03);
 }
 
 .lid.open {
@@ -149,7 +173,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 30;
-  transition: all 0.6s ease-in-out;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wax-seal-container:hover {
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
 .wax-seal-container.open {
@@ -161,14 +189,36 @@ body {
 .wax-seal {
   width: 100px;
   height: 100px;
-  background: #991b1b;
-  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #b91c1c 0%, #991b1b 50%, #7f1d1d 100%);
+  /* Irregular border for realism */
+  border-radius: 48% 52% 50% 50% / 45% 51% 49% 55%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  border: 4px solid rgba(0,0,0,0.1);
-  color: white;
+  /* 3D relief with external and heavy inset shadows */
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.3),
+    inset 4px 4px 10px rgba(0,0,0,0.4),
+    inset -2px -2px 8px rgba(255,255,255,0.2);
+  border: 1px solid rgba(0,0,0,0.1);
+  color: #f3f4f6;
+  font-family: var(--font-serif);
+  font-weight: bold;
+  font-size: 1.5rem;
+  /* Embossed text effect */
+  text-shadow: 
+    0 -1px 1px rgba(255,255,255,0.3), 
+    0 1px 1px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.wax-seal::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
 }
 
 @media (min-width: 768px) {
@@ -180,20 +230,49 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
-  width: 80%;
-  max-width: 400px;
-  background: white;
-  padding: 40px;
+  width: 85%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 60px 40px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.1),
+    0 10px 10px rgba(0,0,0,0.05);
   opacity: 0;
   z-index: 5;
-  transition: all 1.2s ease-out 0.6s;
+  transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
 .card.visible {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  color: var(--gold-dark);
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.card-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 30px auto;
+  opacity: 0.5;
+}
+
+.card-names {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: var(--gray-500);
+  font-size: 0.85rem;
+  font-weight: 300;
 }
 
 /* INVITATION SECTIONS STYLES */
