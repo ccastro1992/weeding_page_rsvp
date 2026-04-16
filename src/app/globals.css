@@ -286,11 +286,23 @@ body {
 }
 
 .card-divider {
-  width: 80px;
-  height: 1px;
+  width: 100px;
+  height: 1.5px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   margin: 30px auto;
-  opacity: 0.5;
+  opacity: 0.7;
+  animation: divider-glow 4s ease-in-out infinite;
+}
+
+@keyframes divider-glow {
+  0%, 100% {
+    transform: scaleX(0.7);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleX(1.2);
+    opacity: 0.8;
+  }
 }
 
 .card-names {

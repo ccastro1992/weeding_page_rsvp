@@ -30,7 +30,7 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
           <div className="lid-content">
             <p className="lid-text">Kari &nbsp; y &nbsp; Cris</p>
           </div>
-           <div className="card-divider-animated"/>
+           <div className="card-divider"/>
         </div>
 
         {/* Solapa Inferior */}
