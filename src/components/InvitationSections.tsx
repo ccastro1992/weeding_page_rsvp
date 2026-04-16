@@ -236,7 +236,7 @@ export const DressCode = () => {
     <section className="section-dress-code">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">A continuación</p>
+          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">¿Qué me pongo?</p>
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
 
           <div className="img-container-styled">
@@ -266,12 +266,13 @@ export const Gifts = () => {
     <section className="section-gifts">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
+          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">Un detalle con amor</p>
           <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Regalos</h2>
           <Gift className="text-gold-dark" style={{ width: "3rem", height: "3rem", margin: "0 auto 2rem" }} />
           <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">
-            <b>¡Qué alegría compartir nuestra historia con ustedes!</b> Para darnos un empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
+            <b>¡Qué alegría compartir nuestra historia con ustedes!</b><br/>Para darnos un empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
           </p>
-          <button className="btn-outline">
+          <button className="btn-outline text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">
             Ver Cuenta Bancaria
           </button>
         </div>

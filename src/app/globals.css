@@ -24,6 +24,7 @@
   --white: #ffffff;
   --black: #000000;
   --sage-gray: rgb(154, 165, 165);
+  --secondary-background: rgb(183 200 188);
   
   /* Fonts */
   --font-serif: var(--font-serif), serif;
@@ -325,7 +326,7 @@ body {
 }
 
 .phrase-content {
-  background-color: rgb(183 200 188);
+  background-color: var(--secondary-background);
   padding: 2rem 2.5rem;
   text-align: center;
 }
@@ -354,7 +355,7 @@ body {
 
 .section-party {
   padding: 3rem 2rem;
-  background-color: rgb(183 200 188);
+  background-color: var(--secondary-background);
 }
 
 .section-dress-code {
@@ -364,7 +365,7 @@ body {
 
 .section-gifts {
   padding: 3rem 2rem;
-  background-color: rgb(183 200 188);
+  background-color: var(--secondary-background);
 }
 
 .dress-code-card {
@@ -496,9 +497,9 @@ body {
   padding: 0.75rem 2rem;
   border: 1px solid var(--gold);
   color: var(--gold);
-  background: transparent;
+  background: var(--white);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   cursor: pointer;

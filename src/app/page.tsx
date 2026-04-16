@@ -76,12 +76,12 @@ export default function Home() {
           <DressCode />
           <Phrase2 />
           <Gifts />
-          
-          <footer className="text-center" style={{ padding: "4rem 0", backgroundColor: "var(--cream-light)", borderTop: "1px solid rgba(212, 175, 55, 0.1)" }}>
-            <p className="font-serif text-gold-dark italic text-2xl" style={{ marginBottom: "1rem" }}>
-              ¡Os esperamos con mucha ilusión!
+          <Phrase3 />
+          <footer className="text-center" style={{ padding: "4rem 0", backgroundColor: "var(--white)" }}>
+            <p className="font-serif text-gold-dark italic text-2xl font-bold" style={{ marginBottom: "1rem" }}>
+              ¡Los esperamos con mucha ilusión!
             </p>
-            <p className="font-sans text-xs uppercase tracking-widest text-gray-400">
+            <p className="font-sans text-xs uppercase tracking-widest text-gray-600">
               Kari & Cris • 2026
             </p>
           </footer>
