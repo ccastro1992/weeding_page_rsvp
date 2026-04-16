@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import { Cormorant_Garamond, Montserrat, Parisienne,Great_Vibes } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -14,6 +14,12 @@ const montserrat = Montserrat({
   variable: "--font-sans",
 });
 
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-cursive",
+});
+
 export const metadata: Metadata = {
   title: "María & Alejandro | Nuestra Boda",
   description: "¡Nos casamos! Estás invitado a celebrar nuestro gran día.",
@@ -26,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${cormorant.variable} ${montserrat.variable}`}>
+      <body className={`${cormorant.variable} ${montserrat.variable} ${greatVibes.variable}`}>
         {children}
       </body>
     </html>

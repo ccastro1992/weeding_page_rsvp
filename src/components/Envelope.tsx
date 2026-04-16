@@ -24,16 +24,25 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
   return (
     <div className={`envelope-screen ${isExiting ? 'exiting' : ''}`}>
       <div className="envelope-body" onClick={handleOpen}>
-        
+
         {/* Solapa Superior (Tapa) */}
-        <div className={`lid ${isOpen ? 'open' : ''}`} />
+        <div className={`lid ${isOpen ? 'open' : ''}`}>
+          <div className="lid-content">
+            <p className="lid-text">Kari &nbsp; y &nbsp; Cris</p>
+          </div>
+        </div>
 
         {/* Solapa Inferior */}
-        <div className={`flap flap-bottom ${isOpen ? 'open' : ''}`} />
+        <div className={`flap flap-bottom ${isOpen ? 'open' : ''}`}>
+          <div className="flap-content">
+            <p className="flap-text">Tenemos una noticia...</p>
+            <p className="flap-click-hint">¡Pulsa Aquí!</p>
+          </div>
+        </div>
 
-        {/* Sello de Lacre (Botón) */}
-        <div className={`wax-seal-container ${isOpen ? 'open' : ''}`}>
-          <div className="wax-seal">M&A</div>
+        {/* Sello de Lacre (Imagen) */}
+        <div className={`stamp-container ${isOpen ? 'open' : ''}`}>
+          <img src="/img/stamp.png" alt="Sello" className="stamp-img" />
         </div>
 
         {/* Carta Interior */}
@@ -44,11 +53,7 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
             María & Alejandro
           </p>
         </div>
-
-        <p className="pulse" style={{ position: "absolute", bottom: "40px", width: "100%", textAlign: "center", color: "var(--gray-400)", textTransform: "uppercase", letterSpacing: "2px", fontSize: "0.7rem" }}>
-          Toca para abrir
-        </p>
       </div>
-    </div>
+    </div >
   );
 }

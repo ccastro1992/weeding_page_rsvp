@@ -76,7 +76,7 @@ export const Hero = () => {
   return (
     <section className="section-hero min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal active">
-        <img src="/img/logo.png" alt="Logo Boda" style={{ width: "500px", height: "auto", marginBottom: "2rem" }} />
+        <img src="/img/logo.png" alt="Logo Boda" style={{ width: "25em", height: "auto", marginBottom: "2rem" }} />
         <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1.5rem" }}>¡Nos Casamos!</p>
         <h1 className="text-6xl md:text-9xl font-serif text-gold-dark" style={{ marginBottom: "1rem" }}>Kari & Cris</h1>
         <div style={{ width: "4rem", height: "1px", backgroundColor: "rgba(212, 175, 55, 0.5)", margin: "2rem auto" }} />
