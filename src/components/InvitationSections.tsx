@@ -78,7 +78,7 @@ export const Hero = () => {
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
         <p className="text-xs uppercase tracking-hero text-eucalyptus mb-6">¡Nos Casamos!</p>
-        <div className="card-divider"/>
+        <div className="card-divider" />
         <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark">Viernes 16 de Octubre de 2026</p>
         <Countdown />
       </div>
@@ -122,7 +122,11 @@ export const Ceremony = () => {
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">El gran momento</p>
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">La Ceremonia</h2>
-
+          <img
+            src="/img/ceremony.png"
+            className="img-section"
+            alt="Código de Vestimenta"
+          />
           <h3 className="font-serif text-2xl text-gold-dark mb-8">Parroquia Jesús de las Bienaventuranzas</h3>
 
           <div className="img-container-styled">
@@ -145,9 +149,9 @@ export const Ceremony = () => {
             className="map-link-container flex flex-col items-center gap-2"
           >
             <div className="map-icon-wrapper">
-              <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
+              <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-gold-dark mt-2 font-bold">Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-gold-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
           </a>
         </div>
       </div>
@@ -179,7 +183,11 @@ export const Party = () => {
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">A continuación</p>
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">La Celebración</h2>
-
+          <img
+            src="/img/party.png"
+            className="img-section"
+            alt="Código de Vestimenta"
+          />
           <h3 className="font-serif text-2xl text-gold-dark mb-8">Quinta Luciana</h3>
 
           <div className="img-container-styled">
@@ -204,9 +212,9 @@ export const Party = () => {
             className="map-link-container flex flex-col items-center gap-2"
           >
             <div className="map-icon-wrapper">
-              <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
+              <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
           </a>
         </div>
       </div>
@@ -239,18 +247,22 @@ export const DressCode = () => {
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">¿Qué me pongo?</p>
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
 
-          <div className="img-container-styled">
+          <div className="img-container-dress-styled">
             <img
-              src="/img/quinta.png"
-              alt="Quinta Luciana"
-              className="separator-img"
+              src="/img/tie.png"
+              className="img-tie-code"
+              alt="Código de Vestimenta"
+            />
+            <img
+              src="/img/dress.png"
+              className="img-dress-code"
+              alt="Código de Vestimenta"
             />
           </div>
-
+          <h3 className="font-serif text-2xl text-gold-dark mb-8">Formal</h3>
           <div className="mb-12">
             <div className="mb-8">
-              <p className="font-serif text-xl text-gray-600">Troncal de la Sierra, Pifo</p>
-              <p className="font-serif text-2xl text-eucalyptus-dark">17:30 Horas</p>
+              <p className="font-serif text-xl text-gray-600">El blanco está reservado para la novia, puedes elegir cualquier otro color.</p>
             </div>
           </div>
         </div>
@@ -268,9 +280,13 @@ export const Gifts = () => {
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">Un detalle con amor</p>
           <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Regalos</h2>
-          <Gift className="text-gold-dark" style={{ width: "3rem", height: "3rem", margin: "0 auto 2rem" }} />
+          <img
+            src="/img/gift.png"
+            className="img-section"
+            alt="Código de Vestimenta"
+          />
           <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">
-            <b>¡Qué alegría compartir nuestra historia con ustedes!</b><br/>Para darnos un empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
+            <b>¡Qué alegría compartir nuestra historia con ustedes!</b><br />Para darnos ese empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
           </p>
           <button className="btn-outline text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">
             Ver Cuenta Bancaria

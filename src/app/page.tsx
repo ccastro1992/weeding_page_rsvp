@@ -77,7 +77,7 @@ export default function Home() {
           <Phrase2 />
           <Gifts />
           <Phrase3 />
-          <footer className="text-center" style={{ padding: "4rem 0", backgroundColor: "var(--white)" }}>
+          <footer className="text-center" style={{ padding: "2rem 0", backgroundColor: "var(--white)" }}>
             <p className="font-serif text-gold-dark italic text-2xl font-bold" style={{ marginBottom: "1rem" }}>
               ¡Los esperamos con mucha ilusión!
             </p>
