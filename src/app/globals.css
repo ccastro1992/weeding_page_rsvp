@@ -259,16 +259,18 @@ body {
   transform: translate(-50%, -50%) scale(0.9);
   width: 85%;
   max-width: 420px;
-  background: #ffffff;
+  background-color: #fffdfa;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4af37' fill-opacity='0.03' d='M1 3h1v1H1V3zm2-2h1v1H2V1z'%3E%3C/path%3E%3C/svg%3E");
   padding: 60px 40px;
   text-align: center;
   box-shadow: 
     0 20px 40px rgba(0,0,0,0.1),
-    0 10px 10px rgba(0,0,0,0.05);
+    0 10px 10px rgba(0,0,0,0.05),
+    inset 0 0 60px rgba(255,255,255,0.5);
   opacity: 0;
   z-index: 5;
   transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;
-  border: 1px solid rgba(0,0,0,0.02);
+  border: 0.5px solid var(--gold);
 }
 
 .card.visible {
