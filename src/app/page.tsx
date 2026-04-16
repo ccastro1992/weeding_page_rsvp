@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Envelope from "@/components/Envelope";
-import { Hero, Phrase, Phrase2, Ceremony, Party, Gifts } from "@/components/InvitationSections";
+import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3 } from "@/components/InvitationSections";
 import { Volume2, VolumeX } from "lucide-react";
 
 export default function Home() {
@@ -72,6 +72,9 @@ export default function Home() {
           <Ceremony />
           <Phrase2 />
           <Party />
+          <Phrase3 />
+          <DressCode />
+          <Phrase2 />
           <Gifts />
           
           <footer className="text-center" style={{ padding: "4rem 0", backgroundColor: "var(--cream-light)", borderTop: "1px solid rgba(212, 175, 55, 0.1)" }}>

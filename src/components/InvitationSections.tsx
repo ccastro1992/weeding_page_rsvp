@@ -214,6 +214,51 @@ export const Party = () => {
   );
 };
 
+// --- Phrase 3 Section ---
+export const Phrase3 = () => {
+  return (
+    <section className="section-phrase">
+      <div className="flex flex-col items-center">
+        <img
+          src="/img/separator.png"
+          alt=""
+          className="separator-img-flipped"
+        />
+      </div>
+    </section>
+  );
+};
+
+// --- Dress Code Section ---
+export const DressCode = () => {
+  const revealRef = useReveal();
+  return (
+    <section className="section-dress-code">
+      <div className="container-narrow text-center">
+        <div ref={revealRef} className="reveal">
+          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">A continuación</p>
+          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
+
+          <div className="img-container-styled">
+            <img
+              src="/img/quinta.png"
+              alt="Quinta Luciana"
+              className="separator-img"
+            />
+          </div>
+
+          <div className="mb-12">
+            <div className="mb-8">
+              <p className="font-serif text-xl text-gray-600">Troncal de la Sierra, Pifo</p>
+              <p className="font-serif text-2xl text-eucalyptus-dark">17:30 Horas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // --- Gifts Section ---
 export const Gifts = () => {
   const revealRef = useReveal();

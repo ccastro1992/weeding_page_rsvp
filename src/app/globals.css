@@ -357,6 +357,24 @@ body {
   background-color: rgb(183 200 188);
 }
 
+.section-dress-code {
+  padding: 5rem 2rem;
+  background-color: var(--white);
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.dress-code-card {
+  background-color: var(--white);
+  padding: 3rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  border: 0.5px solid var(--gold);
+  display: inline-block;
+  width: 100%;
+  max-width: 30rem;
+}
+
 .container-narrow {
   max-width: 40rem;
   margin: 0 auto;
