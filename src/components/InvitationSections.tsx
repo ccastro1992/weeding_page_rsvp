@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift } from "lucide-react";
+import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift, Hourglass } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 // --- Reveal Hook ---
@@ -74,12 +74,13 @@ const Countdown = () => {
 export const Hero = () => {
   const revealRef = useReveal();
   return (
-    <section className="section-hero min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+    <section className="section-hero  flex flex-col items-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" style={{ width: "25em", height: "auto", marginBottom: "2rem" }} />
         <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1.5rem" }}>¡Nos Casamos!</p>
-        <div style={{ width: "4rem", height: "1px", backgroundColor: "rgba(212, 175, 55, 0.5)", margin: "2rem auto" }} />
-        <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark">16 de Octubre de 2026</p>
+        <div className="card-divider"/>
+        <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark">Viernes 16 de Octubre de 2026</p>
+        {/* <Hourglass className="text-eucalyptus-dark" style={{ width: "2rem", height: "3rem", margin: "2rem 2rem" }} /> */}
         <Countdown />
       </div>
     </section>
@@ -89,12 +90,12 @@ export const Hero = () => {
 // --- Phrase 1 Section ---
 export const Phrase = () => {
   return (
-    <section className="section-phrase" style={{  padding: "0" }}>
+    <section className="section-phrase" style={{ padding: "0" }}>
       <div className="flex flex-col items-center">
-        <img 
-          src="/img/separator.png" 
-          alt="" 
-          style={{ width: "100%", height: "auto", display: "block" }} 
+        <img
+          src="/img/separator.png"
+          alt=""
+          style={{ width: "100%", height: "auto", display: "block" }}
         />
         <div style={{ backgroundColor: "rgb(183 200 188)", padding: "2rem 2.5rem", textAlign: "center" }}>
           <p className="text-2xl md:text-3xl font-serif text-eucalyptus-dark italic" style={{ margin: 0 }}>
@@ -102,10 +103,10 @@ export const Phrase = () => {
             Ese momento es el día de nuestra boda, y queremos compartirlo con ustedes."
           </p>
         </div>
-        <img 
-          src="/img/separator.png" 
-          alt="" 
-          style={{ width: "100%", height: "auto", display: "block", transform: "rotate(180deg) rotateY(180deg)" }} 
+        <img
+          src="/img/separator.png"
+          alt=""
+          style={{ width: "100%", height: "auto", display: "block", transform: "rotate(180deg) rotateY(180deg)" }}
         />
       </div>
     </section>
@@ -121,14 +122,14 @@ export const Ceremony = () => {
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1rem" }}>El gran momento</p>
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "1.5rem" }}>La Ceremonia</h2>
-          
+
           <h3 className="font-serif text-2xl text-gold-dark" style={{ marginBottom: "2rem" }}>Parroquia Jesús de las Bienaventuranzas</h3>
-          
+
           <div style={{ marginBottom: "2.5rem", borderRadius: "8px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
-            <img 
-              src="/img/iglesia.png" 
-              alt="Parroquia Jesús de las Bienaventuranzas" 
-              style={{ width: "100%", height: "auto", display: "block" }} 
+            <img
+              src="/img/iglesia.png"
+              alt="Parroquia Jesús de las Bienaventuranzas"
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
 
@@ -137,24 +138,24 @@ export const Ceremony = () => {
             <p className="font-serif text-2xl text-eucalyptus-dark">16:00 Horas</p>
           </div>
 
-          <a 
-            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87" 
-            target="_blank" 
+          <a
+            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87"
+            target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-2"
             style={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}
           >
-            <div style={{ 
+            <div style={{
               backgroundColor: "var(--white)",
-              border: "1.5px solid black",  
-              padding: "1.25rem", 
-              borderRadius: "50%", 
+              border: "1.5px solid black",
+              padding: "1.25rem",
+              borderRadius: "50%",
               boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
               transition: "transform 0.3s ease",
               cursor: "pointer"
             }}
-            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
-            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+              onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+              onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
             >
               <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
             </div>
@@ -169,12 +170,12 @@ export const Ceremony = () => {
 // --- Phrase 2 Section ---
 export const Phrase2 = () => {
   return (
-    <section className="section-phrase" style={{  padding: "0" }}>
+    <section className="section-phrase" style={{ padding: "0" }}>
       <div className="flex flex-col items-center">
-        <img 
-          src="/img/separator.png" 
-          alt="" 
-          style={{ width: "100%", height: "auto", display: "block" }} 
+        <img
+          src="/img/separator.png"
+          alt=""
+          style={{ width: "100%", height: "auto", display: "block" }}
         />
       </div>
     </section>
@@ -190,14 +191,14 @@ export const Party = () => {
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1rem" }}>A continuación</p>
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "1.5rem" }}>La Celebración</h2>
-          
+
           <h3 className="font-serif text-2xl text-gold-dark" style={{ marginBottom: "2rem" }}>Quinta Luciana</h3>
-          
+
           <div style={{ marginBottom: "2.5rem", borderRadius: "8px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
-            <img 
-              src="/img/quinta.png" 
-              alt="Quinta Luciana" 
-              style={{ width: "100%", height: "auto", display: "block" }} 
+            <img
+              src="/img/quinta.png"
+              alt="Quinta Luciana"
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
 
@@ -208,24 +209,24 @@ export const Party = () => {
             </div>
           </div>
 
-          <a 
-            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87" 
-            target="_blank" 
+          <a
+            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87"
+            target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-2"
             style={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}
           >
-            <div style={{ 
+            <div style={{
               backgroundColor: "var(--white)",
-              border: "1.5px solid black",  
-              padding: "1.25rem", 
-              borderRadius: "50%", 
+              border: "1.5px solid black",
+              padding: "1.25rem",
+              borderRadius: "50%",
               boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
               transition: "transform 0.3s ease",
               cursor: "pointer"
             }}
-            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
-            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+              onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+              onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
             >
               <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
             </div>

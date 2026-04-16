@@ -54,10 +54,13 @@ export default function Envelope({ onOpen, onOpenStart }: EnvelopeProps) {
           <div className="card-divider" />
           <p className="card-names">
             No podíamos imaginar este paso tan importante sin las personas que han sido parte de nuestra historia.
-            Prepárate para bailar y disfrutar con nosotros.
+            Hoy queremos celebrar este nuevo comienzo rodeados de su cariño.
             <br/>
             <br/>
-            Tenemos reservados para ti: <b>2 pases</b>.
+            ¡Prepárate para bailar y disfrutar con nosotros!
+            <br/>
+            <br/>
+            Tenemos reservados para ti: <br/><b style={{textDecoration: "underline", color: "black"}}>2 pases</b>.
           </p>
           <br/>
           <br/>

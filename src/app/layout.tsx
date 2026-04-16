@@ -21,7 +21,7 @@ const greatVibes = Great_Vibes({
 });
 
 export const metadata: Metadata = {
-  title: "María & Alejandro | Nuestra Boda",
+  title: "Kari & Cris | Nuestra Boda",
   description: "¡Nos casamos! Estás invitado a celebrar nuestro gran día.",
 };
 
