@@ -263,14 +263,13 @@ export const DressCode = () => {
 export const Gifts = () => {
   const revealRef = useReveal();
   return (
-    <section className="section-hero" style={{ backgroundColor: "var(--cream-light)", padding: "8rem 2rem" }}>
+    <section className="section-gifts">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <Gift className="text-gold" style={{ width: "3rem", height: "3rem", margin: "0 auto 2rem" }} />
           <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Regalos</h2>
-          <p className="font-serif text-lg text-gray-600 line-height-relaxed mb-10">
-            Vuestra presencia es nuestro mejor regalo, pero si deseáis tener un detalle con nosotros,
-            agradeceríamos una contribución para nuestra futura vida juntos y nuestra luna de miel.
+          <Gift className="text-gold-dark" style={{ width: "3rem", height: "3rem", margin: "0 auto 2rem" }} />
+          <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">
+            <b>¡Qué alegría compartir nuestra historia con ustedes!</b> Para darnos un empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
           </p>
           <button className="btn-outline">
             Ver Cuenta Bancaria
