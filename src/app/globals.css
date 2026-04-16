@@ -35,7 +35,7 @@
 body { 
   font-family: var(--font-sans), sans-serif; 
   color: var(--text-dark);
-  background: #f5f5f5;
+  background: linear-gradient(135deg, rgb(83 88 83 / 60%), rgb(83 88 83 / 80%));;
   overflow-x: hidden; 
 }
 
@@ -279,7 +279,7 @@ body {
 .card-title {
   font-family: var(--font-serif);
   color: var(--gold-dark);
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   line-height: 1.2;
@@ -294,12 +294,10 @@ body {
 }
 
 .card-names {
-  font-family: var(--font-sans);
-  text-transform: uppercase;
-  letter-spacing: 5px;
+  font-family: var(--font-serif);
   color: var(--gray-500);
-  font-size: 0.85rem;
-  font-weight: 300;
+  font-size: 1.1rem;
+  line-height: 1.5;
 }
 
 /* INVITATION SECTIONS STYLES */

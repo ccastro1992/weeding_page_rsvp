@@ -30,6 +30,7 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
           <div className="lid-content">
             <p className="lid-text">Kari &nbsp; y &nbsp; Cris</p>
           </div>
+           <div className="card-divider-animated"/>
         </div>
 
         {/* Solapa Inferior */}
@@ -47,11 +48,20 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
 
         {/* Carta Interior */}
         <div className={`card ${isOpen && !isExiting ? 'visible' : ''}`}>
-          <h2 className="card-title">Estás Invitado</h2>
+          <h2 className="card-title">
+            ¡Hola, Invitado!
+          </h2>
           <div className="card-divider" />
           <p className="card-names">
-            María & Alejandro
+            No podíamos imaginar este paso tan importante sin las personas que han sido parte de nuestra historia.
+            Prepárate para bailar y disfrutar con nosotros.
+            <br/>
+            <br/>
+            Tenemos reservados para ti: <b>2 pases</b>.
           </p>
+          <br/>
+          <br/>
+          <p className="flap-click-hint">¡ver los detalles!</p>
         </div>
       </div>
     </div >
