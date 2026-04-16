@@ -320,6 +320,29 @@ body {
   background-color: var(--white);
 }
 
+.section-phrase {
+  padding: 0;
+}
+
+.phrase-content {
+  background-color: rgb(183 200 188);
+  padding: 2rem 2.5rem;
+  text-align: center;
+}
+
+.separator-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.separator-img-flipped {
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: rotate(180deg) rotateY(180deg);
+}
+
 .section-ceremony {
   padding: 3rem 2rem;
   background-color: var(--white);
@@ -333,6 +356,66 @@ body {
   padding: 3rem 2rem;
   background-color: rgb(183 200 188);
 }
+
+.container-narrow {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.img-container-styled {
+  margin-bottom: 2.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.map-link-container {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+}
+
+.map-icon-wrapper {
+  background-color: var(--white);
+  border: 1.5px solid black;
+  padding: 1.25rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.map-icon-wrapper:hover {
+  transform: scale(1.1);
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.logo-hero {
+  width: 25em;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-10 { margin-bottom: 2.5rem; }
+.mb-12 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+
+.opacity-60 { opacity: 0.6; }
+.no-margin { margin: 0; }
+.line-height-relaxed { line-height: 1.8; }
+
 
 .grid-2, .grid-3 {
   display: flex;
@@ -474,7 +557,7 @@ body {
   .md\:text-9xl { font-size: 6rem; }
 }
 
-.tracking-widest { letter-spacing: 0.1em; }
+.tracking-widest { letter-spacing: 0.1em; padding-top: 0.8rem; }
 .tracking-loose { letter-spacing: 0.3em; }
 .tracking-hero { letter-spacing: 0.5em; }
 
