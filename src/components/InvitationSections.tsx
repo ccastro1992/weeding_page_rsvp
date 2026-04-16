@@ -145,7 +145,8 @@ export const Ceremony = () => {
             style={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}
           >
             <div style={{ 
-              backgroundColor: "var(--cream)", 
+              backgroundColor: "var(--white)",
+              border: "1.5px solid black",  
               padding: "1.25rem", 
               borderRadius: "50%", 
               boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
@@ -185,40 +186,51 @@ export const Party = () => {
   const revealRef = useReveal();
   return (
     <section className="section-party">
-      <div style={{ maxWidth: "64rem", margin: "0 auto", textAlign: "center" }}>
+      <div style={{ maxWidth: "40rem", margin: "0 auto", textAlign: "center" }}>
         <div ref={revealRef} className="reveal">
-          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "4rem" }}>La Celebración</h2>
+          <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1rem" }}>A continuación</p>
+          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "1.5rem" }}>La Celebración</h2>
+          
+          <h3 className="font-serif text-2xl text-gold-dark" style={{ marginBottom: "2rem" }}>Quinta Luciana</h3>
+          
+          <div style={{ marginBottom: "2.5rem", borderRadius: "8px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
+            <img 
+              src="/img/quinta.png" 
+              alt="Quinta Luciana" 
+              style={{ width: "100%", height: "auto", display: "block" }} 
+            />
+          </div>
 
-          <div className="grid-3">
-            <div className="flex flex-col items-center">
-              <div className="flex items-center justify-center" style={{ width: "4rem", height: "4rem", backgroundColor: "var(--white)", borderRadius: "9999px", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)", marginBottom: "1rem" }}>
-                <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
-              </div>
-              <h3 className="font-serif text-2xl" style={{ marginBottom: "0.5rem" }}>Lugar</h3>
-              <p className="text-gray-600 font-sans">Finca El Olivar</p>
-              <p className="text-xs text-gray-400 uppercase tracking-tighter" style={{ marginTop: "0.25rem" }}>Habrá servicio de autobuses</p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="flex items-center justify-center" style={{ width: "4rem", height: "4rem", backgroundColor: "var(--white)", borderRadius: "9999px", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)", marginBottom: "1rem" }}>
-                <Shirt className="text-gold" style={{ width: "2rem", height: "2rem" }} />
-              </div>
-              <h3 className="font-serif text-2xl" style={{ marginBottom: "0.5rem" }}>Dress Code</h3>
-              <p className="text-gray-600 font-sans">Formal / Etiqueta</p>
-              <p className="text-xs text-gray-400 italic" style={{ marginTop: "0.25rem" }}>Ponte tus mejores galas</p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="flex items-center justify-center" style={{ width: "4rem", height: "4rem", backgroundColor: "var(--white)", borderRadius: "9999px", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)", marginBottom: "1rem" }}>
-                <Mail className="text-gold" style={{ width: "2rem", height: "2rem" }} />
-              </div>
-              <h3 className="font-serif text-2xl" style={{ marginBottom: "0.5rem" }}>Confirmar</h3>
-              <p className="text-gray-600 font-sans italic" style={{ marginBottom: "1rem" }}>¿Nos acompañas?</p>
-              <button className="btn-outline">
-                Confirmar Asistencia
-              </button>
+          <div style={{ marginBottom: "3rem" }}>
+            <div style={{ marginBottom: "2rem" }}>
+              <p className="font-serif text-xl text-gray-600">Troncal de la Sierra, Pifo</p>
+              <p className="font-serif text-2xl text-eucalyptus-dark">17:30 Horas</p>
             </div>
           </div>
+
+          <a 
+            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex flex-col items-center gap-2"
+            style={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}
+          >
+            <div style={{ 
+              backgroundColor: "var(--white)",
+              border: "1.5px solid black",  
+              padding: "1.25rem", 
+              borderRadius: "50%", 
+              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+              transition: "transform 0.3s ease",
+              cursor: "pointer"
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+            >
+              <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
+            </div>
+            <span className="text-xs uppercase tracking-widest text-eucalyptus-dark" style={{ marginTop: "0.5rem", fontWeight: "bold" }}>Ver en Maps</span>
+          </a>
         </div>
       </div>
     </section>
