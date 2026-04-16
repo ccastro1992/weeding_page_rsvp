@@ -321,24 +321,17 @@ body {
 }
 
 .section-ceremony {
-  padding: 6rem 2rem;
-  background-color: var(--sage-gray);
-  color: var(--white);
-}
-
-.section-ceremony .text-eucalyptus-dark,
-.section-ceremony .text-gray-500 {
-  color: var(--white);
+  padding: 3rem 2rem;
+  background-color: var(--white);
 }
 
 .section-ceremony .text-gold {
-  color: var(--cream-light);
+  color: var(--gold);
 }
 
 .section-party {
   padding: 6rem 2rem;
-  background-color: var(--white);
-  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  background-color: rgb(183 200 188);
 }
 
 .grid-2, .grid-3 {
@@ -359,6 +352,12 @@ body {
 
 @media (min-width: 768px) {
   .countdown-value { font-size: 2.25rem; }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+  }
 }
 
 .btn-primary {

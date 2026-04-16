@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Envelope from "@/components/Envelope";
-import { Hero, Ceremony, Party, Gifts } from "@/components/InvitationSections";
+import { Hero, Phrase, Phrase2, Ceremony, Party, Gifts } from "@/components/InvitationSections";
 import { Volume2, VolumeX } from "lucide-react";
 
 export default function Home() {
@@ -68,7 +68,9 @@ export default function Home() {
       {isOpened && (
         <div className="central-strip animate-fade-in">
           <Hero />
+          <Phrase />
           <Ceremony />
+          <Phrase2 />
           <Party />
           <Gifts />
           

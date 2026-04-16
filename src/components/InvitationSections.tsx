@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 // --- Reveal Hook ---
 const useReveal = () => {
   const elementRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -36,7 +36,7 @@ const Countdown = () => {
     const timer = setInterval(() => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
-      
+
       if (difference <= 0) {
         clearInterval(timer);
       } else {
@@ -86,46 +86,95 @@ export const Hero = () => {
   );
 };
 
+// --- Phrase 1 Section ---
+export const Phrase = () => {
+  return (
+    <section className="section-phrase" style={{  padding: "0" }}>
+      <div className="flex flex-col items-center">
+        <img 
+          src="/img/separator.png" 
+          alt="" 
+          style={{ width: "100%", height: "auto", display: "block" }} 
+        />
+        <div style={{ backgroundColor: "rgb(183 200 188)", padding: "2rem 2.5rem", textAlign: "center" }}>
+          <p className="text-2xl md:text-3xl font-serif text-eucalyptus-dark italic" style={{ margin: 0 }}>
+            "En cada historia de amor, hay un momento mágico en el que todo cambia para siempre.
+            Ese momento es el día de nuestra boda, y queremos compartirlo con ustedes."
+          </p>
+        </div>
+        <img 
+          src="/img/separator.png" 
+          alt="" 
+          style={{ width: "100%", height: "auto", display: "block", transform: "rotate(180deg) rotateY(180deg)" }} 
+        />
+      </div>
+    </section>
+  );
+};
 // --- Ceremony Section ---
 export const Ceremony = () => {
-  const revealLeft = useReveal();
-  const revealRight = useReveal();
-  
+  const revealRef = useReveal();
+
   return (
     <section className="section-ceremony">
-      <div className="grid-2">
-        <div ref={revealLeft} className="reveal-left">
-          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "2rem" }}>La Ceremonia</h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-            <div className="flex" style={{ alignItems: "flex-start", gap: "1rem" }}>
-              <Clock className="text-gold" style={{ width: "1.5rem", height: "1.5rem", marginTop: "0.25rem" }} />
-              <div>
-                <p className="font-serif text-xl">18:00 Horas</p>
-                <p className="text-sm text-gray-500 font-sans">Se ruega puntualidad</p>
-              </div>
-            </div>
-            <div className="flex" style={{ alignItems: "flex-start", gap: "1rem" }}>
-              <MapPin className="text-gold" style={{ width: "1.5rem", height: "1.5rem", marginTop: "0.25rem" }} />
-              <div>
-                <p className="font-serif text-xl">Parroquia de San Jerónimo el Real</p>
-                <p className="text-sm text-gray-500 font-sans">Calle de Moreto, 4, Madrid</p>
-              </div>
-            </div>
-            <button className="btn-primary">
-              Ver Ubicación <ExternalLink style={{ width: "1rem", height: "1rem" }} />
-            </button>
+      <div style={{ maxWidth: "40rem", margin: "0 auto", textAlign: "center" }}>
+        <div ref={revealRef} className="reveal">
+          <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1rem" }}>El gran momento</p>
+          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "1.5rem" }}>La Ceremonia</h2>
+          
+          <h3 className="font-serif text-2xl text-gold-dark" style={{ marginBottom: "2rem" }}>Parroquia Jesús de las Bienaventuranzas</h3>
+          
+          <div style={{ marginBottom: "2.5rem", borderRadius: "8px", overflow: "hidden", boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}>
+            <img 
+              src="/img/iglesia.png" 
+              alt="Parroquia Jesús de las Bienaventuranzas" 
+              style={{ width: "100%", height: "auto", display: "block" }} 
+            />
           </div>
+
+          <div style={{ marginBottom: "2.5rem" }}>
+            <p className="font-serif text-xl text-gray-600" style={{ marginBottom: "0.5rem" }}>Calle 24 de septiembre N1-77 y Alfredo Tobar, Tababela</p>
+            <p className="font-serif text-2xl text-eucalyptus-dark">16:00 Horas</p>
+          </div>
+
+          <a 
+            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex flex-col items-center gap-2"
+            style={{ textDecoration: "none", color: "inherit", display: "inline-flex" }}
+          >
+            <div style={{ 
+              backgroundColor: "var(--cream)", 
+              padding: "1.25rem", 
+              borderRadius: "50%", 
+              boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+              transition: "transform 0.3s ease",
+              cursor: "pointer"
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.1)"}
+            onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+            >
+              <MapPin className="text-gold" style={{ width: "2rem", height: "2rem" }} />
+            </div>
+            <span className="text-xs uppercase tracking-widest text-gold-dark" style={{ marginTop: "0.5rem", fontWeight: "bold" }}>Ver en Maps</span>
+          </a>
         </div>
-        <div ref={revealRight} className="reveal-right relative" style={{ height: "400px", backgroundColor: "var(--cream)", borderRadius: "2px", overflow: "hidden", boxShadow: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)" }}>
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.608713045618!2d-3.6917454!3d40.4141676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422899479e0001%3A0xe67c0500e8f99e44!2sParroquia%20de%20San%20Jer%C3%B3nimo%20el%20Real!5e0!3m2!1ses!2ses!4v1717000000000!5m2!1ses!2ses" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen 
-            loading="lazy"
-          ></iframe>
-        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- Phrase 2 Section ---
+export const Phrase2 = () => {
+  return (
+    <section className="section-phrase" style={{  padding: "0" }}>
+      <div className="flex flex-col items-center">
+        <img 
+          src="/img/separator.png" 
+          alt="" 
+          style={{ width: "100%", height: "auto", display: "block" }} 
+        />
       </div>
     </section>
   );
@@ -139,7 +188,7 @@ export const Party = () => {
       <div style={{ maxWidth: "64rem", margin: "0 auto", textAlign: "center" }}>
         <div ref={revealRef} className="reveal">
           <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark" style={{ marginBottom: "4rem" }}>La Celebración</h2>
-          
+
           <div className="grid-3">
             <div className="flex flex-col items-center">
               <div className="flex items-center justify-center" style={{ width: "4rem", height: "4rem", backgroundColor: "var(--white)", borderRadius: "9999px", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)", marginBottom: "1rem" }}>
@@ -186,7 +235,7 @@ export const Gifts = () => {
           <Gift className="text-gold" style={{ width: "3rem", height: "3rem", margin: "0 auto 2rem" }} />
           <h2 className="text-4xl font-serif text-eucalyptus-dark" style={{ marginBottom: "1.5rem" }}>Regalos</h2>
           <p className="font-serif text-lg text-gray-600" style={{ lineHeight: "1.8", marginBottom: "2.5rem" }}>
-            Vuestra presencia es nuestro mejor regalo, pero si deseáis tener un detalle con nosotros, 
+            Vuestra presencia es nuestro mejor regalo, pero si deseáis tener un detalle con nosotros,
             agradeceríamos una contribución para nuestra futura vida juntos y nuestra luna de miel.
           </p>
           <button className="btn-outline">
