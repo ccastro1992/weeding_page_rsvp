@@ -401,6 +401,32 @@ body {
   color: var(--white);
 }
 
+/* AUDIO CONTROL */
+.audio-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.audio-control:hover {
+  background: var(--gold);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
 /* TYPOGRAPHY & COLORS */
 .text-gold { color: var(--gold); }
 .text-gold-dark { color: var(--gold-dark); }
