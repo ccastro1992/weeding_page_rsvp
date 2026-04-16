@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt } from "lucide-react";
+import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 // --- Reveal Hook ---
@@ -75,10 +75,9 @@ export const Hero = () => {
   const revealRef = useReveal();
   return (
     <section className="section-hero min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
-      <div ref={revealRef} className="z-10 reveal active">
+      <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" style={{ width: "25em", height: "auto", marginBottom: "2rem" }} />
         <p className="text-xs uppercase tracking-hero text-eucalyptus" style={{ marginBottom: "1.5rem" }}>¡Nos Casamos!</p>
-        <h1 className="text-6xl md:text-9xl font-serif text-gold-dark" style={{ marginBottom: "1rem" }}>Kari & Cris</h1>
         <div style={{ width: "4rem", height: "1px", backgroundColor: "rgba(212, 175, 55, 0.5)", margin: "2rem auto" }} />
         <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark">16 de Octubre de 2026</p>
         <Countdown />
@@ -171,6 +170,28 @@ export const Party = () => {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- Gifts Section ---
+export const Gifts = () => {
+  const revealRef = useReveal();
+  return (
+    <section className="section-hero" style={{ backgroundColor: "var(--cream-light)", padding: "8rem 2rem" }}>
+      <div style={{ maxWidth: "40rem", margin: "0 auto", textAlign: "center" }}>
+        <div ref={revealRef} className="reveal">
+          <Gift className="text-gold" style={{ width: "3rem", height: "3rem", margin: "0 auto 2rem" }} />
+          <h2 className="text-4xl font-serif text-eucalyptus-dark" style={{ marginBottom: "1.5rem" }}>Regalos</h2>
+          <p className="font-serif text-lg text-gray-600" style={{ lineHeight: "1.8", marginBottom: "2.5rem" }}>
+            Vuestra presencia es nuestro mejor regalo, pero si deseáis tener un detalle con nosotros, 
+            agradeceríamos una contribución para nuestra futura vida juntos y nuestra luna de miel.
+          </p>
+          <button className="btn-outline">
+            Ver Cuenta Bancaria
+          </button>
         </div>
       </div>
     </section>
