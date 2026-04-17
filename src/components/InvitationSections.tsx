@@ -79,7 +79,7 @@ export const Hero = () => {
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
         <p className="text-xs uppercase tracking-hero text-eucalyptus mb-6">¡Nos Casamos!</p>
         <div className="card-divider" />
-        <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark">Viernes 16 de Octubre de 2026</p>
+        <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <Countdown />
       </div>
     </section>
@@ -121,7 +121,7 @@ export const Ceremony = () => {
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">El gran momento</p>
-          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">La Ceremonia</h2>
+          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">La Ceremonia</h2>
           <img
             src="/img/ceremony.png"
             className="img-section"
@@ -182,7 +182,7 @@ export const Party = () => {
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">A continuación</p>
-          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">La Celebración</h2>
+          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">La Celebración</h2>
           <img
             src="/img/party.png"
             className="img-section"
@@ -245,7 +245,7 @@ export const DressCode = () => {
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
           <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">¿Qué me pongo?</p>
-          <h2 className="text-4xl md:text-5xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
+          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
 
           <div className="img-container-dress-styled">
             <img
