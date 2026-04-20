@@ -239,7 +239,7 @@ export const Ceremony = () => {
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver Ubicación</span>
           </a>
         </div>
       </div>
@@ -300,7 +300,7 @@ export const Party = () => {
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver Ubicación</span>
           </a>
         </div>
       </div>
