@@ -63,7 +63,7 @@ const Countdown = () => {
       {items.map((item) => (
         <div key={item.label} className="countdown-item">
           <div className="countdown-value font-serif" style={{ fontWeight: "lighter" }}>{item.value.toString().padStart(2, '0')}</div>
-          <div className="text-xs uppercase tracking-widest text-eucalyptus-dark opacity-60 mt-1">{item.label}</div>
+          <div className="text-xs uppercase tracking-widest text-gray-600 opacity-60 mt-1">{item.label}</div>
         </div>
       ))}
     </div>
@@ -78,13 +78,13 @@ export const Hero = () => {
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
         <div className="card-divider" />
-        <p className="text-lg md:text-2xl font-serif italic text-gray-500 date-ceremony-text">Viernes 16 de Octubre de 2026</p>
+        <p className="text-lg md:text-2xl font-serif italic text-gray-600 date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <Countdown />
         <button className="btn-outline text-xs uppercase tracking-widest text-gray-500 mt-2 font-bold">
           Confirmar Asistencia
         </button>
 
-        <p className="font-serif text-xl text-gray-600" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "3rem 3rem 0rem 3rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Julio</b> o nos comeremos tu parte!</p>
+        <p className="font-serif text-xl text-gray-500" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "3rem 3rem 0rem 3rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Julio</b> o nos comeremos tu parte!</p>
       </div>
     </section>
   );
