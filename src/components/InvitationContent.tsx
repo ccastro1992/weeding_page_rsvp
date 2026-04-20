@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Envelope from "@/components/Envelope";
-import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3 } from "@/components/InvitationSections";
+import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3, Separator1, Photos} from "@/components/InvitationSections";
 import { Volume2, VolumeX } from "lucide-react";
 
 interface InvitationContentProps {
@@ -74,6 +74,8 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
       {isOpened && (
         <div className="central-strip animate-fade-in">
           <Hero />
+          <Separator1 />
+          <Photos />
           <Phrase />
           <Ceremony />
           <Phrase2 />

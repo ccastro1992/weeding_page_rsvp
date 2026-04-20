@@ -90,6 +90,34 @@ export const Hero = () => {
   );
 };
 
+// --- Separator 1 Section ---
+export const Separator1 = () => {
+  return (
+    <section className="section-phrase">
+      <div className="flex flex-col items-center">
+        <img
+          src="/img/separator_white.png"
+          alt=""
+          className="separator-img-flipped"
+        />
+      </div>
+    </section>
+  );
+};
+
+// --- Photos Section ---
+export const Photos = () => {
+  const revealRef = useReveal();
+  return (
+    <section className="section-photos">
+      <div className="container-narrow text-center"></div>
+        <div ref={revealRef} className="reveal">
+          <p className="text-xs uppercase tracking-hero text-orange-dark mb-4">Un vistazo a nuestra historia</p>
+      </div>
+    </section>
+  );
+}
+
 // --- Phrase 1 Section ---
 export const Phrase = () => {
   return (
