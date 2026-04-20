@@ -231,7 +231,7 @@ export const Ceremony = () => {
           </div>
 
           <a
-            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87"
+            href="https://maps.app.goo.gl/hM5qn9CnuzkfKSzMA"
             target="_blank"
             rel="noopener noreferrer"
             className="map-link-container flex flex-col items-center gap-2"
@@ -292,7 +292,7 @@ export const Party = () => {
             </div>
 
           <a
-            href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87"
+            href="https://maps.app.goo.gl/XLjPCTHCHfirKvLr5"
             target="_blank"
             rel="noopener noreferrer"
             className="map-link-container flex flex-col items-center gap-2"
