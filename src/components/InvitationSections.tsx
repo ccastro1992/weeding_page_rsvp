@@ -74,18 +74,26 @@ const Countdown = () => {
 export const Hero = () => {
   const revealRef = useReveal();
   return (
-    <section className="section-hero min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+    <section className="section-hero flex flex-col items-center justify-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
         <p className="text-lg md:text-2xl font-serif italic text-gray-600 date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <div className="card-divider" />
         <Countdown />
-        <button className="btn-outline text-xs uppercase tracking-widest mt-2 font-bold">
+      </div>
+    </section>
+  );
+};
+
+// --- Confirmation Section ---
+export const Confirmation = () => {
+  const revealRef = useReveal();
+  return (
+    <section className="section-confirmation items-center justify-center text-center ">
+        <p className="font-serif text-xl text-gray-500" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "0rem 2rem 2rem 2rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Julio</b> o nos comeremos tu parte!</p>
+        <button className="btn-outline text-xs uppercase tracking-widest font-bold">
           Confirmar Asistencia
         </button>
-
-        <p className="font-serif text-xl text-gray-500" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "3rem 3rem 0rem 3rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Julio</b> o nos comeremos tu parte!</p>
-      </div>
     </section>
   );
 };

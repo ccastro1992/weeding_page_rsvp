@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Envelope from "@/components/Envelope";
-import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3, Separator1, Photos} from "@/components/InvitationSections";
-import { Volume2, VolumeX } from "lucide-react";
+import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3, Separator1, Photos, Confirmation} from "@/components/InvitationSections";
+import { Volume2, VolumeX, ChevronDown } from "lucide-react";
 
 interface InvitationContentProps {
   guestName?: string;
@@ -14,6 +14,7 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
   const [isOpened, setIsOpened] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -30,6 +31,29 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
       }
     };
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!isOpened) return;
+      
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      
+      // Ocultar si estamos a menos de 100px del final
+      if (scrollTop + windowHeight >= documentHeight - 100) {
+        setShowScrollIndicator(false);
+      } else {
+        setShowScrollIndicator(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Verificar posición inicial al abrir
+    if (isOpened) handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpened]);
 
   const fadeInAudio = () => {
     if (!audioRef.current) return;
@@ -58,6 +82,8 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
   const handleOpenStart = () => {
     fadeInAudio();
     setShowControls(true);
+    // Mostrar el indicador de scroll después de un pequeño delay para que la animación de fade-in de la página empiece
+    setTimeout(() => setShowScrollIndicator(true), 1500);
   };
 
   return (
@@ -74,6 +100,8 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
       {isOpened && (
         <div className="central-strip animate-fade-in">
           <Hero />
+          <Separator1 />
+          <Confirmation />
           <Separator1 />
           <Photos />
           <Phrase />
@@ -95,6 +123,13 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
               Kari & Cris • 2026
             </p>
           </footer>
+        </div>
+      )}
+
+      {showScrollIndicator && isOpened && (
+        <div className={`scroll-indicator ${!showScrollIndicator ? 'hidden' : ''}`}>
+          <span className="scroll-text">Desliza</span>
+          <ChevronDown className="scroll-icon" size={32} />
         </div>
       )}
 
