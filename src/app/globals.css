@@ -533,12 +533,12 @@ body {
   justify-content: center;
   gap: 2rem;
   margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .logo-hero {
   width: 25em;
   height: auto;
-  margin-bottom: 2rem;
 }
 
 .mb-1 {
@@ -876,6 +876,7 @@ body {
   animation: elegant-pulse 4s ease-in-out infinite;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
+  font-weight: bold;
 }
 
 @keyframes elegant-pulse {

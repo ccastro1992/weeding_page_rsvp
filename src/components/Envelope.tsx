@@ -5,9 +5,11 @@ import { useState } from "react";
 interface EnvelopeProps {
   onOpen: () => void;
   onOpenStart: () => void;
+  guestName?: string;
+  numberInvitations?: number;
 }
 
-export default function Envelope({ onOpen, onOpenStart }: EnvelopeProps) {
+export default function Envelope({ onOpen, onOpenStart, guestName, numberInvitations }: EnvelopeProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
@@ -48,8 +50,9 @@ export default function Envelope({ onOpen, onOpenStart }: EnvelopeProps) {
 
         {/* Carta Interior */}
         <div className={`card ${isOpen && !isExiting ? 'visible' : ''}`}>
+          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-6">¡Nos Casamos!</p>
           <h2 className="card-title">
-            ¡Hola, Invitado!
+            ¡Hola, {guestName || "Invitado"}!
           </h2>
           <div className="card-divider" />
           <p className="card-names">
@@ -60,7 +63,7 @@ export default function Envelope({ onOpen, onOpenStart }: EnvelopeProps) {
             ¡Prepárate para bailar y disfrutar con nosotros!
             <br/>
             <br/>
-            Tenemos reservados para ti: <br/><b style={{textDecoration: "underline", color: "black"}}>2 pases</b>.
+            Tenemos reservados para ti: <br/><b style={{fontSize: "1.3rem", color: "black"}}>{numberInvitations} pases</b>.
           </p>
           <br/>
           <br/>

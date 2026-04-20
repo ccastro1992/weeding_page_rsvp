@@ -77,10 +77,14 @@ export const Hero = () => {
     <section className="section-hero flex flex-col items-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
-        <p className="text-xs uppercase tracking-hero text-eucalyptus mb-6">¡Nos Casamos!</p>
         <div className="card-divider" />
         <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <Countdown />
+        <button className="btn-outline text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">
+          Confirmar Asistencia
+        </button>
+
+        <p className="font-serif text-xl text-gray-600" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "3rem 3rem 1rem 3rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Agosto</b> o nos comeremos tu parte!</p>
       </div>
     </section>
   );
@@ -244,7 +248,7 @@ export const DressCode = () => {
     <section className="section-dress-code">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">¿Qué me pongo?</p>
+          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">¿Qué outfit elijo?</p>
           <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
 
           <div className="img-container-dress-styled">
