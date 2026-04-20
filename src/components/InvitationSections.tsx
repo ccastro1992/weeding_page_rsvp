@@ -93,12 +93,12 @@ export const Hero = () => {
 // --- Separator 1 Section ---
 export const Separator1 = () => {
   return (
-    <section className="section-phrase">
+    <section className="section-separator">
       <div className="flex flex-col items-center">
         <img
           src="/img/separator_white.png"
           alt=""
-          className="separator-img-flipped"
+          className="separator-img"
         />
       </div>
     </section>
@@ -134,10 +134,6 @@ export const Photos = () => {
   return (
     <section className="section-photos">
       <div ref={revealRef} className="reveal text-center">
-        <div className="container-narrow mb-6 px-4">
-          <p className="text-xs uppercase tracking-hero text-orange-dark">Un vistazo a nuestra historia</p>
-        </div>
-        
         <div className="slider-container">
           <div className="slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
             {photos.map((photo, index) => (
@@ -221,7 +217,7 @@ export const Ceremony = () => {
             />
           </div>
 
-          <div className="mb-10">
+          <div className="mb-8">
             <p className="font-serif text-xl text-gray-600 mb-2">Calle 24 de septiembre N1-77 y Alfredo Tobar, Tababela</p>
             <p className="font-serif text-2xl text-orange-dark">15:30 Horas</p>
           </div>
@@ -246,7 +242,7 @@ export const Ceremony = () => {
 // --- Phrase 2 Section ---
 export const Phrase2 = () => {
   return (
-    <section className="section-phrase">
+    <section className="section-phrase-2">
       <div className="flex flex-col items-center">
         <img
           src="/img/separator.png"
@@ -282,12 +278,10 @@ export const Party = () => {
             />
           </div>
 
-          <div className="mb-12">
             <div className="mb-8">
               <p className="font-serif text-xl text-gray-600">Troncal de la Sierra, Pifo</p>
               <p className="font-serif text-2xl text-orange-dark">17:30 Horas</p>
             </div>
-          </div>
 
           <a
             href="https://maps.app.goo.gl/9yL1W2XfR3v5X8Z87"
@@ -309,7 +303,7 @@ export const Party = () => {
 // --- Phrase 3 Section ---
 export const Phrase3 = () => {
   return (
-    <section className="section-phrase">
+    <section className="section-phrase-3">
       <div className="flex flex-col items-center">
         <img
           src="/img/separator.png"
@@ -344,11 +338,9 @@ export const DressCode = () => {
             />
           </div>
           <h3 className="font-serif text-2xl text-gray-600 mb-8">Formal</h3>
-          <div className="mb-12">
             <div className="mb-8">
               <p className="font-serif text-xl text-gray-600">El blanco está reservado para la novia, puedes elegir cualquier otro color.</p>
             </div>
-          </div>
         </div>
       </div>
     </section>

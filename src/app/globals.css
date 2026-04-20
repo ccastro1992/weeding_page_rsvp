@@ -24,7 +24,7 @@
   --white: #ffffff;
   --black: #000000;
   --sage-gray: rgb(154, 165, 165);
-  --secondary-background: rgba(247, 219, 187, 0.96);
+  --secondary-background: rgba(244, 218, 187, 1);
 
   /* Fonts */
   --font-serif: var(--font-serif), serif;
@@ -227,7 +227,8 @@ body {
   align-items: center;
 }
 
-.lid-content, .flap-content{
+.lid-content,
+.flap-content {
   text-align: center;
   margin-top: 3.5rem;
   transition: opacity 0.4s ease;
@@ -416,26 +417,48 @@ body {
 
 /* INVITATION SECTIONS STYLES */
 .section-hero {
-  padding: 2rem 2rem;
+  margin-top: -2rem;
+  padding: 4rem 2rem;
   background-color: var(--white);
+  position: relative;
+  z-index: 10;
+}
+
+.section-separator {
+  padding: 0;
+  position: relative;
+  z-index: 10;
 }
 
 .section-phrase {
   padding: 0;
+  position: relative;
+  z-index: 10;
+  margin-top: -6rem;
+}
+
+.section-phrase-2,
+.section-phrase-3 {
+  z-index: 8;
+  margin-top: -2rem;
 }
 
 .phrase-content {
   background-color: var(--secondary-background);
-  padding: 2rem 2.5rem;
+  padding: 0rem 2.5rem;
   text-align: center;
-  margin-bottom: -3px;
-  margin-top: -3px;
+  position: relative;
+  z-index: 1;
+  margin-top: -2px;
+  margin-bottom: -2px;
 }
 
 .separator-img {
   width: 100%;
   height: auto;
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
 .separator-img-flipped {
@@ -443,11 +466,16 @@ body {
   height: auto;
   display: block;
   transform: rotate(180deg) rotateY(180deg);
+  position: relative;
+  z-index: 2;
 }
 
 .section-ceremony {
-  padding: 2rem 3rem;
+  padding: 4rem 3rem;
   background-color: var(--white);
+  position: relative;
+  z-index: 2;
+  margin-top: -2rem;
 }
 
 .section-ceremony .text-gold {
@@ -455,22 +483,27 @@ body {
 }
 
 .section-party {
-  padding: 2rem 3rem;
+  padding: 4rem 3rem;
   background-color: var(--secondary-background);
-  margin-bottom: -3px;
-  margin-top: -3px;
+  position: relative;
+  z-index: 6;
+  margin-top: -2rem;
 }
 
 .section-dress-code {
-  padding: 2rem 3rem;
+  padding: 5rem 3rem;
   background-color: var(--white);
+  position: relative;
+  z-index: 1;
+  margin-top: -2rem;
 }
 
 .section-gifts {
-  padding: 2rem 3rem;
+  padding: 5rem 3rem;
   background-color: var(--secondary-background);
-  margin-bottom: -3px;
-  margin-top: -3px;
+  position: relative;
+  z-index: 1;
+  margin-top: -2rem;
 }
 
 .dress-code-card {
@@ -483,9 +516,13 @@ body {
   max-width: 30rem;
 }
 
-.container-narrow {
-  max-width: 40rem;
-  margin: 0 auto;
+.footer-main {
+  padding: 4rem 1rem;
+  background-color: var(--white);
+  position: relative;
+  z-index: 1;
+  margin-top: -3rem;
+  text-align: center;
 }
 
 .img-container-styled {
@@ -906,11 +943,13 @@ body {
     transform: scale(1);
     opacity: 0.85;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 1;
     text-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
   }
+
   100% {
     transform: scale(1);
     opacity: 0.85;
@@ -920,6 +959,9 @@ body {
 /* PHOTOS SLIDER STYLES */
 .section-photos {
   background-color: var(--white);
+  position: relative;
+  z-index: 1;
+  margin-top: -5rem;
 }
 
 .slider-container {

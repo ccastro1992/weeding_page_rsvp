@@ -85,8 +85,8 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
           <Phrase2 />
           <Gifts />
           <Phrase3 />
-          <footer className="text-center" style={{ padding: "2rem 1rem", backgroundColor: "var(--white)" }}>
-            <p className="font-serif text-orange-dark italic text-2xl font-bold" style={{ lineHeight: "1.5", margin: "0rem 3rem 1rem 3rem" }}>
+          <footer className="footer-main">
+            <p className="font-serif text-orange-dark italic font-bold" style={{ fontSize: "1.25rem", lineHeight: "1.5", margin: "0rem 1rem 1rem 1rem" }}>
               ¡No aceptamos un 'no' por respuesta! <br/>
               Los esperamos para darlo todo en la pista.
             </p>
