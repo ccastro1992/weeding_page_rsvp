@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift, Hourglass } from "lucide-react";
+import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift, Hourglass, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 // --- Reveal Hook ---
@@ -108,11 +108,63 @@ export const Separator1 = () => {
 // --- Photos Section ---
 export const Photos = () => {
   const revealRef = useReveal();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Lista de fotos (puedes reemplazarlas por las fotos reales de la pareja)
+  const photos = [
+    { url: "/img/iglesia.png", alt: "Nuestra Historia 1" },
+    { url: "/img/quinta.png", alt: "Nuestra Historia 2" },
+    { url: "/img/flower1.png", alt: "Nuestra Historia 3" },
+    { url: "/img/flower2.png", alt: "Nuestra Historia 4" },
+  ];
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % photos.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + photos.length) % photos.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="section-photos">
-      <div className="container-narrow text-center"></div>
-        <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-orange-dark mb-4">Un vistazo a nuestra historia</p>
+      <div ref={revealRef} className="reveal text-center">
+        <div className="container-narrow mb-6 px-4">
+          <p className="text-xs uppercase tracking-hero text-orange-dark">Un vistazo a nuestra historia</p>
+        </div>
+        
+        <div className="slider-container">
+          <div className="slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+            {photos.map((photo, index) => (
+              <div key={index} className="slide">
+                <img src={photo.url} alt={photo.alt} className="slide-img" />
+              </div>
+            ))}
+          </div>
+          
+          <button className="slider-btn prev" onClick={prevSlide} aria-label="Anterior">
+            <ChevronLeft size={24} />
+          </button>
+          <button className="slider-btn next" onClick={nextSlide} aria-label="Siguiente">
+            <ChevronRight size={24} />
+          </button>
+
+          <div className="slider-dots">
+            {photos.map((_, index) => (
+              <button
+                key={index}
+                className={`dot ${index === currentIndex ? "active" : ""}`}
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Ir a la foto ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
