@@ -63,7 +63,7 @@ const Countdown = () => {
       {items.map((item) => (
         <div key={item.label} className="countdown-item">
           <div className="countdown-value font-serif" style={{ fontWeight: "lighter" }}>{item.value.toString().padStart(2, '0')}</div>
-          <div className="text-xs uppercase tracking-widest text-gray-600 opacity-60 mt-1">{item.label}</div>
+          <div className="text-xs uppercase tracking-widest opacity-60 mt-1">{item.label}</div>
         </div>
       ))}
     </div>
