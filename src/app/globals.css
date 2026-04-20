@@ -982,7 +982,7 @@ body {
 .slider-wrapper {
   display: flex;
   transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-  height: 400px;
+  height: 580px;
 }
 
 .slide {
@@ -1059,7 +1059,7 @@ body {
 
 @media (max-width: 480px) {
   .slider-wrapper {
-    height: 300px;
+    height: 480;
   }
 }
 /* SCROLL INDICATOR */

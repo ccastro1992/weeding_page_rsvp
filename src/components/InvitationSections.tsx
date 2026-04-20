@@ -120,10 +120,10 @@ export const Photos = () => {
 
   // Lista de fotos (puedes reemplazarlas por las fotos reales de la pareja)
   const photos = [
-    { url: "/img/iglesia.png", alt: "Nuestra Historia 1" },
-    { url: "/img/quinta.png", alt: "Nuestra Historia 2" },
-    { url: "/img/flower1.png", alt: "Nuestra Historia 3" },
-    { url: "/img/flower2.png", alt: "Nuestra Historia 4" },
+    { url: "/img/photo1.jpg", alt: "Nuestra Historia 1" },
+    { url: "/img/photo2.jpg", alt: "Nuestra Historia 2" },
+    { url: "/img/photo3.jpg", alt: "Nuestra Historia 3" },
+    { url: "/img/photo4.jpg", alt: "Nuestra Historia 4" },
   ];
 
   const nextSlide = () => {
@@ -135,7 +135,7 @@ export const Photos = () => {
   };
 
   useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
+    const timer = setInterval(nextSlide, 100000);
     return () => clearInterval(timer);
   }, []);
 
