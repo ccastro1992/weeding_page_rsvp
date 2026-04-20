@@ -243,7 +243,7 @@ body {
 
 .lid-text {
   font-family: var(--font-cursive);
-  color: var(--gold-dark);
+  color: var(--orange-dark);
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-style: italic;
@@ -254,7 +254,7 @@ body {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--gold-dark);
+  color: var(--orange-dark);
   font-weight: bold;
   animation: hint-pulse 2s infinite;
 }
@@ -359,7 +359,7 @@ body {
   opacity: 0;
   z-index: 5;
   transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s;
-  border: 0.5px solid var(--gold);
+  border: 0.6px solid var(--orange-dark);
 }
 
 .card.visible {
@@ -369,7 +369,7 @@ body {
 
 .card-title {
   font-family: var(--font-serif);
-  color: var(--gold-dark);
+  color: var(--orange-dark);
   font-size: 2rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -379,7 +379,7 @@ body {
 .card-divider {
   width: 100px;
   height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--orange-dark), transparent);
   margin: 30px auto;
   opacity: 0.7;
   animation: divider-glow 4s ease-in-out infinite;
@@ -470,7 +470,6 @@ body {
   padding: 2rem 3rem;
   border-radius: 4px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-  border: 0.5px solid var(--gold);
   display: inline-block;
   width: 100%;
   max-width: 30rem;
@@ -519,7 +518,7 @@ body {
 .map-icon-wrapper {
   background-color: var(--white);
   color: var(--eucalyptus-dark);
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid var(--orange-dark);
   padding: 1.25rem;
   border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -529,7 +528,7 @@ body {
 
 .map-icon-wrapper:hover {
   transform: scale(1.1);
-  background-color: var(--gold);
+  background-color: var(--orange-dark);
   color: var(--white);
   transform: translateY(-2px);
 }
@@ -607,7 +606,7 @@ body {
 
 .countdown-value {
   font-size: 1.5rem;
-  color: var(--gold);
+  color: var(--orange-dark);
 }
 
 @media (min-width: 768px) {
@@ -653,7 +652,7 @@ body {
 
 .btn-outline {
   padding: 0.75rem 2rem;
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid var(--orange-dark);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   color: var(--gold);
   background: var(--white);
@@ -668,7 +667,7 @@ body {
 }
 
 .btn-outline:hover {
-  background-color: var(--gold);
+  background-color: var(--orange-dark);
   color: var(--white);
   transform: translateY(-2px);
 }
@@ -683,8 +682,8 @@ body {
   height: 45px;
   border-radius: 50%;
   background: var(--white);
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--orange-dark);
+  color: var(--orange-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -694,7 +693,7 @@ body {
 }
 
 .audio-control:hover {
-  background: var(--gold);
+  background: var(--orange-dark);
   color: var(--white);
   transform: scale(1.1);
 }
@@ -836,8 +835,8 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 1.5s ease-out forwards;
-  border-left: 1px solid var(--gold);
-  border-right: 1px solid var(--gold);
+  border-left: 1px solid var(--orange-dark);
+  border-right: 1px solid var(--orange-dark);
 }
 
 @keyframes fadeIn {

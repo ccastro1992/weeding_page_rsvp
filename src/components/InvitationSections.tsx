@@ -78,9 +78,9 @@ export const Hero = () => {
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
         <div className="card-divider" />
-        <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark date-ceremony-text">Viernes 16 de Octubre de 2026</p>
+        <p className="text-lg md:text-2xl font-serif italic text-gray-500 date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <Countdown />
-        <button className="btn-outline text-xs uppercase tracking-widest text-gray-600 mt-2 font-bold">
+        <button className="btn-outline text-xs uppercase tracking-widest text-gray-500 mt-2 font-bold">
           Confirmar Asistencia
         </button>
 

@@ -50,7 +50,7 @@ export default function Envelope({ onOpen, onOpenStart, guestName, numberInvitat
 
         {/* Carta Interior */}
         <div className={`card ${isOpen && !isExiting ? 'visible' : ''}`}>
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-6">¡Nos Casamos!</p>
+          <p className="text-xs uppercase tracking-hero text-gray-600 mb-6">¡Nos Casamos!</p>
           <h2 className="card-title">
             ¡Hola, {guestName || "Invitado"}!
           </h2>
