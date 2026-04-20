@@ -118,8 +118,10 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
               ¡No aceptamos un 'no' por respuesta! <br/>
               Los esperamos para darlo todo en la pista.
             </p>
-            
-            <p className="font-sans text-xs uppercase tracking-widest text-gray-600">
+            <button className="btn-outline-inverse btn-outline text-xs uppercase tracking-widest font-bold">
+              Confirmar Asistencia
+            </button>
+            <p className="team-marker font-sans text-xs uppercase tracking-widest text-gray-600">
               Kari & Cris • 2026
             </p>
           </footer>

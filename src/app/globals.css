@@ -242,6 +242,14 @@ body {
   opacity: 0;
 }
 
+.flap-text-small {
+  font-family: var(--font-serif);
+  color: var(--gray-500);
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
 .flap-text {
   font-family: var(--font-serif);
   color: var(--gray-600);
@@ -721,6 +729,16 @@ body {
   transform: translateY(-2px);
 }
 
+.btn-outline-inverse {
+  background: var(--white);
+  color: var(--orange-dark);
+}
+
+.btn-outline-inverse:hover {
+  color: var(--white);
+  background-color: var(--orange-dark);
+}
+
 /* AUDIO CONTROL */
 .audio-control {
   position: fixed;
@@ -855,6 +873,10 @@ body {
 .tracking-widest {
   letter-spacing: 0.1em;
   padding-top: 0.8rem;
+}
+
+.team-marker {
+  margin-top: 2rem;
 }
 
 .tracking-loose {

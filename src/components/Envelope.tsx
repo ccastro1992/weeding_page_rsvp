@@ -57,16 +57,17 @@ export default function Envelope({ onOpen, onOpenStart, guestName, numberInvitat
           <p className="card-names">
             No podíamos imaginar este paso tan importante sin las personas que han sido parte de nuestra historia.
             Hoy queremos celebrar este nuevo comienzo rodeados de su cariño.
-            <br/>
-            <br/>
+            <br />
+            <br />
             ¡Prepárate para bailar y disfrutar con nosotros!
-            <br/>
-            <br/>
-            Tenemos reservados para ti: <br/><b style={{fontSize: "1.3rem", color: "black"}}>{numberInvitations} pases</b>.
+            <br />
+            <br />
+            Tenemos reservados para ti: <br /><b style={{ fontSize: "1.3rem", color: "black" }}>{numberInvitations} pases</b>.
           </p>
-          <br/>
-          <br/>
-          <p className="flap-click-hint">¡ver los detalles!</p>
+          <br />
+          <br />
+          <p className="flap-click-hint">¡Pulsa Aquí!</p>
+          <p className="text-xs uppercase tracking-hero text-gray-600 mb-6" style={{paddingTop:"10px"}}>Ver detalles</p>
         </div>
       </div>
     </div >
