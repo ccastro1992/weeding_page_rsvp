@@ -77,10 +77,10 @@ export const Hero = () => {
     <section className="section-hero min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
-        <div className="card-divider" />
         <p className="text-lg md:text-2xl font-serif italic text-gray-600 date-ceremony-text">Viernes 16 de Octubre de 2026</p>
+        <div className="card-divider" />
         <Countdown />
-        <button className="btn-outline text-xs uppercase tracking-widest text-gray-500 mt-2 font-bold">
+        <button className="btn-outline text-xs uppercase tracking-widest mt-2 font-bold">
           Confirmar Asistencia
         </button>
 
@@ -155,7 +155,7 @@ export const Ceremony = () => {
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver en Maps</span>
           </a>
         </div>
       </div>
@@ -218,7 +218,7 @@ export const Party = () => {
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver en Maps</span>
           </a>
         </div>
       </div>
@@ -292,7 +292,7 @@ export const Gifts = () => {
           <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">
             <b>¡Qué alegría compartir nuestra historia con ustedes!</b><br />Para darnos ese empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
           </p>
-          <button className="btn-outline text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">
+          <button className="btn-outline text-xs uppercase tracking-widest mt-2 font-bold">
             Ver Cuenta Bancaria
           </button>
         </div>

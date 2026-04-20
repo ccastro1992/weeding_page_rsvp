@@ -32,7 +32,6 @@ export default function Envelope({ onOpen, onOpenStart, guestName, numberInvitat
           <div className="lid-content">
             <p className="lid-text">Kari &nbsp; y &nbsp; Cris</p>
           </div>
-          <div className="card-divider"/>
         </div>
 
         {/* Solapa Inferior */}
