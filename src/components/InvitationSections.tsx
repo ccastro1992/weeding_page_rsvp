@@ -74,17 +74,17 @@ const Countdown = () => {
 export const Hero = () => {
   const revealRef = useReveal();
   return (
-    <section className="section-hero flex flex-col items-center text-center overflow-hidden">
+    <section className="section-hero min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal">
         <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
         <div className="card-divider" />
         <p className="text-lg md:text-2xl font-serif italic text-eucalyptus-dark date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <Countdown />
-        <button className="btn-outline text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">
+        <button className="btn-outline text-xs uppercase tracking-widest text-gray-600 mt-2 font-bold">
           Confirmar Asistencia
         </button>
 
-        <p className="font-serif text-xl text-gray-600" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "3rem 3rem 1rem 3rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Agosto</b> o nos comeremos tu parte!</p>
+        <p className="font-serif text-xl text-gray-600" style={{fontSize: "1.1rem", lineHeight: "1.5", margin: "3rem 3rem 0rem 3rem" }}>No queremos que te quedes sin comida. <br/> ¡Confirma antes del <b>16 de Julio</b> o nos comeremos tu parte!</p>
       </div>
     </section>
   );
@@ -101,7 +101,7 @@ export const Phrase = () => {
           className="separator-img"
         />
         <div className="phrase-content">
-          <p className="text-2xl md:text-3xl font-serif text-eucalyptus-dark italic no-margin">
+          <p className="text-2xl md:text-3xl font-serif text-orange-dark italic no-margin">
             "En cada historia de amor, hay un momento mágico en el que todo cambia para siempre.
             Ese momento es el día de nuestra boda, y queremos compartirlo con ustedes."
           </p>
@@ -124,14 +124,14 @@ export const Ceremony = () => {
     <section className="section-ceremony">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">El gran momento</p>
-          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">La Ceremonia</h2>
+          <p className="text-xs uppercase tracking-hero text-orange-dark mb-4">El gran momento</p>
+          <h2 className="text-4xl font-serif text-orange-dark mb-6">La Ceremonia</h2>
           <img
             src="/img/ceremony.png"
             className="img-section"
             alt="Código de Vestimenta"
           />
-          <h3 className="font-serif text-2xl text-gold-dark mb-8">Parroquia Jesús de las Bienaventuranzas</h3>
+          <h3 className="font-serif text-2xl text-gray-600 mb-8">Parroquia Jesús de las Bienaventuranzas</h3>
 
           <div className="img-container-styled">
             <img
@@ -143,7 +143,7 @@ export const Ceremony = () => {
 
           <div className="mb-10">
             <p className="font-serif text-xl text-gray-600 mb-2">Calle 24 de septiembre N1-77 y Alfredo Tobar, Tababela</p>
-            <p className="font-serif text-2xl text-eucalyptus-dark">16:00 Horas</p>
+            <p className="font-serif text-2xl text-orange-dark">15:30 Horas</p>
           </div>
 
           <a
@@ -155,7 +155,7 @@ export const Ceremony = () => {
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-gold-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
           </a>
         </div>
       </div>
@@ -185,14 +185,14 @@ export const Party = () => {
     <section className="section-party">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">A continuación</p>
-          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">La Celebración</h2>
+          <p className="text-xs uppercase tracking-hero text-orange-dark mb-4">A continuación</p>
+          <h2 className="text-4xl font-serif text-orange-dark mb-6">La Celebración</h2>
           <img
             src="/img/party.png"
             className="img-section"
             alt="Código de Vestimenta"
           />
-          <h3 className="font-serif text-2xl text-gold-dark mb-8">Quinta Luciana</h3>
+          <h3 className="font-serif text-2xl text-gray-600 mb-8">Quinta Luciana</h3>
 
           <div className="img-container-styled">
             <img
@@ -205,7 +205,7 @@ export const Party = () => {
           <div className="mb-12">
             <div className="mb-8">
               <p className="font-serif text-xl text-gray-600">Troncal de la Sierra, Pifo</p>
-              <p className="font-serif text-2xl text-eucalyptus-dark">17:30 Horas</p>
+              <p className="font-serif text-2xl text-orange-dark">17:30 Horas</p>
             </div>
           </div>
 
@@ -218,7 +218,7 @@ export const Party = () => {
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
-            <span className="text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
+            <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Pulsa para Ver en Maps</span>
           </a>
         </div>
       </div>
@@ -248,8 +248,8 @@ export const DressCode = () => {
     <section className="section-dress-code">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">¿Qué outfit elijo?</p>
-          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Código de Vestimenta</h2>
+          <p className="text-xs uppercase tracking-hero text-orange-dark mb-4">¿Qué outfit elijo?</p>
+          <h2 className="text-4xl font-serif text-orange-dark mb-6">Código de Vestimenta</h2>
 
           <div className="img-container-dress-styled">
             <img
@@ -263,7 +263,7 @@ export const DressCode = () => {
               alt="Código de Vestimenta"
             />
           </div>
-          <h3 className="font-serif text-2xl text-gold-dark mb-8">Formal</h3>
+          <h3 className="font-serif text-2xl text-gray-600 mb-8">Formal</h3>
           <div className="mb-12">
             <div className="mb-8">
               <p className="font-serif text-xl text-gray-600">El blanco está reservado para la novia, puedes elegir cualquier otro color.</p>
@@ -282,8 +282,8 @@ export const Gifts = () => {
     <section className="section-gifts">
       <div className="container-narrow text-center">
         <div ref={revealRef} className="reveal">
-          <p className="text-xs uppercase tracking-hero text-eucalyptus mb-4">Un detalle con amor</p>
-          <h2 className="text-4xl font-serif text-eucalyptus-dark mb-6">Regalos</h2>
+          <p className="text-xs uppercase tracking-hero text-orange-dark mb-4">Un detalle con amor</p>
+          <h2 className="text-4xl font-serif text-orange-dark mb-6">Regalos</h2>
           <img
             src="/img/gift.png"
             className="img-section"
@@ -292,7 +292,7 @@ export const Gifts = () => {
           <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">
             <b>¡Qué alegría compartir nuestra historia con ustedes!</b><br />Para darnos ese empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
           </p>
-          <button className="btn-outline text-xs uppercase tracking-widest text-eucalyptus-dark mt-2 font-bold">
+          <button className="btn-outline text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">
             Ver Cuenta Bancaria
           </button>
         </div>

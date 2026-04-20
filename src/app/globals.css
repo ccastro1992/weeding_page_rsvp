@@ -24,12 +24,16 @@
   --white: #ffffff;
   --black: #000000;
   --sage-gray: rgb(154, 165, 165);
-  --secondary-background: rgb(183 200 188);
+  --secondary-background: rgba(247, 219, 187, 0.96);
 
   /* Fonts */
   --font-serif: var(--font-serif), serif;
   --font-sans: var(--font-sans), sans-serif;
   --font-cursive: var(--font-cursive), cursive;
+
+  --orange: rgb(255, 211, 161);
+  --light-orange: rgb(255, 213, 158);
+  --orange-dark: rgb(156, 88, 11);
 }
 
 * {
@@ -416,7 +420,8 @@ body {
   background-color: var(--secondary-background);
   padding: 2rem 2.5rem;
   text-align: center;
-  margin-bottom: -1px;
+  margin-bottom: -3px;
+  margin-top: -3px;
 }
 
 .separator-img {
@@ -444,7 +449,8 @@ body {
 .section-party {
   padding: 2rem 3rem;
   background-color: var(--secondary-background);
-  margin-bottom: -1px;
+  margin-bottom: -3px;
+  margin-top: -3px;
 }
 
 .section-dress-code {
@@ -455,7 +461,8 @@ body {
 .section-gifts {
   padding: 2rem 3rem;
   background-color: var(--secondary-background);
-  margin-bottom: -1px;
+  margin-bottom: -3px;
+  margin-top: -3px;
 }
 
 .dress-code-card {
@@ -701,8 +708,16 @@ body {
   color: var(--gold-dark);
 }
 
+.text-orange {
+  color: var(--orange);
+}
+
 .text-eucalyptus {
   color: var(--eucalyptus);
+}
+
+.text-orange-dark {
+  color: var(--orange-dark);
 }
 
 .text-eucalyptus-dark {
