@@ -23,11 +23,14 @@ export default async function InvitationPage({ params }: PageProps) {
   }
 
   return (
-    <InvitationContent 
-      guestName={guest.nombre_sobre} 
-      numberInvitations={guest.pases} 
-      idInvitation={guest.id}
-      relacionados={guest.relacionados}
-    />
+    <>
+      <InvitationContent 
+        guestName={guest.nombre_sobre} 
+        numberInvitations={guest.pases} 
+        idInvitation={guest.id}
+        relacionados={guest.relacionados}
+      />
+      <Analytics />
+    </>
   );
 }

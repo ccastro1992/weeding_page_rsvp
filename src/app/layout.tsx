@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${cormorant.variable} ${montserrat.variable} ${greatVibes.variable}`}>
         {children}
-        <Analytics />
+        
       </body>
     </html>
   );
