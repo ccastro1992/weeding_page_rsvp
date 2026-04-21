@@ -4,17 +4,20 @@ import { useState, useEffect, useRef } from "react";
 import Envelope from "@/components/Envelope";
 import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3, Separator1, Photos, Confirmation} from "@/components/InvitationSections";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
+import AttendanceModal from "@/components/AttendanceModal";
 
 interface InvitationContentProps {
   guestName?: string;
   numberInvitations?: number;
+  idInvitation?: number;
 }
 
-export default function InvitationContent({ guestName, numberInvitations }: InvitationContentProps) {
+export default function InvitationContent({ guestName, numberInvitations, idInvitation }: InvitationContentProps) {
   const [isOpened, setIsOpened] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(false);
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -86,6 +89,10 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
     setTimeout(() => setShowScrollIndicator(true), 1500);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <main className="relative min-h-screen">
       {!isOpened && (
@@ -101,7 +108,7 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
         <div className="central-strip animate-fade-in">
           <Hero />
           <Separator1 />
-          <Confirmation />
+          <Confirmation onConfirm={handleOpenModal} />
           <Separator1 />
           <Photos />
           <Phrase />
@@ -118,7 +125,10 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
               ¡No aceptamos un 'no' por respuesta! <br/>
               Los esperamos para darlo todo en la pista.
             </p>
-            <button className="btn-outline-inverse btn-outline text-xs uppercase tracking-widest font-bold">
+            <button 
+              onClick={handleOpenModal}
+              className="confirm-attendance btn-outline-inverse btn-outline text-xs uppercase tracking-widest font-bold"
+            >
               Confirmar Asistencia
             </button>
             <p className="team-marker font-sans text-xs uppercase tracking-widest text-gray-600">
@@ -127,6 +137,13 @@ export default function InvitationContent({ guestName, numberInvitations }: Invi
           </footer>
         </div>
       )}
+
+      <AttendanceModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        maxPasses={numberInvitations || 1} 
+        idInvitation={idInvitation || 0}
+      />
 
       {showScrollIndicator && isOpened && (
         <div className={`scroll-indicator ${!showScrollIndicator ? 'hidden' : ''}`}>

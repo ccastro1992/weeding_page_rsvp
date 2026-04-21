@@ -17,8 +17,8 @@ export default async function InvitationPage({ params }: PageProps) {
   console.log('ID recibido:', id);
   // Consultar el nombre del invitado en Supabase
   const { data: guest, error } = await supabase
-    .from('invitados')
-    .select('nombre_sobre, pases')
+    .from('invitaciones')
+    .select('id, nombre_sobre, pases')
     .eq('identificador', id)
     .single();
 
