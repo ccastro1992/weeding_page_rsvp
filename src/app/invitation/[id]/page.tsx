@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import InvitationContent from '@/components/InvitationContent';
+import { Analytics } from "@vercel/analytics/next"
 
 interface PageProps {
   params: { id: string };
