@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { X, Check, XCircle, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, Check, XCircle, Loader2, Info } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 interface AttendanceModalProps {
@@ -15,7 +15,37 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
   const [attending, setAttending] = useState<boolean | null>(true);
   const [passes, setPasses] = useState(maxPasses);
   const [loading, setLoading] = useState(false);
+  const [checking, setChecking] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [alreadyConfirmed, setAlreadyConfirmed] = useState(false);
+
+  useEffect(() => {
+    if (isOpen && idInvitation) {
+      checkExistingConfirmation();
+    }
+  }, [isOpen, idInvitation]);
+
+  const checkExistingConfirmation = async () => {
+    setChecking(true);
+    try {
+      const { data, error } = await supabase
+        .from('confirmados')
+        .select('id')
+        .eq('invitacion_id', idInvitation)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (data) {
+        setAlreadyConfirmed(true);
+      } else {
+        setAlreadyConfirmed(false);
+      }
+    } catch (error) {
+      console.error("Error al verificar confirmación:", error);
+    } finally {
+      setChecking(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -50,7 +80,26 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
   return (
     <div className="modal-overlay">
       <div className="modal-content animate-fade-in-up">
-        {!submitted ? (
+        {checking ? (
+          <div className="py-12 text-center">
+            <Loader2 className="mx-auto animate-spin text-orange-dark mb-4" size={40} />
+            <p className="font-serif text-xl text-gray-500">Verificando invitación...</p>
+          </div>
+        ) : alreadyConfirmed ? (
+          <div className="py-8 text-center animate-fade-in-modal">
+            <button className="modal-close" onClick={onClose}>
+              <X size={24} />
+            </button>
+            <div className="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Info size={32} />
+            </div>
+            <h2 className="text-2xl font-serif text-orange-dark mb-6">Respuesta Confirmada</h2>
+            <p className="font-serif text-xl text-gray-500 mb-6">Ya hemos recibido tu respuesta previamente. ¡Muchas gracias!</p>
+            <button className="btn-outline w-full" onClick={onClose}>
+              Entendido
+            </button>
+          </div>
+        ) : !submitted ? (
           <>
             <button className="modal-close" onClick={onClose} disabled={loading}>
               <X size={24} />
@@ -115,10 +164,10 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
                 disabled={loading}
               >
                 {loading ? (
-                  <div className="flex items-center justify-center gap-2">
+                  <>
                     <Loader2 className="mr-2 animate-spin" size={18} />
                     &nbsp;Enviando...
-                  </div>
+                  </>
                 ) : (
                   'Enviar Confirmación'
                 )}
@@ -128,10 +177,10 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
         ) : (
           <div className="py-8 text-center animate-fade-in-modal">
             <div className="bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Check size={22} />
+              <Check size={32} />
             </div>
             <h2 className="text-2xl font-serif text-orange-dark mb-2">¡Gracias!</h2>
-            <p className="font-serif text-xl text-gray-500 mb-4">Tu confirmación ha sido enviada exitosamente.</p>
+            <p className="font-serif text-xl text-gray-500 mb-4">Tu respuesta ha sido enviada exitosamente.</p>
           </div>
         )}
       </div>
