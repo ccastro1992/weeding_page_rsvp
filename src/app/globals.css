@@ -1142,7 +1142,7 @@ body {
 
 .scroll-icon {
   animation: scroll-bounce 2s infinite;
-  color: var(--orange);
+  color: var(--orange-dark);
 }
 
 @keyframes scroll-bounce {

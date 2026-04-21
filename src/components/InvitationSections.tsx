@@ -350,7 +350,7 @@ export const DressCode = () => {
           </div>
           <h3 className="font-serif text-2xl text-gray-600 mb-8">Formal</h3>
             <div className="mb-8">
-              <p className="font-serif text-xl text-gray-600">El blanco está reservado para la novia, puedes elegir cualquier otro color.</p>
+              <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">El blanco está reservado para la novia, puedes elegir cualquier otro color.</p>
             </div>
         </div>
       </div>
