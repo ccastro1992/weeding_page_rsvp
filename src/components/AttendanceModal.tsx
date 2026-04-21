@@ -9,11 +9,22 @@ interface AttendanceModalProps {
   onClose: () => void;
   maxPasses: number;
   idInvitation: number;
+  relacionados?: { invitados: string[] };
 }
 
-export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitation }: AttendanceModalProps) {
+export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitation, relacionados }: AttendanceModalProps) {
   const [attending, setAttending] = useState<boolean | null>(true);
+  const [selectedGuests, setSelectedGuests] = useState<string[]>([]);
   const [passes, setPasses] = useState(maxPasses);
+
+  useEffect(() => {
+    if (relacionados?.invitados) {
+      setSelectedGuests(relacionados.invitados);
+      setPasses(relacionados.invitados.length);
+    } else {
+      setPasses(maxPasses);
+    }
+  }, [relacionados, maxPasses]);
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -83,7 +94,12 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
   const handleChangePlans = () => {
     setAlreadyConfirmed(false);
     setAttending(true);
-    setPasses(maxPasses);
+    if (relacionados?.invitados) {
+      setSelectedGuests(relacionados.invitados);
+      setPasses(relacionados.invitados.length);
+    } else {
+      setPasses(maxPasses);
+    }
   };
 
   return (
@@ -135,7 +151,12 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
                   className={`btn-choice ${attending === true ? 'active' : ''}`}
                   onClick={() => {
                     setAttending(true);
-                    if (passes === 0) setPasses(maxPasses);
+                    if (relacionados?.invitados) {
+                      setSelectedGuests(relacionados.invitados);
+                      setPasses(relacionados.invitados.length);
+                    } else if (passes === 0) {
+                      setPasses(maxPasses);
+                    }
                   }}
                   disabled={loading}
                 >
@@ -155,26 +176,67 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
             </div>
 
             {attending === true && (
-              <div className="mb-8 animate-fade-in-modal">
-                <p className="font-serif text-xl text-gray-500 mb-4">¿Cuántos pases utilizarás?</p>
-                <div className="flex items-center justify-center gap-4">
-                  <button 
-                    className="btn-counter" 
-                    onClick={() => setPasses(Math.max(1, passes - 1))}
-                    disabled={passes <= 1 || loading}
-                  >
-                    -
-                  </button>
-                  <span className="text-2xl font-serif text-orange-dark w-8">{passes}</span>
-                  <button 
-                    className="btn-counter" 
-                    onClick={() => setPasses(Math.min(maxPasses, passes + 1))}
-                    disabled={passes >= maxPasses || loading}
-                  >
-                    +
-                  </button>
+              <div className="mb-8 animate-fade-in-modal max-w-[280px] mx-auto">
+                <p className="font-serif text-xl text-gray-500 mb-4 text-center">¿Quiénes asistirán?</p>
+                <div className="space-y-3 mb-6">
+                  {relacionados?.invitados ? (
+                    relacionados.invitados.map((nombre) => (
+                      <div 
+                        key={nombre} 
+                        className="flex items-center justify-center gap-3 cursor-pointer group"
+                        onClick={() => {
+                          if (loading) return;
+                          const newSelection = selectedGuests.includes(nombre)
+                            ? selectedGuests.filter(g => g !== nombre)
+                            : [...selectedGuests, nombre];
+                          setSelectedGuests(newSelection);
+                          setPasses(newSelection.length);
+                        }}
+                      >
+                        <div 
+                          className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-all flex-shrink-0 ${
+                            selectedGuests.includes(nombre) 
+                              ? 'bg-orange-dark border-orange-dark text-white' 
+                              : 'border-gray-300 bg-white'
+                          }`}
+                        >
+                          {selectedGuests.includes(nombre) && <Check size={12} strokeWidth={4} />}
+                        </div>
+                        <span className={`font-serif text-lg transition-all ${
+                          selectedGuests.includes(nombre) 
+                            ? 'text-orange-dark font-bold' 
+                            : 'text-gray-400 line-through'
+                        }`}>
+                          &nbsp;&nbsp;{nombre}
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="flex items-center justify-center gap-4">
+                      <button 
+                        className="btn-counter" 
+                        onClick={() => setPasses(Math.max(1, passes - 1))}
+                        disabled={passes <= 1 || loading}
+                      >
+                        -
+                      </button>
+                      <span className="text-2xl font-serif text-orange-dark w-8 text-center">{passes}</span>
+                      <button 
+                        className="btn-counter" 
+                        onClick={() => setPasses(Math.min(maxPasses, passes + 1))}
+                        disabled={passes >= maxPasses || loading}
+                      >
+                        +
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <p className="text-xs text-gray-400 mt-2">Máximo {maxPasses} pases</p>
+                <div className="border-t border-gray-100 pt-4 text-center">
+                  <p className="text-xs font-sans uppercase tracking-widest text-gray-400 mb-1">Total Confirmados</p>
+                  <p className="text-xl font-serif text-orange-dark font-bold">
+                    {passes} {passes === 1 ? 'pase' : 'pases'}
+                  </p>
+                </div>
               </div>
             )}
 

@@ -11,9 +11,10 @@ interface InvitationContentProps {
   guestName?: string;
   numberInvitations?: number;
   idInvitation?: number;
+  relacionados?: any;
 }
 
-export default function InvitationContent({ guestName, numberInvitations, idInvitation }: InvitationContentProps) {
+export default function InvitationContent({ guestName, numberInvitations, idInvitation, relacionados }: InvitationContentProps) {
   const [isOpened, setIsOpened] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -145,6 +146,7 @@ export default function InvitationContent({ guestName, numberInvitations, idInvi
         onClose={() => setIsModalOpen(false)} 
         maxPasses={numberInvitations || 1} 
         idInvitation={idInvitation || 0}
+        relacionados={relacionados}
       />
 
       <BankInfoModal 
