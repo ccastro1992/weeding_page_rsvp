@@ -18,6 +18,7 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
   const [checking, setChecking] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [alreadyConfirmed, setAlreadyConfirmed] = useState(false);
+  const [prevResponse, setPrevResponse] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen && idInvitation) {
@@ -30,15 +31,17 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
     try {
       const { data, error } = await supabase
         .from('confirmados')
-        .select('id')
+        .select('id, respuesta')
         .eq('invitacion_id', idInvitation)
         .maybeSingle();
 
       if (error) throw error;
       if (data) {
         setAlreadyConfirmed(true);
+        setPrevResponse(data.respuesta);
       } else {
         setAlreadyConfirmed(false);
+        setPrevResponse(null);
       }
     } catch (error) {
       console.error("Error al verificar confirmación:", error);
@@ -52,15 +55,14 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
   const handleSubmit = async () => {
     setLoading(true);
     try {
+      // Usamos upsert para actualizar si ya existe o insertar si no
       const { error } = await supabase
         .from('confirmados')
-        .insert([
-          { 
-            invitacion_id: idInvitation, 
-            pases: attending ? passes : 0,
-            respuesta: attending ? 'SI' : 'NO'
-          }
-        ]);
+        .upsert({ 
+          invitacion_id: idInvitation, 
+          pases: attending ? passes : 0,
+          respuesta: attending ? 'SI' : 'NO'
+        }, { onConflict: 'invitacion_id' });
 
       if (error) throw error;
       
@@ -68,6 +70,7 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
       setTimeout(() => {
         onClose();
         setSubmitted(false);
+        setAlreadyConfirmed(false);
       }, 2000);
     } catch (error) {
       console.error("Error al guardar asistencia:", error);
@@ -75,6 +78,12 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleChangePlans = () => {
+    setAlreadyConfirmed(false);
+    setAttending(true);
+    setPasses(maxPasses);
   };
 
   return (
@@ -86,19 +95,31 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
             <p className="font-serif text-xl text-gray-500">Verificando invitación...</p>
           </div>
         ) : alreadyConfirmed ? (
-          <div className="py-8 text-center animate-fade-in-modal">
+          <>
             <button className="modal-close" onClick={onClose}>
               <X size={24} />
             </button>
             <div className="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <Info size={32} />
             </div>
-            <h2 className="text-2xl font-serif text-orange-dark mb-6">Respuesta Confirmada</h2>
-            <p className="font-serif text-xl text-gray-500 mb-6">Ya hemos recibido tu respuesta previamente. ¡Muchas gracias!</p>
-            <button className="btn-outline w-full" onClick={onClose}>
+            <h2 className="text-2xl font-serif text-orange-dark mb-2">Respuesta Recibida</h2>
+            <p className="font-serif text-xl text-gray-500 mb-6">
+              {prevResponse === 'NO' 
+                ? "Habías indicado que no podrías asistir. ¿Han cambiado tus planes?"
+                : "Ya hemos recibido tu confirmación previamente. ¡Muchas gracias!"}
+            </p>
+            
+            <div>
+              <button className="btn-outline w-full mt-4" onClick={onClose}>
               Entendido
-            </button>
-          </div>
+              </button>
+              <br/>
+              <br/>
+              <button className="btn-outline-link w-full mt-4" onClick={handleChangePlans}>
+              Cambio de Planes
+              </button>
+            </div>
+          </>
         ) : !submitted ? (
           <>
             <button className="modal-close" onClick={onClose} disabled={loading}>
@@ -164,10 +185,10 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
                 disabled={loading}
               >
                 {loading ? (
-                  <>
+                  <div className="flex items-center justify-center gap-2">
                     <Loader2 className="mr-2 animate-spin" size={18} />
                     &nbsp;Enviando...
-                  </>
+                  </div>
                 ) : (
                   'Enviar Confirmación'
                 )}
@@ -180,7 +201,7 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
               <Check size={32} />
             </div>
             <h2 className="text-2xl font-serif text-orange-dark mb-2">¡Gracias!</h2>
-            <p className="font-serif text-xl text-gray-500 mb-4">Tu respuesta ha sido enviada exitosamente.</p>
+            <p className="font-serif text-xl text-gray-500 mb-4">Tu confirmación ha sido enviada exitosamente.</p>
           </div>
         )}
       </div>
