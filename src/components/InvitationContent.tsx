@@ -5,6 +5,7 @@ import Envelope from "@/components/Envelope";
 import { Hero, Phrase, Phrase2, Ceremony, Party, DressCode, Gifts, Phrase3, Separator1, Photos, Confirmation} from "@/components/InvitationSections";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
 import AttendanceModal from "@/components/AttendanceModal";
+import BankInfoModal from "@/components/BankInfoModal";
 
 interface InvitationContentProps {
   guestName?: string;
@@ -18,6 +19,7 @@ export default function InvitationContent({ guestName, numberInvitations, idInvi
   const [showControls, setShowControls] = useState(false);
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBankModalOpen, setIsBankModalOpen] = useState(false);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -118,7 +120,7 @@ export default function InvitationContent({ guestName, numberInvitations, idInvi
           <Phrase3 />
           <DressCode />
           <Phrase2 />
-          <Gifts />
+          <Gifts onShowBank={() => setIsBankModalOpen(true)} />
           <Phrase3 />
           <footer className="footer-main">
             <p className="font-serif text-orange-dark italic font-bold" style={{ fontSize: "1.25rem", lineHeight: "1.5", margin: "0rem 1rem 1rem 1rem" }}>
@@ -143,6 +145,11 @@ export default function InvitationContent({ guestName, numberInvitations, idInvi
         onClose={() => setIsModalOpen(false)} 
         maxPasses={numberInvitations || 1} 
         idInvitation={idInvitation || 0}
+      />
+
+      <BankInfoModal 
+        isOpen={isBankModalOpen} 
+        onClose={() => setIsBankModalOpen(false)} 
       />
 
       {showScrollIndicator && isOpened && (

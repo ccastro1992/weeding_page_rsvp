@@ -359,7 +359,7 @@ export const DressCode = () => {
 };
 
 // --- Gifts Section ---
-export const Gifts = () => {
+export const Gifts = ({ onShowBank }: { onShowBank: () => void }) => {
   const revealRef = useReveal();
   return (
     <section className="section-gifts">
@@ -375,7 +375,10 @@ export const Gifts = () => {
           <p className="font-serif text-xl text-gray-600 line-height-relaxed mb-10">
             <b>¡Qué alegría compartir nuestra historia con ustedes!</b><br />Para darnos ese empujoncito extra en esta nueva etapa, habilitamos la siguiente cuenta bancaria. Todo lo recaudado irá directo a nuestro proyecto de vida y nuestra luna de miel.
           </p>
-          <button className="btn-outline text-xs uppercase tracking-widest mt-2 font-bold">
+          <button 
+            onClick={onShowBank}
+            className="btn-show-bank btn-outline text-xs uppercase tracking-widest mt-2 font-bold"
+          >
             Ver Cuenta Bancaria
           </button>
         </div>

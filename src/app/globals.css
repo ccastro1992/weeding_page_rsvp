@@ -344,6 +344,19 @@ body {
   pointer-events: none;
 }
 
+.bank-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .bank-img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
 .stamp-img {
   width: 100px;
   height: 100px;
@@ -1129,7 +1142,7 @@ body {
 
 .scroll-icon {
   animation: scroll-bounce 2s infinite;
-  color: var(--gold);
+  color: var(--orange);
 }
 
 @keyframes scroll-bounce {
@@ -1156,7 +1169,7 @@ body {
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--gold);
+  color: var(--orange);
   font-weight: bold;
 }
 
