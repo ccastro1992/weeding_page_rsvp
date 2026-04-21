@@ -72,7 +72,8 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
         .upsert({ 
           invitacion_id: idInvitation, 
           pases: attending ? passes : 0,
-          respuesta: attending ? 'SI' : 'NO'
+          respuesta: attending && selectedGuests.length > 0 ? 'SI' : 'NO',
+          confirmados: attending ? { invitados: selectedGuests } : { invitados: [] }
         }, { onConflict: 'invitacion_id' });
 
       if (error) throw error;
@@ -231,6 +232,7 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
                     </div>
                   )}
                 </div>
+                <hr className="mb-2" style={{border: "0.5px solid var(--gray-100)"}}/>
                 <div className="border-t border-gray-100 pt-4 text-center">
                   <p className="text-xs font-sans uppercase tracking-widest text-gray-400 mb-1">Total Confirmados</p>
                   <p className="text-xl font-serif text-orange-dark font-bold">
