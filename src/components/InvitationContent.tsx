@@ -148,7 +148,7 @@ export default function InvitationContent({ guestName, numberInvitations, idInvi
       {showScrollIndicator && isOpened && (
         <div className={`scroll-indicator ${!showScrollIndicator ? 'hidden' : ''}`}>
           <span className="scroll-text">Desliza</span>
-          <ChevronDown className="scroll-icon" size={32} />
+          <ChevronDown className="scroll-icon" size={35} />
         </div>
       )}
 

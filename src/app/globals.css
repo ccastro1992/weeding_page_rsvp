@@ -1111,6 +1111,7 @@ body {
 
 .scroll-icon {
   animation: scroll-bounce 2s infinite;
+  color: var(--gold);
 }
 
 @keyframes scroll-bounce {
@@ -1127,10 +1128,11 @@ body {
 
 .scroll-text {
   font-family: var(--font-sans);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  opacity: 0.8;
+  color: var(--gold);
+  font-weight: bold;
 }
 
 /* MODAL STYLES */

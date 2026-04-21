@@ -1,12 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import InvitationContent from '@/components/InvitationContent';
-
-// Inicialización del cliente de Supabase
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 interface PageProps {
   params: { id: string };
@@ -28,6 +22,10 @@ export default async function InvitationPage({ params }: PageProps) {
   }
 
   return (
-    <InvitationContent guestName={guest.nombre_sobre} numberInvitations={guest.pases} />
+    <InvitationContent 
+      guestName={guest.nombre_sobre} 
+      numberInvitations={guest.pases} 
+      idInvitation={guest.id}
+    />
   );
 }
