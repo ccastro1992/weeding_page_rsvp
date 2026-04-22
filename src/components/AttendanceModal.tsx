@@ -232,6 +232,7 @@ export default function AttendanceModal({ isOpen, onClose, maxPasses, idInvitati
                     </div>
                   )}
                 </div>
+                <p className="text-xs font-sans mb-2" style={{color: "lightgray"}}>*Desmarca los invitados que no asistirán</p>
                 <hr className="mb-2" style={{border: "0.5px solid var(--gray-100)"}}/>
                 <div className="border-t border-gray-100 pt-4 text-center">
                   <p className="text-xs font-sans uppercase tracking-widest text-gray-400 mb-1">Total Confirmados</p>
