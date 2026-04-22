@@ -58,7 +58,6 @@ export default function Envelope({ onOpen, onOpenStart, guestName, numberInvitat
               No podíamos imaginar este paso tan importante sin las personas que han sido parte de nuestra historia.
               Hoy queremos celebrar este nuevo comienzo rodeados de su cariño.
             <br />
-            <br />
               ¡Prepárate para bailar y disfrutar con nosotros!
             <br />
             <br />

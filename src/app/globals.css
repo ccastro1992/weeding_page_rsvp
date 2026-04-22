@@ -453,7 +453,7 @@ body {
   font-family: var(--font-serif);
   color: var(--gray-500);
   font-size: 1.1rem;
-  line-height: 1.5;
+  line-height: 2;
 }
 
 .card-pases {
@@ -478,8 +478,8 @@ body {
   }
 
   .card-names {
-    font-size: 0.95rem;
-    line-height: 1.4;
+    font-size: 1.1rem;
+    line-height: 2;
   }
 
   .card-pases {
