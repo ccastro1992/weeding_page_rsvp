@@ -226,17 +226,24 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .lid-content,
 .flap-content {
   text-align: center;
   margin-top: 3.5rem;
   transition: opacity 0.4s ease;
+}
+
+@media (max-width: 480px) {
+  .lid-content,
+  .flap-content {
+    margin-top: 2rem;
+  }
+}
+
   /* display: flex;
   align-items: center; 
   justify-content: center;
   height: 100%;   */
-}
 
 .flap-bottom.open .flap-content {
   opacity: 0;
@@ -258,6 +265,12 @@ body {
   opacity: 0.8;
 }
 
+@media (max-width: 480px) {
+  .flap-text {
+    font-size: 1.2rem;
+  }
+}
+
 .lid-text {
   font-family: var(--font-cursive);
   color: var(--orange-dark);
@@ -265,6 +278,12 @@ body {
   margin-bottom: 0.5rem;
   font-style: italic;
   word-spacing: 2px;
+}
+
+@media (max-width: 480px) {
+  .lid-text {
+    font-size: 2.2rem;
+  }
 }
 
 .flap-click-hint {
@@ -393,6 +412,7 @@ body {
 }
 
 .card.visible {
+  border-radius: 12px;
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
@@ -434,6 +454,37 @@ body {
   color: var(--gray-500);
   font-size: 1.1rem;
   line-height: 1.5;
+}
+
+.card-pases {
+  font-size: 1.3rem;
+  color: black;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 35px 15px;
+    width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+  }
+
+  .card-divider {
+    margin: 20px auto;
+  }
+
+  .card-names {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .card-pases {
+    font-size: 1.1rem;
+  }
 }
 
 /* INVITATION SECTIONS STYLES */
