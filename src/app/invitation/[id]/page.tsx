@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import InvitationContent from '@/components/InvitationContent';
 import { Analytics } from "@vercel/analytics/next"
 
+export const revalidate = 0; // No cachear - actualiza siempre
+
 interface PageProps {
   params: { id: string };
 }
