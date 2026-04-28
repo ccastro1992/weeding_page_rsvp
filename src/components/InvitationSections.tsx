@@ -76,7 +76,7 @@ export const Hero = () => {
   return (
     <section className="section-hero flex flex-col items-center justify-center text-center overflow-hidden">
       <div ref={revealRef} className="z-10 reveal">
-        <img src="/img/logo.png" alt="Logo Boda" className="logo-hero" />
+        <img src="/img/logo2.png" alt="Logo Boda" className="logo-hero" />
         <p className="text-lg md:text-2xl font-serif italic text-gray-600 date-ceremony-text">Viernes 16 de Octubre de 2026</p>
         <div className="card-divider" />
         <Countdown />
@@ -124,8 +124,11 @@ export const Photos = () => {
   // Lista de fotos (puedes reemplazarlas por las fotos reales de la pareja)
   const photos = [
     { url: "/img/photo2.jpg", alt: "Nuestra Historia 2" },
-    { url: "/img/photo1.jpg", alt: "Nuestra Historia 1" },
+    { url: "/img/photo7.jpg", alt: "Nuestra Historia 2" },
+    { url: "/img/photo1.1.png", alt: "Nuestra Historia 1" },
+    { url: "/img/photo5.jpg", alt: "Nuestra Historia 5" },
     { url: "/img/photo3.jpg", alt: "Nuestra Historia 3" },
+    { url: "/img/photo6.jpg", alt: "Nuestra Historia 3" },
     { url: "/img/photo4.jpg", alt: "Nuestra Historia 4" },
   ];
 
