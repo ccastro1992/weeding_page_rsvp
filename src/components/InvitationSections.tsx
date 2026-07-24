@@ -90,7 +90,7 @@ export const Confirmation = ({ onConfirm }: { onConfirm?: () => void }) => {
   const revealRef = useReveal();
   return (
     <section className="section-confirmation items-center justify-center text-center ">
-        <p className="font-serif text-xl text-gray-500" style={{fontSize: "1.2rem", lineHeight: "2", margin: "0rem 2rem 2rem 2rem" }}>No queremos que te quedes sin comida. <br/> ¡Confírmanos antes del <b>16 de julio</b> o nos comeremos tu parte!</p>
+        <p className="font-serif text-xl text-gray-500" style={{fontSize: "1.2rem", lineHeight: "2", margin: "0rem 2rem 2rem 2rem" }}>No queremos que te quedes sin comida. <br/> ¡Confírmanos tu asistencia lo antes posible o nos comeremos tu parte!</p>
         <button 
           onClick={onConfirm}
           className="confirm-attendance btn-outline text-xs uppercase tracking-widest font-bold"
