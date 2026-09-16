@@ -6,11 +6,11 @@ import { Analytics } from "@vercel/analytics/next"
 export const revalidate = 0; // No cachear - actualiza siempre
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
 export default async function InvitationPage({ params }: PageProps) {
-  const { id } = await params;
+  const { id } = params;
   console.log('ID recibido:', id);
   // Consultar el nombre del invitado en Supabase
   const { data: guest, error } = await supabase
