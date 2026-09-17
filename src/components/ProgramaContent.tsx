@@ -39,73 +39,96 @@ export default function ProgramaContent() {
   ];
 
   return (
-    <div className="central-strip animate-fade-in flex flex-col justify-between" style={{ padding: "2.5rem 1rem 4rem 1rem", minHeight: "100vh" }}>
-      <div className="w-full max-w-[380px] mx-auto text-center px-2">
-        {/* LOGO OFICIAL DE LA INVITACIÓN */}
-        <div className="mb-2">
-          <img 
-            src="/img/logo2.png" 
-            alt="Kari & Cris" 
-            className="logo-hero mx-auto" 
-            style={{ maxWidth: "260px", width: "100%", height: "auto" }}
-          />
+    <div className="central-strip animate-fade-in" style={{ padding: "2.5rem 1rem 4rem 1rem", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+      <div style={{ width: "100%", maxWidth: "360px", margin: "0 auto", textAlign: "center" }}>
+
+        {/* LOGO */}
+        <div style={{ marginBottom: "0.75rem" }}>
+          <img src="/img/logo2.png" alt="Kari & Cris" className="logo-hero mx-auto" style={{ maxWidth: "320px", width: "100%", height: "auto" }} />
         </div>
 
-        {/* FECHA DEL EVENTO DEBAJO DEL LOGO */}
-        <p className="font-serif italic text-sm md:text-base text-gray-600 mb-2">
-          Viernes, 16 de Octubre 2026
+        {/* FECHA */}
+        <p className="font-serif italic" style={{ fontSize: "1.5rem", color: "#6b7280", marginBottom: "1.5rem", letterSpacing: "0.02em", fontWeight: "500" }}>
+          Viernes 16 de Octubre de 2026
         </p>
 
-        {/* TÍTULO ELEGANTE Y FINO */}
-        <div className="my-4">
-          <h1 className="font-serif text-3xl md:text-4xl text-orange-dark font-normal tracking-widest uppercase mb-1">
+        {/* TÍTULO */}
+        <div style={{ margin: "1rem 0 1.5rem 0" }}>
+          <h1 className="font-serif" style={{ fontSize: "2rem", color: "var(--orange-dark)", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase" }}>
             Programa
           </h1>
           <div className="card-divider" style={{ margin: "0.75rem auto 1.5rem auto" }} />
         </div>
 
-        {/* ITINERARIO DEL DÍA */}
-        <div className="sections-div">
+        {/* LÍNEA DE TIEMPO */}
+        <div style={{ position: "relative", paddingLeft: "36px", textAlign: "left", margin: "0 auto", maxWidth: "300px" }}>
+
+          {/* LÍNEA VERTICAL CONTINUA */}
+          <div style={{
+            position: "absolute",
+            left: "10px",
+            top: "8px",
+            bottom: "8px",
+            width: "2px",
+            backgroundColor: "var(--orange-dark)",
+            opacity: 0.35,
+          }} />
+
           {schedule.map((item, index) => {
             const Icon = item.icon;
             return (
-              <React.Fragment key={index}>
-                <div className="section-food mx-auto">
-                  <div className="flex items-center justify-center gap-1.5 mb-1 text-orange-dark opacity-90">
-                    <Icon size={16} className="shrink-0" />
-                    <span className="font-sans text-xs md:text-sm font-medium tracking-widest uppercase">
-                      {item.time}
-                    </span>
-                  </div>
-                  <h2 className="font-serif text-lg md:text-xl font-normal text-gray-800 mb-1 tracking-wide">
-                    {item.title}
-                  </h2>
-                  {item.location && (
-                    <p className="font-serif text-sm md:text-base text-gray-500 italic max-w-[320px] mx-auto" style={{ lineHeight: "1.5" }}>
-                      {item.location}
-                    </p>
-                  )}
+              <div key={index} style={{ position: "relative", marginBottom: "2rem" }}>
+
+                {/* PUNTO DORADO */}
+                <div style={{
+                  position: "absolute",
+                  left: "-30px",
+                  top: "4px",
+                  width: "14px",
+                  height: "14px",
+                  borderRadius: "50%",
+                  backgroundColor: "var(--orange-dark)",
+                  border: "2px solid white",
+                  boxShadow: "0 0 0 2px var(--orange-dark)",
+                  zIndex: 2,
+                }} />
+
+                {/* HORA E ÍCONO */}
+                <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "var(--orange-dark)" }}>
+                  <Icon size={15} />
+                  <span className="font-sans" style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                    {item.time}
+                  </span>
                 </div>
 
-                {index < schedule.length - 1 && (
-                  <div className="w-12 h-px bg-amber-200/60 mx-auto my-4" />
+                {/* TÍTULO */}
+                <h2 className="font-serif" style={{ fontSize: "1.1rem", fontWeight: 400, color: "#1f2937", marginBottom: "2px", lineHeight: 1.3 }}>
+                  {item.title}
+                </h2>
+
+                {/* UBICACIÓN */}
+                {item.location && (
+                  <p className="font-serif" style={{ fontSize: "0.85rem", color: "#9ca3af", fontStyle: "italic", lineHeight: 1.4 }}>
+                    {item.location}
+                  </p>
                 )}
-              </React.Fragment>
+              </div>
             );
           })}
         </div>
 
         {/* FRASE PUNTUALIDAD */}
-        <div className="pt-5 mt-6 border-t border-amber-200/60 text-center">
-          <p className="font-serif text-sm md:text-base text-orange-dark italic max-w-[320px] mx-auto" style={{ lineHeight: "1.6" }}>
-            "Les agradecemos de corazón llegar a tiempo para compartir juntos cada instante mágico de nuestro gran día."
+        <div style={{ borderTop: "1px solid rgba(212,175,55,0.3)", paddingTop: "1.25rem", marginTop: "1.5rem", textAlign: "center" }}>
+          <p className="font-serif" style={{ fontSize: "0.9rem", color: "var(--orange-dark)", fontStyle: "italic", lineHeight: "1.6", maxWidth: "300px", margin: "0 auto" }}>
+            ✨ Durante la recepción: Los invitamos a visitar nuestra estación de recuerdos. No se vayan sin tomarse su foto instantánea, escribirnos un mensaje y dejar su marca en el árbol de huellas.
           </p>
         </div>
+
       </div>
 
       {/* FOOTER */}
-      <div className="text-center mt-6">
-        <p className="team-marker font-sans text-xs uppercase tracking-widest text-gray-600">
+      <div style={{ textAlign: "center", marginTop: "1rem" }}>
+        <p className="team-marker font-sans" style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.15em", color: "#6b7280" }}>
           Kari & Cris • 2026
         </p>
       </div>
