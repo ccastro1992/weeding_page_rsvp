@@ -41,10 +41,10 @@ export default function MenuContent() {
               Primer Tiempo
             </p>
             <h2 className="font-serif text-sm md:text-base font-bold tracking-widest uppercase text-gray-800 mb-2">
-              Crema de Flor de Calabaza & Queso de Cabra
+              Vol-au-vent de pollo mechado en salsa pomodoro
             </h2>
             <p className="font-serif text-sm md:text-base text-gray-600 italic max-w-[320px] mx-auto" style={{ lineHeight: "1.6" }}>
-              Tersa crema artesanal con infusión de queso de cabra, crutones de ajo al romero y pepitas tostadas a la sal marina.
+              Crujiente hojaldre relleno de jugoso pollo desmechado, bañado en salsa pomodoro casera.
             </p>
           </div>
 
@@ -59,10 +59,10 @@ export default function MenuContent() {
               Segundo Tiempo
             </p>
             <h2 className="font-serif text-sm md:text-base font-bold tracking-widest uppercase text-gray-800 mb-2">
-              Medallón de Res en Vino Tinto
+              Medallón de lomo en salsa Strogonoff
             </h2>
             <p className="font-serif text-sm md:text-base text-gray-600 italic max-w-[320px] mx-auto" style={{ lineHeight: "1.6" }}>
-              En su jugo glaseado con reducción de vino tinto y champiñones portobello, servido con puré de papa al parmesano y espárragos.
+              Jugoso lomo de res, bañado en salsa Strogonoff tradicional, acompañado de croquetas de papa, arroz con choclo y vegetales al grill.
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export default function MenuContent() {
               Pastel de Bodas & Mesa de Dulces
             </h2>
             <p className="font-serif text-sm md:text-base text-gray-600 italic max-w-[320px] mx-auto" style={{ lineHeight: "1.6" }}>
-              Pastel nupcial artesanal, mignardises finas y barra de carajillos para dar inicio a la fiesta.
+              Bizcocho artesanal de naranja con crema de maracuyá, acompañado de bocadillos para dar inicio a la fiesta.
             </p>
           </div>
 
