@@ -44,7 +44,7 @@ export default function ProgramaContent() {
 
         {/* LOGO */}
         <div style={{ marginBottom: "0.75rem" }}>
-          <img src="/img/logo2.png" alt="Kari & Cris" className="logo-hero mx-auto" style={{ maxWidth: "320px", width: "100%", height: "auto" }} />
+          <img src="/img/logo2.png" alt="Kari & Cris" className="logo-hero mx-auto" style={{ maxWidth: "260px", width: "100%", height: "auto" }} />
         </div>
 
         {/* FECHA */}
