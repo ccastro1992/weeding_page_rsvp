@@ -1363,3 +1363,11 @@ body {
 .line-through {
   text-decoration: line-through;
 }
+
+.section-food {
+  margin-bottom: 2rem;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}

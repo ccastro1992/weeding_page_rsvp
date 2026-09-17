@@ -1,7 +1,8 @@
 "use client";
 
-import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift, Hourglass, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift, Hourglass, ChevronLeft, ChevronRight, Utensils } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 
 // --- Reveal Hook ---
 const useReveal = () => {
@@ -301,13 +302,23 @@ export const Party = () => {
             href="https://maps.app.goo.gl/XLjPCTHCHfirKvLr5"
             target="_blank"
             rel="noopener noreferrer"
-            className="map-link-container flex flex-col items-center gap-2"
+            className="map-link-container flex flex-col items-center gap-2 mb-6"
           >
             <div className="map-icon-wrapper">
               <MapPin style={{ width: "2rem", height: "2rem" }} />
             </div>
             <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver Ubicación</span>
           </a>
+
+          <div className="mt-4">
+            <Link
+              href="/menu"
+              className="btn-outline text-xs uppercase tracking-widest font-bold inline-flex items-center gap-2"
+              style={{ textDecoration: "none" }}
+            >
+              <Utensils size={16} /> Ver Menú de 2 Tiempos
+            </Link>
+          </div>
         </div>
       </div>
     </section>
