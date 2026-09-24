@@ -309,16 +309,6 @@ export const Party = () => {
             </div>
             <span className="text-xs uppercase tracking-widest text-orange-dark mt-2 font-bold">Ver Ubicación</span>
           </a>
-
-          <div className="mt-4">
-            <Link
-              href="/menu"
-              className="btn-outline text-xs uppercase tracking-widest font-bold inline-flex items-center gap-2"
-              style={{ textDecoration: "none" }}
-            >
-              <Utensils size={16} /> Ver Menú de 2 Tiempos
-            </Link>
-          </div>
         </div>
       </div>
     </section>
