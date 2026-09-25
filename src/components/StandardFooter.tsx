@@ -8,7 +8,7 @@ export default function StandardFooter({ showHomeLink = false }: StandardFooterP
   return (
     <footer className="standard-footer">
       {showHomeLink && <FloatingHomeButton />}
-      {/* <p className="team-marker font-sans">Kari &amp; Cris • 2026</p> */}
+      <p className="team-marker font-sans">Kari &amp; Cris • 2026</p>
     </footer>
   );
 }
