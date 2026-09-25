@@ -60,6 +60,33 @@ body {
   font-family: var(--font-serif);
 }
 
+.standard-item-label {
+  margin-bottom: 0.25rem;
+  color: var(--orange-dark);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.standard-item-title {
+  margin-bottom: 0.125rem;
+  color: var(--text-dark);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.standard-item-description {
+  color: var(--gray-400);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
 /* Seating lookup */
 .mesas-page {
   width: 100%;
@@ -74,21 +101,21 @@ body {
 
 .standard-header {
   width: 100%;
-  max-width: 360px;
+  max-width: 340px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 1rem;
+  padding: 1.25rem 1.25rem 0.75rem;
   text-align: center;
 }
 
 .wedding-logo {
   width: 100%;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: center;
 }
 
 .wedding-logo img {
-  width: min(240px, 100%);
+  width: min(200px, 100%);
   height: auto;
   object-fit: contain;
 }
@@ -100,9 +127,18 @@ body {
   color: var(--gray-600);
 }
 
-.standard-header-date { font-size: 1.15rem; }
+.standard-header-date { font-size: 1rem; }
 .mesas-intro { margin-top: 0.75rem; font-size: 1.05rem; }
-.standard-header h1 { font: 400 2rem var(--font-serif); color: var(--text-dark); }
+.standard-header h1 { font: 400 1.65rem var(--font-serif); color: var(--text-dark); }
+
+.standard-header .standard-divider {
+  margin: 0.85rem 0;
+}
+
+.standard-header .standard-divider svg {
+  width: 15px;
+  height: 15px;
+}
 
 .mesas-venue {
   margin-top: 0.5rem;
@@ -350,7 +386,7 @@ body {
 
 @media (max-width: 420px) {
   .standard-header { padding-inline: 1rem; }
-  .standard-header h1 { font-size: 1.7rem; }
+  .standard-header h1 { font-size: 1.5rem; }
   .mesas-panel { padding: 1.2rem; }
   .mesas-table { font-size: 1.6rem; }
 }
@@ -969,7 +1005,7 @@ body {
 }
 
 .logo-hero {
-  width: 25em;
+  width: 16.5em;
   height: auto;
 }
 
@@ -1675,4 +1711,9 @@ body {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.menu-section-icon {
+  margin: 0 auto 0.65rem;
+  color: var(--orange-dark);
 }

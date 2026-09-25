@@ -81,19 +81,19 @@ export default function ProgramaContent() {
                 {/* HORA E ÍCONO */}
                 <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", color: "var(--orange-dark)" }}>
                   <Icon size={15} />
-                  <span className="font-sans" style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                  <span className="standard-item-label">
                     {item.time}
                   </span>
                 </div>
 
                 {/* TÍTULO */}
-                <h2 style={{ fontSize: "1.1rem", fontWeight: 400, color: "#1f2937", marginBottom: "2px", lineHeight: 1.3 }}>
+                <h2 className="standard-item-title">
                   {item.title}
                 </h2>
 
                 {/* UBICACIÓN */}
                 {item.location && (
-                  <p style={{ fontSize: "0.85rem", color: "#9ca3af", fontStyle: "italic", lineHeight: 1.4 }}>
+                  <p className="standard-item-description">
                     {item.location}
                   </p>
                 )}
