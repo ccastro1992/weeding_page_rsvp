@@ -3,6 +3,7 @@
 import { Calendar, Clock, MapPin, ExternalLink, Mail, Shirt, Gift, Hourglass, ChevronLeft, ChevronRight, Utensils } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { EVENT_LOCATIONS } from "@/lib/event";
 
 // --- Reveal Hook ---
 const useReveal = () => {
@@ -238,7 +239,7 @@ export const Ceremony = () => {
           </div>
 
           <a
-            href="https://maps.app.goo.gl/hM5qn9CnuzkfKSzMA"
+            href={EVENT_LOCATIONS.church}
             target="_blank"
             rel="noopener noreferrer"
             className="map-link-container flex flex-col items-center gap-2"
@@ -299,7 +300,7 @@ export const Party = () => {
             </div>
 
           <a
-            href="https://maps.app.goo.gl/XLjPCTHCHfirKvLr5"
+            href={EVENT_LOCATIONS.venue}
             target="_blank"
             rel="noopener noreferrer"
             className="map-link-container flex flex-col items-center gap-2 mb-6"

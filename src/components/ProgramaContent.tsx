@@ -111,7 +111,7 @@ export default function ProgramaContent() {
 
       </div>
 
-      <StandardFooter />
+      <StandardFooter showHomeLink />
     </div>
   );
 }

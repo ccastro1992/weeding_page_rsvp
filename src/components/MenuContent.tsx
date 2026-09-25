@@ -50,7 +50,7 @@ export default function MenuContent() {
         </div>
       </div>
 
-      <StandardFooter />
+      <StandardFooter showHomeLink />
     </div>
   );
 }
