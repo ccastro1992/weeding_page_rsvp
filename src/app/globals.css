@@ -212,6 +212,61 @@ body {
   font-size: 0.7rem;
 }
 
+/* Cocktail menu */
+.cocktails-content {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cocktails-intro {
+  margin: 0 auto 1rem;
+  padding: 0 1rem;
+  color: var(--gray-500);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
+.cocktails-list {
+  width: calc(100% - 2rem);
+  margin: 0 auto;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.cocktail-item {
+  min-height: 68px;
+  padding: 0.75rem 0.25rem;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  text-align: left;
+}
+
+.cocktail-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-radius: 50%;
+  color: var(--orange-dark);
+}
+
+.cocktail-item h2 {
+  color: var(--text-dark);
+  font: 500 1.15rem var(--font-serif);
+}
+
+.cocktail-item p {
+  margin-top: 0.1rem;
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
 /* Seating lookup */
 .mesas-page {
   width: 100%;
@@ -563,6 +618,8 @@ body {
   .home-navigation { gap: 0.6rem; }
   .home-navigation-item { min-height: 105px; padding: 0.75rem 0.5rem; gap: 0.45rem; }
   .home-navigation-icon { width: 38px; height: 38px; }
+  .cocktails-intro { margin-bottom: 0.6rem; }
+  .cocktail-item { min-height: 62px; padding-block: 0.55rem; }
   .mesas-search { margin-bottom: 1rem; }
   .mesas-results { padding-bottom: 1rem; }
   .mesas-panel { padding: 1rem; }

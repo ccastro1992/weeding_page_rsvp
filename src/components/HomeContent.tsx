@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CalendarDays, Church, Gift, LayoutGrid, MapPin, Utensils } from 'lucide-react';
+import { CalendarDays, Church, Gift, Images, LayoutGrid, MapPin, Martini, Utensils } from 'lucide-react';
 import { useState } from 'react';
 import BankInfoModal from '@/components/BankInfoModal';
 import StandardFooter from '@/components/StandardFooter';
@@ -11,6 +11,7 @@ import { EVENT_LOCATIONS } from '@/lib/event';
 const navigationItems = [
   { href: '/mesas', label: 'Mesas', description: 'Encuentra tu lugar', icon: LayoutGrid },
   { href: '/menu', label: 'Menú', description: 'Conoce los tiempos', icon: Utensils },
+  { href: '/cocteles', label: 'Cócteles', description: 'Descubre la barra libre', icon: Martini },
   { href: '/programa', label: 'Programa', description: 'Consulta el itinerario', icon: CalendarDays },
 ] as const;
 
@@ -68,6 +69,21 @@ export default function HomeContent() {
               </span>
             </Link>
           ))}
+
+          <a
+            href="https://photos.app.goo.gl/1bKvh4RMLJT1htgC6"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="home-navigation-item"
+          >
+            <span className="home-navigation-icon" aria-hidden="true">
+              <Images size={24} strokeWidth={1.5} />
+            </span>
+            <span>
+              <strong>Álbum</strong>
+              <small>Comparte tus fotos</small>
+            </span>
+          </a>
 
           <button
             type="button"
