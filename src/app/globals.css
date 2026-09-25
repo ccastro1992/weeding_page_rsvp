@@ -148,7 +148,7 @@ body {
   margin: 0 auto 1.25rem;
   padding: 0 1rem;
   color: var(--gray-500);
-  font-size: 0.85rem;
+  font-size: 0.70rem;
   line-height: 1.5;
   text-align: center;
 }
@@ -601,9 +601,9 @@ body {
 
 @media (max-width: 420px) {
   .standard-content-page { padding: 0 0.75rem 1rem; }
-  .standard-header { padding: 0.75rem 1rem 0.5rem; }
+  .standard-header { padding: 0.2rem 1rem 0rem; }
   .wedding-logo { margin-bottom: 0.3rem; }
-  .wedding-logo img { width: min(170px, 100%); }
+  .wedding-logo img { width: min(160px, 100%); }
   .standard-header-date { font-size: 1.1rem; }
   .standard-header .standard-divider { margin: 0.55rem 0; }
   .standard-header h1 { font-size: 1.4rem; }

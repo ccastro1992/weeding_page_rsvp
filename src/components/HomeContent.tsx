@@ -10,9 +10,9 @@ import { EVENT_LOCATIONS } from '@/lib/event';
 
 const navigationItems = [
   { href: '/mesas', label: 'Mesas', description: 'Encuentra tu lugar', icon: LayoutGrid },
+  { href: '/programa', label: 'Programa', description: 'Consulta el itinerario', icon: CalendarDays },
   { href: '/menu', label: 'Menú', description: 'Conoce los tiempos', icon: Utensils },
   { href: '/cocteles', label: 'Cócteles', description: 'Descubre la barra libre', icon: Martini },
-  { href: '/programa', label: 'Programa', description: 'Consulta el itinerario', icon: CalendarDays },
 ] as const;
 
 export default function HomeContent() {
@@ -24,7 +24,7 @@ export default function HomeContent() {
         <StandardHeader title="Nuestra Boda" />
 
         <p className="home-intro">
-          Todo lo que necesitas para acompañarnos en este día especial.
+          Todo lo que necesitas para acompañarnos en nuestro día.
         </p>
 
         <nav className="home-navigation" aria-label="Información de la boda">
