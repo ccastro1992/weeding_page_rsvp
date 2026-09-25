@@ -95,8 +95,13 @@ export default function MesasContent() {
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           onKeyDown={(event) => {
-            if (event.key === 'Enter') runSearch(searchTerm);
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              event.currentTarget.blur();
+              runSearch(searchTerm);
+            }
           }}
+          enterKeyHint="search"
           placeholder="Busca por tu nombre o apellido..."
           aria-label="Buscar por nombre o apellido"
           autoComplete="off"

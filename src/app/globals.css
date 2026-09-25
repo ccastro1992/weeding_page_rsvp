@@ -228,6 +228,7 @@ body {
   width: 100%;
   max-width: 340px;
   margin: 0 auto;
+  margin-bottom: 0.8rem;
   padding: 1.25rem 1.25rem 0.75rem;
   text-align: center;
 }
@@ -516,11 +517,11 @@ body {
 
 .standard-footer-home {
   position: fixed;
-  right: max(1rem, calc(50% - 284px));
+  left: max(1rem, calc(50% - 284px));
   bottom: calc(1rem + env(safe-area-inset-bottom));
   z-index: 300;
-  width: 46px;
-  height: 46px;
+  width: 60px;
+  height: 60px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
