@@ -1,14 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: '/mesas',
-        destination: 'https://weddingseatingchart.vercel.app/',
-        permanent: false,
-      },
-    ];
-  },
+	allowedDevOrigins: ['192.168.3.49'],
 };
 
 export default nextConfig;

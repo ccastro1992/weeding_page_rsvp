@@ -50,6 +50,311 @@ body {
   overflow-x: hidden;
 }
 
+.standard-typography {
+  font-family: var(--font-sans);
+}
+
+.standard-typography h1,
+.standard-typography h2,
+.standard-typography h3 {
+  font-family: var(--font-serif);
+}
+
+/* Seating lookup */
+.mesas-page {
+  width: 100%;
+  max-width: 640px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.28);
+}
+
+.standard-header {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1rem;
+  text-align: center;
+}
+
+.wedding-logo {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.wedding-logo img {
+  width: min(240px, 100%);
+  height: auto;
+  object-fit: contain;
+}
+
+.standard-header-date,
+.mesas-intro {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gray-600);
+}
+
+.standard-header-date { font-size: 1.15rem; }
+.mesas-intro { margin-top: 0.75rem; font-size: 1.05rem; }
+.standard-header h1 { font: 400 2rem var(--font-serif); color: var(--text-dark); }
+
+.mesas-venue {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--gray-500);
+  font-size: 0.85rem;
+}
+
+.mesas-venue svg,
+.mesas-accent,
+.mesas-search > svg,
+.standard-divider svg { color: var(--gold-dark); }
+
+.standard-divider {
+  width: 100%;
+  margin: 1.25rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.standard-divider span {
+  width: 5.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  opacity: 0.55;
+}
+
+.standard-divider span:last-child { transform: scaleX(-1); }
+
+.mesas-search {
+  position: relative;
+  width: calc(100% - 2rem);
+  max-width: 34rem;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.mesas-search > svg {
+  position: absolute;
+  left: 1rem;
+  pointer-events: none;
+}
+
+.mesas-search input {
+  width: 100%;
+  padding: 0.9rem 3rem;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 2rem;
+  outline: none;
+  color: var(--text-dark);
+  background: var(--white);
+  font: 0.9rem var(--font-sans);
+}
+
+.mesas-search input:focus {
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+.mesas-search button {
+  position: absolute;
+  right: 0.9rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--gray-500);
+  cursor: pointer;
+}
+
+.mesas-spin { animation: mesas-spin 0.8s linear infinite; }
+@keyframes mesas-spin { to { transform: rotate(360deg); } }
+
+.mesas-results {
+  flex: 1;
+  padding: 0 1rem 2rem;
+}
+
+.mesas-panel {
+  width: 100%;
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 8px;
+  background: var(--white);
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+  animation: mesas-enter 0.4s ease both;
+}
+
+@keyframes mesas-enter {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+.mesas-panel h2 { margin: 0.4rem 0 0.75rem; font: 500 1.65rem var(--font-serif); }
+.mesas-panel > p:not(.mesas-eyebrow) { color: var(--gray-500); line-height: 1.6; font-size: 0.9rem; }
+
+.mesas-help ol {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--cream-dark);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+}
+
+.mesas-help li { display: flex; flex-direction: column; gap: 0.2rem; color: var(--gray-500); font-size: 0.7rem; }
+.mesas-help strong { color: var(--gold-dark); font: 500 1.4rem var(--font-serif); }
+.mesas-empty > svg { color: var(--gold-dark); }
+
+.mesas-primary {
+  margin-top: 1.25rem;
+  padding: 0.7rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--gold-dark);
+  border-radius: 2rem;
+  background: var(--gold-dark);
+  color: var(--white);
+  cursor: pointer;
+  font: 500 0.75rem var(--font-sans);
+  text-transform: uppercase;
+}
+
+.mesas-eyebrow {
+  color: var(--eucalyptus-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.mesas-list { max-height: 18rem; overflow-y: auto; }
+
+.mesas-list > button {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--cream-dark);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--text-dark);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mesas-list > button:hover { border-color: var(--gold); }
+.mesas-list strong { display: block; font: 500 1.05rem var(--font-serif); }
+.mesas-list small { display: block; margin-top: 0.2rem; color: var(--gray-500); }
+
+.mesas-avatar {
+  width: 2rem;
+  height: 2rem;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 50%;
+  color: var(--gold-dark);
+  font-family: var(--font-serif);
+}
+
+.mesas-badge {
+  padding: 0.3rem 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 2rem;
+  color: var(--gold-dark);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.mesas-seat > h2 { margin-top: 1rem; font-size: 2.1rem; }
+.mesas-seat .standard-divider { margin: 0.9rem 0; }
+
+.mesas-table {
+  margin: 0.6rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  color: var(--text-dark);
+  font: 600 2rem var(--font-serif);
+}
+
+.mesas-table svg { color: var(--gold-dark); }
+
+.mesas-family {
+  padding-top: 1rem;
+  border-top: 1px solid var(--cream-dark);
+  text-align: left;
+}
+
+.mesas-family h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: var(--eucalyptus-dark);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.mesas-family ul { margin-top: 0.75rem; list-style: none; }
+.mesas-family li { margin-top: 0.5rem; padding: 0.5rem; display: flex; align-items: center; gap: 0.75rem; border: 1px solid var(--cream-dark); border-radius: 8px; font-family: var(--font-serif); }
+
+.mesas-reset {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: var(--gold-dark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.standard-footer {
+  margin-top: 1.5rem;
+  padding: 0 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.standard-footer p {
+  color: var(--gray-600);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 420px) {
+  .standard-header { padding-inline: 1rem; }
+  .standard-header h1 { font-size: 1.7rem; }
+  .mesas-panel { padding: 1.2rem; }
+  .mesas-table { font-size: 1.6rem; }
+}
+
 /* Layout Strip */
 .central-strip {
   max-width: 600px;
