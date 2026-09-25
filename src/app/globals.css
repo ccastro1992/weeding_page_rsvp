@@ -87,6 +87,50 @@ body {
   line-height: 1.4;
 }
 
+.standard-content-page {
+  min-height: 100vh;
+  padding: 0 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-section-divider {
+  width: 3rem;
+  height: 1px;
+  margin: 0.75rem auto;
+  background: rgba(212, 175, 55, 0.35);
+}
+
+.program-schedule {
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto;
+  padding-left: 36px;
+  text-align: left;
+}
+
+.program-schedule-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.program-note {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  text-align: center;
+}
+
+.program-note p {
+  max-width: 300px;
+  margin: 0 auto;
+  color: var(--orange-dark);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
 /* Seating lookup */
 .mesas-page {
   width: 100%;
@@ -240,8 +284,8 @@ body {
   from { opacity: 0; transform: translateY(10px); }
 }
 
-.mesas-panel h2 { margin: 0.4rem 0 0.75rem; font: 500 1.65rem var(--font-serif); }
-.mesas-panel > p:not(.mesas-eyebrow) { color: var(--gray-500); line-height: 1.6; font-size: 0.9rem; }
+.mesas-panel h2 { margin: 0.4rem 0 0.75rem; font: 500 1.3rem var(--font-serif); }
+.mesas-panel > p:not(.mesas-eyebrow) { color: var(--gray-500); line-height: 1.6; font-size: 0.75rem; }
 
 .mesas-help ol {
   margin-top: 1.5rem;
@@ -252,7 +296,7 @@ body {
   list-style: none;
 }
 
-.mesas-help li { display: flex; flex-direction: column; gap: 0.2rem; color: var(--gray-500); font-size: 0.7rem; }
+.mesas-help li { display: flex; flex-direction: column; gap: 0.2rem; color: var(--gray-500); font-size: 0.75rem; }
 .mesas-help strong { color: var(--gold-dark); font: 500 1.4rem var(--font-serif); }
 .mesas-empty > svg { color: var(--gold-dark); }
 
@@ -385,9 +429,24 @@ body {
 }
 
 @media (max-width: 420px) {
-  .standard-header { padding-inline: 1rem; }
-  .standard-header h1 { font-size: 1.5rem; }
-  .mesas-panel { padding: 1.2rem; }
+  .standard-content-page { padding: 0 0.75rem 1rem; }
+  .standard-header { padding: 0.75rem 1rem 0.5rem; }
+  .wedding-logo { margin-bottom: 0.3rem; }
+  .wedding-logo img { width: min(170px, 100%); }
+  .standard-header-date { font-size: 1.1rem; }
+  .standard-header .standard-divider { margin: 0.55rem 0; }
+  .standard-header h1 { font-size: 1.4rem; }
+  .standard-footer { margin-top: 0.75rem; padding-bottom: 0.75rem; }
+  .section-food { width: 88%; margin-bottom: 0.75rem; }
+  .menu-section-icon { margin-bottom: 0.4rem; width: 24px; height: 24px; }
+  .menu-section-divider { margin: 0.5rem auto 0.75rem; }
+  .program-schedule-item { margin-bottom: 1rem; }
+  .program-note { margin-top: 0.5rem; padding-top: 0.75rem; }
+  .program-note p { font-size: 0.7rem; line-height: 1.45; }
+  .mesas-search { margin-bottom: 1rem; }
+  .mesas-results { padding-bottom: 1rem; }
+  .mesas-panel { padding: 1rem; }
+  .mesas-help ol { margin-top: 1rem; padding-top: 0.75rem; }
   .mesas-table { font-size: 1.6rem; }
 }
 
@@ -1716,4 +1775,34 @@ body {
 .menu-section-icon {
   margin: 0 auto 0.65rem;
   color: var(--orange-dark);
+}
+
+@media (max-width: 420px) {
+  .sections-div .section-food {
+    width: 90%;
+    margin-bottom: 0.5rem;
+  }
+
+  .sections-div .menu-section-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.25rem;
+  }
+
+  .sections-div .standard-item-label {
+    font-size: 0.7rem;
+  }
+
+  .sections-div .standard-item-title {
+    font-size: 1rem;
+  }
+
+  .sections-div .standard-item-description {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .standard-footer .team-marker {
+    margin-top: 0;
+  }
 }

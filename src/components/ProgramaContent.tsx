@@ -41,12 +41,12 @@ export default function ProgramaContent() {
   ];
 
   return (
-    <div className="central-strip animate-fade-in" style={{ padding: "0 1rem 4rem", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+    <div className="standard-content-page central-strip animate-fade-in">
       <div className="standard-typography" style={{ width: "100%", maxWidth: "360px", margin: "0 auto", textAlign: "center" }}>
         <StandardHeader title="Programa" />
 
         {/* LÍNEA DE TIEMPO */}
-        <div style={{ position: "relative", paddingLeft: "36px", textAlign: "left", margin: "0 auto", maxWidth: "300px" }}>
+        <div className="program-schedule">
 
           {/* LÍNEA VERTICAL CONTINUA */}
           <div style={{
@@ -62,7 +62,7 @@ export default function ProgramaContent() {
           {schedule.map((item, index) => {
             const Icon = item.icon;
             return (
-              <div key={index} style={{ position: "relative", marginBottom: "2rem" }}>
+              <div key={index} className="program-schedule-item">
 
                 {/* PUNTO DORADO */}
                 <div style={{
@@ -103,8 +103,8 @@ export default function ProgramaContent() {
         </div>
 
         {/* FRASE PUNTUALIDAD */}
-        <div style={{ borderTop: "1px solid rgba(212,175,55,0.3)", paddingTop: "1.25rem", marginTop: "1.5rem", textAlign: "center" }}>
-          <p style={{ fontSize: "0.9rem", color: "var(--orange-dark)", fontStyle: "italic", lineHeight: "1.6", maxWidth: "300px", margin: "0 auto" }}>
+        <div className="program-note">
+          <p>
             ✨ Durante la recepción: Los invitamos a visitar nuestra estación de recuerdos. No se vayan sin tomarse su foto instantánea, escribirnos un mensaje y dejar su marca en el árbol de huellas.
           </p>
         </div>

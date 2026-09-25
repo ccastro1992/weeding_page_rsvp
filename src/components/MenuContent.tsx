@@ -28,7 +28,7 @@ const menuSections = [
 
 export default function MenuContent() {
   return (
-    <div className="central-strip animate-fade-in flex flex-col justify-between" style={{ padding: "0 1rem 4rem", minHeight: "100vh" }}>
+    <div className="standard-content-page central-strip animate-fade-in flex flex-col justify-between">
       <div className="standard-typography w-full max-w-[380px] mx-auto text-center px-2">
         <StandardHeader title="Menú" />
 
@@ -43,7 +43,7 @@ export default function MenuContent() {
                 <p className="standard-item-description">{description}</p>
               </section>
               {index < menuSections.length - 1 && (
-                <div className="w-12 h-px bg-amber-200/60 mx-auto opacity-60 my-4" />
+                <div className="menu-section-divider" />
               )}
             </React.Fragment>
           ))}
