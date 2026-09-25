@@ -54,7 +54,7 @@ export default function ProgramaContent() {
 
         {/* TÍTULO */}
         <div style={{ margin: "1rem 0 1.5rem 0" }}>
-          <h1 className="font-serif" style={{ fontSize: "2rem", color: "var(--orange-dark)", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase" }}>
+          <h1 className="font-serif" style={{ fontSize: "1.2rem", color: "var(--orange-dark)", fontWeight: 400, letterSpacing: "0.2em", textTransform: "uppercase" }}>
             Programa
           </h1>
           <div className="card-divider" style={{ margin: "0.75rem auto 1.5rem auto" }} />
