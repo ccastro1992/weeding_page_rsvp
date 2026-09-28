@@ -296,7 +296,7 @@ body {
 }
 
 .wedding-logo img {
-  width: min(200px, 100%);
+  width: min(120px, 100%);
   height: auto;
   object-fit: contain;
 }
@@ -573,7 +573,7 @@ body {
 .standard-footer-home {
   position: fixed;
   left: max(1rem, calc(50% - 284px));
-  bottom: calc(1rem + env(safe-area-inset-bottom));
+  bottom: calc(2rem + env(safe-area-inset-bottom));
   z-index: 300;
   width: 60px;
   height: 60px;
@@ -603,8 +603,8 @@ body {
   .standard-content-page { padding: 0 0.75rem 1rem; }
   .standard-header { padding: 0.2rem 1rem 0rem; }
   .wedding-logo { margin-bottom: 0.3rem; }
-  .wedding-logo img { width: min(160px, 100%); }
-  .standard-header-date { font-size: 1.1rem; }
+  .wedding-logo img { width: min(90px, 100%); }
+  .standard-header-date { font-size: 1rem; }
   .standard-header .standard-divider { margin: 0.55rem 0; }
   .standard-header h1 { font-size: 1.4rem; }
   .standard-footer { margin-top: 0.75rem; padding-bottom: 0.75rem; }
