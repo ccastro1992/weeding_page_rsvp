@@ -58,6 +58,30 @@ export default function HomeContent() {
             </span>
           </a>
 
+          <Link href="/recuerdos" className="home-navigation-item">
+            <span className="home-navigation-icon" aria-hidden="true">
+              <Mic size={24} strokeWidth={1.5} />
+            </span>
+            <span>
+              <strong>Buenos Deseos</strong>
+              <small>Déjanos un mensaje</small>
+            </span>
+          </Link>
+
+          <button
+            type="button"
+            className="home-navigation-item"
+            onClick={() => setIsBankModalOpen(true)}
+          >
+            <span className="home-navigation-icon" aria-hidden="true">
+              <Gift size={24} strokeWidth={1.5} />
+            </span>
+            <span>
+              <strong>Regalos</strong>
+              <small>Ver código QR</small>
+            </span>
+          </button>
+
           {navigationItems.map(({ href, label, description, icon: Icon }) => (
             <Link key={href} href={href} className="home-navigation-item">
               <span className="home-navigation-icon" aria-hidden="true">
@@ -84,30 +108,6 @@ export default function HomeContent() {
               <small>Comparte tus fotos</small>
             </span>
           </a>
-
-          <button
-            type="button"
-            className="home-navigation-item"
-            onClick={() => setIsBankModalOpen(true)}
-          >
-            <span className="home-navigation-icon" aria-hidden="true">
-              <Gift size={24} strokeWidth={1.5} />
-            </span>
-            <span>
-              <strong>Regalos</strong>
-              <small>Ver código QR</small>
-            </span>
-          </button>
-
-          <Link href="/recuerdos" className="home-navigation-item">
-            <span className="home-navigation-icon" aria-hidden="true">
-              <Mic size={24} strokeWidth={1.5} />
-            </span>
-            <span>
-              <strong>Buenos Deseos</strong>
-              <small>Déjanos un mensaje</small>
-            </span>
-          </Link>
         </nav>
       </div>
 

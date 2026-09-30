@@ -203,6 +203,7 @@ export default function RecuerdosContent() {
   const sendAnother = () => {
     clearAudio();
     clearSelfie();
+    setNombre('');
     setTexto('');
     setMicError(null);
     setFormError(null);

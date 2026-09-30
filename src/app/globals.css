@@ -583,10 +583,15 @@ body {
   outline: none;
   color: var(--text-dark);
   background: var(--white);
-  /* 16px evita el zoom automático de iOS al enfocar */
-  font: 1rem var(--font-sans);
+  /* Mínimo 16px evita el zoom automático de iOS al enfocar */
+  font: 1.1rem/1.5 var(--font-serif);
   -webkit-appearance: none;
   appearance: none;
+}
+
+.recuerdos-input::placeholder {
+  color: var(--gray-400);
+  opacity: 1;
 }
 
 .recuerdos-input:focus {
@@ -597,9 +602,6 @@ body {
 .recuerdos-textarea {
   min-height: 6.5rem;
   resize: vertical;
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  line-height: 1.5;
 }
 
 .recuerdos-counter {
