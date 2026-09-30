@@ -197,7 +197,7 @@ export default function RecuerdosContent() {
     setFormError(null);
 
     if (!nombre.trim()) {
-      setFormError('Escribe tu nombre para saber de quién es el recuerdo.');
+      setFormError('Escribe tu nombre para saber de quién es el mensaje.');
       return;
     }
     if (!audioBlob && !texto.trim()) {
