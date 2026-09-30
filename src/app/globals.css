@@ -652,12 +652,29 @@ body {
   border-color: var(--orange-dark);
   background: var(--orange-dark);
   color: var(--white);
-  animation: recuerdos-pulse 1.4s ease-out infinite;
+  position: relative;
+}
+
+.recuerdos-record.is-recording::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--orange-dark);
+  animation: recuerdos-pulse 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
 @keyframes recuerdos-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(156, 88, 11, 0.45); }
-  100% { box-shadow: 0 0 0 18px rgba(156, 88, 11, 0); }
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
 }
 
 .recuerdos-timer {

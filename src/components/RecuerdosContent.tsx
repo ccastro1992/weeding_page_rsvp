@@ -129,10 +129,11 @@ export default function RecuerdosContent() {
 
     let stream: MediaStream;
     try {
-      // echoCancellation: false evita que Android/iOS active el modo de llamada telefónica (VOIP/MODE_IN_COMMUNICATION),
-      // el cual congela/secuestra los controles de volumen físico y altera el hardware de audio cuando no hay audífonos.
+      // channelCount: 1 y echoCancellation: false evitan que Android/iOS active el modo de llamada telefónica (VOIP/MODE_IN_COMMUNICATION)
+      // y obligue al hardware a mezclar en estéreo o activar filtros de cancelación de eco pesados.
       stream = await navigator.mediaDevices.getUserMedia({
         audio: {
+          channelCount: 1,
           echoCancellation: false,
           noiseSuppression: false,
           autoGainControl: false,
@@ -141,22 +142,39 @@ export default function RecuerdosContent() {
     } catch {
       try {
         stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
+          audio: {
+            channelCount: 1,
+            echoCancellation: false,
+          },
         });
-      } catch (error) {
-        if (recordingSessionRef.current !== session) return;
-        stopStream();
-        setRecorderState('idle');
-        const denied = error instanceof DOMException && error.name === 'NotAllowedError';
-        setMicError(
-          denied
-            ? 'No tenemos permiso para usar el micrófono. Actívalo en la configuración del navegador o déjanos un mensaje de texto.'
-            : 'No pudimos acceder al micrófono. Puedes dejarnos un mensaje de texto.'
-        );
-        return;
+      } catch {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+        } catch (error) {
+          if (recordingSessionRef.current !== session) return;
+          stopStream();
+          setRecorderState('idle');
+          const denied = error instanceof DOMException && error.name === 'NotAllowedError';
+          setMicError(
+            denied
+              ? 'No tenemos permiso para usar el micrófono. Actívalo en la configuración del navegador o déjanos un mensaje de texto.'
+              : 'No pudimos acceder al micrófono. Puedes dejarnos un mensaje de texto.'
+          );
+          return;
+        }
       }
     }
 
+    if (recordingSessionRef.current !== session) {
+      stream.getTracks().forEach((track) => track.stop());
+      return;
+    }
+
+    // Breve pausa (150ms) para que el controlador de audio y los búferes del sistema
+    // se estabilicen antes de comenzar la codificación de medios.
+    await new Promise((resolve) => setTimeout(resolve, 150));
     if (recordingSessionRef.current !== session) {
       stream.getTracks().forEach((track) => track.stop());
       return;
@@ -166,12 +184,21 @@ export default function RecuerdosContent() {
     let recorder: MediaRecorder;
     streamRef.current = stream;
     try {
-      recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+      recorder = new MediaRecorder(
+        stream,
+        mimeType
+          ? { mimeType, audioBitsPerSecond: 64000 }
+          : { audioBitsPerSecond: 64000 }
+      );
     } catch {
-      stopStream();
-      setRecorderState('idle');
-      setMicError('Tu navegador no permite grabar audio. Puedes dejarnos un mensaje de texto.');
-      return;
+      try {
+        recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+      } catch {
+        stopStream();
+        setRecorderState('idle');
+        setMicError('Tu navegador no permite grabar audio. Puedes dejarnos un mensaje de texto.');
+        return;
+      }
     }
 
     const chunks: Blob[] = [];
@@ -216,7 +243,7 @@ export default function RecuerdosContent() {
       stopRecording();
     };
     try {
-      recorder.start();
+      recorder.start(1000);
     } catch {
       stopStream();
       setRecorderState('idle');
