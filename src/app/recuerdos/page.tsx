@@ -2,7 +2,7 @@ import RecuerdosContent from "@/components/RecuerdosContent";
 import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
-  title: "Déjanos un Recuerdo | Boda Kari & Cris",
+  title: "Buenos Deseos | Boda Kari & Cris",
   description: "Déjanos un mensaje de voz o texto y una selfie como recuerdo de nuestra boda.",
 };
 

@@ -237,7 +237,7 @@ export default function RecuerdosContent() {
 
   return (
     <main className="mesas-page recuerdos-page animate-fade-in">
-      <StandardHeader title="Déjanos un Recuerdo" />
+      <StandardHeader title="Tus Buenos Deseos" />
 
       {status === 'sent' ? (
         <section className="mesas-results" aria-live="polite">
