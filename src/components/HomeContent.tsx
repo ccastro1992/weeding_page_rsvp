@@ -2,8 +2,6 @@
 
 import Link from 'next/link';
 import { CalendarDays, Church, Gift, Images, LayoutGrid, MapPin, Martini, Mic, Utensils } from 'lucide-react';
-import { useState } from 'react';
-import BankInfoModal from '@/components/BankInfoModal';
 import StandardFooter from '@/components/StandardFooter';
 import StandardHeader from '@/components/StandardHeader';
 import { EVENT_LOCATIONS } from '@/lib/event';
@@ -16,8 +14,6 @@ const navigationItems = [
 ] as const;
 
 export default function HomeContent() {
-  const [isBankModalOpen, setIsBankModalOpen] = useState(false);
-
   return (
     <main className="home-page central-strip animate-fade-in">
       <div className="standard-typography home-content">
@@ -68,11 +64,7 @@ export default function HomeContent() {
             </span>
           </Link>
 
-          <button
-            type="button"
-            className="home-navigation-item"
-            onClick={() => setIsBankModalOpen(true)}
-          >
+          <Link href="/regalos" className="home-navigation-item">
             <span className="home-navigation-icon" aria-hidden="true">
               <Gift size={24} strokeWidth={1.5} />
             </span>
@@ -80,7 +72,7 @@ export default function HomeContent() {
               <strong>Regalos</strong>
               <small>Ver código QR</small>
             </span>
-          </button>
+          </Link>
 
           {navigationItems.map(({ href, label, description, icon: Icon }) => (
             <Link key={href} href={href} className="home-navigation-item">
@@ -112,11 +104,6 @@ export default function HomeContent() {
       </div>
 
       <StandardFooter />
-
-      <BankInfoModal
-        isOpen={isBankModalOpen}
-        onClose={() => setIsBankModalOpen(false)}
-      />
     </main>
   );
 }

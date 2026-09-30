@@ -371,13 +371,20 @@ body {
 
 .mesas-search input {
   width: 100%;
-  padding: 0.9rem 3rem;
+  padding: 0.8rem 3rem;
   border: 1px solid rgba(212, 175, 55, 0.5);
-  border-radius: 2rem;
+  border-radius: 8px;
   outline: none;
   color: var(--text-dark);
   background: var(--white);
-  font: 0.9rem var(--font-sans);
+  font: 1.1rem/1.5 var(--font-serif);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mesas-search input::placeholder {
+  color: var(--gray-400);
+  opacity: 1;
 }
 
 .mesas-search input:focus {
@@ -562,8 +569,10 @@ body {
 .recuerdos-intro {
   max-width: 30rem;
   margin: 0 auto 0.25rem;
+  padding: 0 1rem;
   color: var(--gray-500);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
+  font-style: italic;
   line-height: 1.6;
   text-align: center;
 }
@@ -1223,6 +1232,57 @@ body {
   width: 200px;
   height: 200px;
   object-fit: contain;
+}
+
+.bank-details .text-xs { font-size: 0.65rem; }
+.bank-details .text-xl { font-size: 1rem; }
+.bank-details .tracking-widest { padding-top: 0.4rem; }
+.bank-details .bank-img { display: block; width: 170px; height: 170px; margin: 0 auto; }
+
+.regalos-content {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.regalos-intro {
+  margin: 0 auto 1rem;
+  padding: 0 1rem;
+  color: var(--gray-500);
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.regalos-divider {
+  width: 8rem;
+  height: 1px;
+  margin: 0.25rem auto 1.25rem;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.7;
+}
+
+.regalos-content .bank-details {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: center;
+}
+
+.modal-content.bank-modal { padding: 1.5rem 1.5rem 1.25rem; }
+.bank-title { margin-bottom: 0.5rem; }
+
+.bank-modal-overlay {
+  align-items: flex-start;
+  padding: calc(0.75rem + env(safe-area-inset-top)) 0.75rem 0.75rem;
+}
+
+.bank-modal-overlay .modal-content.bank-modal {
+  margin: 0 auto;
+  /* dvh descuenta la barra del navegador móvil */
+  max-height: calc(100vh - 1.5rem);
+  max-height: calc(100dvh - 1.5rem);
 }
 
 @media (min-width: 768px) {
