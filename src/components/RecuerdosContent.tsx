@@ -185,13 +185,16 @@ export default function RecuerdosContent() {
     streamRef.current = stream;
     try {
       const source = context.createMediaStreamSource(stream);
+      const microphoneGain = context.createGain();
+      microphoneGain.gain.value = 2;
+      source.connect(microphoneGain);
       const analyser = context.createAnalyser();
       analyser.fftSize = 2048;
-      source.connect(analyser);
+      microphoneGain.connect(analyser);
       analyserRef.current = analyser;
       const destination = context.createMediaStreamDestination();
       destination.channelCount = 1;
-      source.connect(destination);
+      microphoneGain.connect(destination);
       const monitor = context.createGain();
       monitor.gain.value = 0;
       source.connect(monitor);
