@@ -482,7 +482,7 @@ export default function RecuerdosContent() {
                 )}
               </>
 
-            <input
+            {/* <input
               ref={audioInputRef}
               className="recuerdos-file"
               type="file"
@@ -495,7 +495,7 @@ export default function RecuerdosContent() {
               <button type="button" onClick={() => audioInputRef.current?.click()} disabled={isSending || isAudioBusy}>
                 <Paperclip size={14} /> Adjuntar audio
               </button>
-            </div>
+            </div> */}
 
             {micError && <p className="recuerdos-notice" role="alert"><AlertCircle size={16} /> {micError}</p>}
           </div>
