@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CalendarDays, Church, Gift, Images, LayoutGrid, MapPin, Martini, Utensils } from 'lucide-react';
+import { CalendarDays, Church, Gift, Images, LayoutGrid, MapPin, Martini, Mic, Utensils } from 'lucide-react';
 import { useState } from 'react';
 import BankInfoModal from '@/components/BankInfoModal';
 import StandardFooter from '@/components/StandardFooter';
@@ -98,6 +98,16 @@ export default function HomeContent() {
               <small>Ver código QR</small>
             </span>
           </button>
+
+          <Link href="/recuerdos" className="home-navigation-item">
+            <span className="home-navigation-icon" aria-hidden="true">
+              <Mic size={24} strokeWidth={1.5} />
+            </span>
+            <span>
+              <strong>Buenos Deseos</strong>
+              <small>Déjanos un mensaje</small>
+            </span>
+          </Link>
         </nav>
       </div>
 

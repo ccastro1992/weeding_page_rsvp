@@ -552,6 +552,218 @@ body {
   cursor: pointer;
 }
 
+/* Voice / text memories */
+.recuerdos-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recuerdos-intro {
+  max-width: 30rem;
+  margin: 0 auto 0.25rem;
+  color: var(--gray-500);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.recuerdos-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.recuerdos-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 8px;
+  outline: none;
+  color: var(--text-dark);
+  background: var(--white);
+  /* 16px evita el zoom automático de iOS al enfocar */
+  font: 1rem var(--font-sans);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.recuerdos-input:focus {
+  border-color: var(--gold-dark);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+.recuerdos-textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.recuerdos-counter {
+  align-self: flex-end;
+  color: var(--gray-400);
+  font-size: 0.7rem;
+}
+
+.recuerdos-recorder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.recuerdos-record {
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--orange-dark);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.16);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.recuerdos-record:hover,
+.recuerdos-record:focus-visible {
+  border-color: var(--gold-dark);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.recuerdos-record.is-recording {
+  border-color: var(--orange-dark);
+  background: var(--orange-dark);
+  color: var(--white);
+  animation: recuerdos-pulse 1.4s ease-out infinite;
+}
+
+@keyframes recuerdos-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(156, 88, 11, 0.45); }
+  100% { box-shadow: 0 0 0 18px rgba(156, 88, 11, 0); }
+}
+
+.recuerdos-timer {
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.recuerdos-preview {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.recuerdos-preview audio {
+  width: 100%;
+  max-width: 22rem;
+}
+
+.recuerdos-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.recuerdos-actions button,
+.recuerdos-selfie-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: var(--gold-dark);
+  font: 0.8rem var(--font-sans);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.recuerdos-selfie-picker {
+  width: 100%;
+  padding: 1.25rem;
+  flex-direction: column;
+  border: 1px dashed rgba(212, 175, 55, 0.6);
+  border-radius: 8px;
+  color: var(--orange-dark);
+  text-decoration: none;
+}
+
+.recuerdos-file {
+  display: none;
+}
+
+.recuerdos-selfie {
+  position: relative;
+  width: min(220px, 100%);
+}
+
+.recuerdos-selfie img {
+  width: 100%;
+  display: block;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.recuerdos-selfie button {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--orange-dark);
+  cursor: pointer;
+}
+
+.recuerdos-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  color: var(--orange-dark);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.recuerdos-notice svg { flex-shrink: 0; margin-top: 0.1rem; }
+
+.recuerdos-form-error {
+  justify-content: center;
+}
+
+.recuerdos-submit {
+  display: flex;
+  justify-content: center;
+}
+
+.recuerdos-submit .mesas-primary { margin-top: 0; }
+
+.mesas-primary:disabled,
+.recuerdos-record:disabled,
+.recuerdos-actions button:disabled,
+.recuerdos-selfie-picker:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.recuerdos-accent { color: var(--gold-dark); }
+.recuerdos-thanks .standard-divider { margin: 0.5rem 0 1rem; }
+
 .standard-footer {
   margin-top: 1.5rem;
   padding: 0 1.5rem 1.5rem;
@@ -625,6 +837,8 @@ body {
   .mesas-panel { padding: 1rem; }
   .mesas-help ol { margin-top: 1rem; padding-top: 0.75rem; }
   .mesas-table { font-size: 1.6rem; }
+  .recuerdos-form { gap: 0.75rem; }
+  .recuerdos-record { width: 64px; height: 64px; }
 }
 
 /* Layout Strip */
