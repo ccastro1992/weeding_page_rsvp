@@ -99,7 +99,10 @@ export default function RecuerdosContent() {
 
     let stream: MediaStream;
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      // El procesamiento de llamada (eco/ruido) recorta la voz con el micrófono integrado del celular.
+      stream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true },
+      });
     } catch (error) {
       const denied = error instanceof DOMException && error.name === 'NotAllowedError';
       setMicError(
@@ -147,7 +150,12 @@ export default function RecuerdosContent() {
 
     streamRef.current = stream;
     recorderRef.current = recorder;
-    recorder.start();
+    stream.getAudioTracks().forEach((track) => {
+      track.onended = stopRecording;
+    });
+    recorder.onerror = stopRecording;
+    // Fragmentos cada segundo para no perder audio si el navegador interrumpe la grabación.
+    recorder.start(1000);
     setRecorderState('recording');
 
     const startedAt = Date.now();
