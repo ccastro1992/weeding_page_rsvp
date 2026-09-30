@@ -52,6 +52,7 @@ export default function RecuerdosContent() {
 
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
   const timerRef = useRef<number | null>(null);
   const cameraInputRef = useRef<HTMLInputElement | null>(null);
   const galleryInputRef = useRef<HTMLInputElement | null>(null);
@@ -73,6 +74,10 @@ export default function RecuerdosContent() {
   const stopStream = useCallback(() => {
     streamRef.current?.getTracks().forEach((track) => track.stop());
     streamRef.current = null;
+    recorderRef.current?.stream.getTracks().forEach((track) => track.stop());
+    const context = audioContextRef.current;
+    audioContextRef.current = null;
+    if (context && context.state !== 'closed') void context.close().catch(() => {});
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
@@ -103,17 +108,28 @@ export default function RecuerdosContent() {
   };
 
   const startRecording = async () => {
+    if (audioContextRef.current) return;
     setMicError(null);
     setFormError(null);
     clearAudio();
 
     let stream: MediaStream;
+    let context: AudioContext;
     try {
+      context = new AudioContext();
+      audioContextRef.current = context;
+      await context.resume();
+      if (audioContextRef.current !== context) return;
       // El procesamiento de llamada (eco/ruido) recorta la voz con el micrófono integrado del celular.
       stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
       });
+      if (audioContextRef.current !== context) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
     } catch (error) {
+      stopStream();
       const denied = error instanceof DOMException && error.name === 'NotAllowedError';
       setMicError(
         denied
@@ -125,10 +141,19 @@ export default function RecuerdosContent() {
 
     const mimeType = pickRecorderMime();
     let recorder: MediaRecorder;
+    streamRef.current = stream;
     try {
-      recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
+      const source = context.createMediaStreamSource(stream);
+      const destination = context.createMediaStreamDestination();
+      destination.channelCount = 1;
+      const silence = context.createConstantSource();
+      silence.offset.value = 0;
+      source.connect(destination);
+      silence.connect(destination);
+      silence.start();
+      recorder = new MediaRecorder(destination.stream, mimeType ? { mimeType } : undefined);
     } catch {
-      stream.getTracks().forEach((track) => track.stop());
+      stopStream();
       setMicError('Tu navegador no permite grabar audio. Puedes dejarnos un mensaje de texto.');
       return;
     }
@@ -158,13 +183,18 @@ export default function RecuerdosContent() {
       setRecorderState('recorded');
     };
 
-    streamRef.current = stream;
     recorderRef.current = recorder;
     stream.getAudioTracks().forEach((track) => {
       track.onended = stopRecording;
     });
     recorder.onerror = stopRecording;
-    recorder.start();
+    try {
+      recorder.start();
+    } catch {
+      stopStream();
+      setMicError('No pudimos iniciar la grabación. Intenta de nuevo o escribe tu mensaje.');
+      return;
+    }
     setRecorderState('recording');
 
     const startedAt = Date.now();
