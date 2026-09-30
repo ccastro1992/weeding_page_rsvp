@@ -35,7 +35,6 @@ export default function RecuerdosContent() {
   const [canRecord, setCanRecord] = useState(true);
   const [hasCamera, setHasCamera] = useState(false);
   const [recorderState, setRecorderState] = useState<RecorderState>('idle');
-  const [seconds, setSeconds] = useState(0);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [previewState, setPreviewState] = useState<'loading' | 'ready' | 'error'>('loading');
@@ -92,7 +91,7 @@ export default function RecuerdosContent() {
     streamRef.current = null;
     recorder?.stream.getTracks().forEach((track) => track.stop());
     if (timerRef.current !== null) {
-      window.clearInterval(timerRef.current);
+      window.clearTimeout(timerRef.current);
       timerRef.current = null;
     }
   }, []);
@@ -104,7 +103,7 @@ export default function RecuerdosContent() {
     stopRequestedRef.current = true;
     setRecorderState('finalizing');
     if (timerRef.current !== null) {
-      window.clearInterval(timerRef.current);
+      window.clearTimeout(timerRef.current);
       timerRef.current = null;
     }
     recorderRef.current.stop();
@@ -114,7 +113,6 @@ export default function RecuerdosContent() {
     setAudioBlob(null);
     setAudioUrl(null);
     setPreviewState('loading');
-    setSeconds(0);
     setRecorderState('idle');
   };
 
@@ -131,26 +129,38 @@ export default function RecuerdosContent() {
 
     let stream: MediaStream;
     try {
+      // echoCancellation: false evita que Android/iOS active el modo de llamada telefónica (VOIP/MODE_IN_COMMUNICATION),
+      // el cual congela/secuestra los controles de volumen físico y altera el hardware de audio cuando no hay audífonos.
       stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
+        audio: {
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false,
+        },
       });
-      if (recordingSessionRef.current !== session) {
-        stream.getTracks().forEach((track) => track.stop());
+    } catch {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+      } catch (error) {
+        if (recordingSessionRef.current !== session) return;
+        stopStream();
+        setRecorderState('idle');
+        const denied = error instanceof DOMException && error.name === 'NotAllowedError';
+        setMicError(
+          denied
+            ? 'No tenemos permiso para usar el micrófono. Actívalo en la configuración del navegador o déjanos un mensaje de texto.'
+            : 'No pudimos acceder al micrófono. Puedes dejarnos un mensaje de texto.'
+        );
         return;
       }
-    } catch (error) {
-      if (recordingSessionRef.current !== session) return;
-      stopStream();
-      setRecorderState('idle');
-      const denied = error instanceof DOMException && error.name === 'NotAllowedError';
-      setMicError(
-        denied
-          ? 'No tenemos permiso para usar el micrófono. Actívalo en la configuración del navegador o déjanos un mensaje de texto.'
-          : 'No pudimos acceder al micrófono. Puedes dejarnos un mensaje de texto.'
-      );
-      return;
     }
 
+    if (recordingSessionRef.current !== session) {
+      stream.getTracks().forEach((track) => track.stop());
+      return;
+    }
 
     const mimeType = pickRecorderMime();
     let recorder: MediaRecorder;
@@ -215,12 +225,11 @@ export default function RecuerdosContent() {
     }
     setRecorderState('recording');
 
-    const startedAt = performance.now();
-    timerRef.current = window.setInterval(() => {
-      const elapsed = (performance.now() - startedAt) / 1000;
-      setSeconds(Math.min(elapsed, MAX_AUDIO_SECONDS));
-      if (elapsed >= MAX_AUDIO_SECONDS) stopRecording();
-    }, 1000);
+    // Sin setInterval para no generar re-renders continuos ni saturar el hilo principal.
+    // Solo un temporizador que detiene la grabación al llegar al límite máximo.
+    timerRef.current = window.setTimeout(() => {
+      stopRecording();
+    }, MAX_AUDIO_SECONDS * 1000);
   };
 
   const handleAudioChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -386,7 +395,7 @@ export default function RecuerdosContent() {
                     </button>
                     <p className="recuerdos-timer" aria-live="polite">
                       {isStarting ? 'Conectando micrófono...' : isFinalizing ? 'Preparando audio...' : isRecording
-                        ? `${formatTime(seconds)} / ${formatTime(MAX_AUDIO_SECONDS)}`
+                        ? 'Grabando... Toca para finalizar'
                         : `Toca para grabar (máx. ${formatTime(MAX_AUDIO_SECONDS)})`}
                     </p>
 
