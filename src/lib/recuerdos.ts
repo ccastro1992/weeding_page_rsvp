@@ -37,7 +37,6 @@ export function isAudioRecordingSupported(): boolean {
   return (
     typeof window !== 'undefined' &&
     typeof window.MediaRecorder !== 'undefined' &&
-    typeof window.AudioContext !== 'undefined' &&
     Boolean(navigator.mediaDevices?.getUserMedia)
   );
 }
