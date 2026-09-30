@@ -186,7 +186,7 @@ export default function RecuerdosContent() {
     try {
       const source = context.createMediaStreamSource(stream);
       const microphoneGain = context.createGain();
-      microphoneGain.gain.value = 2;
+      microphoneGain.gain.value = 1;
       source.connect(microphoneGain);
       const analyser = context.createAnalyser();
       analyser.fftSize = 2048;
