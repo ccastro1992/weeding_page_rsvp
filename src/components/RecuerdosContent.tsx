@@ -154,7 +154,7 @@ export default function RecuerdosContent() {
     peakLevelRef.current = 0;
 
     let stream: MediaStream;
-    let context: AudioContext;
+    let context: AudioContext | undefined;
     try {
       context = new AudioContext();
       audioContextRef.current = context;
@@ -168,7 +168,7 @@ export default function RecuerdosContent() {
         return;
       }
     } catch (error) {
-      if (!audioContextRef.current) return;
+      if (context && audioContextRef.current !== context) return;
       stopStream();
       setRecorderState('idle');
       const denied = error instanceof DOMException && error.name === 'NotAllowedError';

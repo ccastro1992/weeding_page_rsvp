@@ -666,6 +666,13 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+.recuerdos-level {
+  width: 12rem;
+  max-width: 100%;
+  height: 1rem;
+  accent-color: var(--gold-dark);
+}
+
 .recuerdos-preview {
   width: 100%;
   display: flex;
