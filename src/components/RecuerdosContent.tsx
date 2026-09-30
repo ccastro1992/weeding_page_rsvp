@@ -164,8 +164,7 @@ export default function RecuerdosContent() {
       track.onended = stopRecording;
     });
     recorder.onerror = stopRecording;
-    // Fragmentos cada segundo para no perder audio si el navegador interrumpe la grabación.
-    recorder.start(1000);
+    recorder.start();
     setRecorderState('recording');
 
     const startedAt = Date.now();
