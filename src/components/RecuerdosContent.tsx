@@ -59,6 +59,7 @@ export default function RecuerdosContent() {
   const recordingErrorRef = useRef<string | null>(null);
   const stopRequestedRef = useRef(false);
   const timerRef = useRef<number | null>(null);
+  const levelTimerRef = useRef<number | null>(null);
   const audioInputRef = useRef<HTMLInputElement | null>(null);
   const cameraInputRef = useRef<HTMLInputElement | null>(null);
   const galleryInputRef = useRef<HTMLInputElement | null>(null);
@@ -101,6 +102,10 @@ export default function RecuerdosContent() {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
     }
+    if (levelTimerRef.current !== null) {
+      window.clearInterval(levelTimerRef.current);
+      levelTimerRef.current = null;
+    }
   }, []);
 
   useEffect(() => stopStream, [stopStream]);
@@ -113,6 +118,10 @@ export default function RecuerdosContent() {
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
+    }
+    if (levelTimerRef.current !== null) {
+      window.clearInterval(levelTimerRef.current);
+      levelTimerRef.current = null;
     }
     recorderRef.current.stop();
   }, []);
@@ -174,7 +183,7 @@ export default function RecuerdosContent() {
       if (context) {
         const source = context.createMediaStreamSource(stream);
         const analyser = context.createAnalyser();
-        analyser.fftSize = 2048;
+        analyser.fftSize = 256;
         source.connect(analyser);
         analyserRef.current = analyser;
       }
@@ -243,18 +252,23 @@ export default function RecuerdosContent() {
     setRecorderState('recording');
 
     const startedAt = performance.now();
-    const samples = new Float32Array(2048);
+    // Lightweight 1-second timer: only updates the counter and checks the limit.
     timerRef.current = window.setInterval(() => {
-      samples.fill(0);
-      if (audioContextRef.current?.state === 'running') {
-        analyserRef.current?.getFloatTimeDomainData(samples);
-      }
-      const rms = Math.sqrt(samples.reduce((sum, sample) => sum + sample * sample, 0) / samples.length);
-      setInputLevel(Math.min(1, rms * 16));
       const elapsed = (performance.now() - startedAt) / 1000;
       setSeconds(Math.min(elapsed, MAX_AUDIO_SECONDS));
       if (elapsed >= MAX_AUDIO_SECONDS) stopRecording();
-    }, 100);
+    }, 1000);
+    // Separate, lower-frequency level meter: 250 ms, only 256 samples.
+    // On mobile without headphones the OS audio subsystem is stressed on recording
+    // start; keeping this interval slow and small avoids UI jank.
+    const levelSamples = new Float32Array(256);
+    levelTimerRef.current = window.setInterval(() => {
+      if (audioContextRef.current?.state !== 'running') return;
+      levelSamples.fill(0);
+      analyserRef.current?.getFloatTimeDomainData(levelSamples);
+      const rms = Math.sqrt(levelSamples.reduce((sum, s) => sum + s * s, 0) / levelSamples.length);
+      setInputLevel(Math.min(1, rms * 16));
+    }, 250);
   };
 
   const handleAudioChange = (event: ChangeEvent<HTMLInputElement>) => {
