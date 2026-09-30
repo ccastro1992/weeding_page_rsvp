@@ -87,11 +87,14 @@ interface InitResponse {
   selfieUploadUrl: string | null;
 }
 
+export type SendStage = 'preparing' | 'uploading';
+
 interface SubmitRecuerdoInput {
   nombre: string;
   texto: string;
   audio: Blob | null;
   selfie: Blob | null;
+  onStage?: (stage: SendStage) => void;
 }
 
 async function postJson<T>(url: string, body: unknown): Promise<T> {
@@ -114,9 +117,10 @@ async function uploadToDrive(uploadUrl: string, file: Blob, contentType: string)
   if (!response?.ok) throw new Error('No pudimos subir los archivos, intenta de nuevo');
 }
 
-export async function submitRecuerdo({ nombre, texto, audio, selfie }: SubmitRecuerdoInput) {
+export async function submitRecuerdo({ nombre, texto, audio, selfie, onStage }: SubmitRecuerdoInput) {
   const audioMime = audio ? baseMime(audio.type) : null;
 
+  onStage?.('preparing');
   const init = await postJson<InitResponse>('/api/recuerdos/init', {
     nombre,
     texto,
@@ -125,6 +129,7 @@ export async function submitRecuerdo({ nombre, texto, audio, selfie }: SubmitRec
     selfieSize: selfie?.size ?? 0,
   });
 
+  if (init.audioUploadUrl || init.selfieUploadUrl) onStage?.('uploading');
   await Promise.all([
     audio && audioMime && init.audioUploadUrl ? uploadToDrive(init.audioUploadUrl, audio, audioMime) : null,
     selfie && init.selfieUploadUrl ? uploadToDrive(init.selfieUploadUrl, selfie, 'image/jpeg') : null,

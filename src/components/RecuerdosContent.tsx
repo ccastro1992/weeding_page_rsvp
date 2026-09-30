@@ -14,6 +14,7 @@ import {
   MAX_NAME_LENGTH,
   MAX_TEXT_LENGTH,
   pickRecorderMime,
+  SendStage,
   submitRecuerdo,
   toTitleCase,
 } from '@/lib/recuerdos';
@@ -45,6 +46,7 @@ export default function RecuerdosContent() {
   const [selfieError, setSelfieError] = useState<string | null>(null);
 
   const [status, setStatus] = useState<SendStatus>('idle');
+  const [sendStage, setSendStage] = useState<SendStage>('preparing');
   const [formError, setFormError] = useState<string | null>(null);
 
   const recorderRef = useRef<MediaRecorder | null>(null);
@@ -203,9 +205,16 @@ export default function RecuerdosContent() {
       return;
     }
 
+    setSendStage('preparing');
     setStatus('sending');
     try {
-      await submitRecuerdo({ nombre: nombre.trim(), texto: texto.trim(), audio: audioBlob, selfie: selfieBlob });
+      await submitRecuerdo({
+        nombre: nombre.trim(),
+        texto: texto.trim(),
+        audio: audioBlob,
+        selfie: selfieBlob,
+        onStage: setSendStage,
+      });
       setStatus('sent');
     } catch (error) {
       setFormError(error instanceof Error ? error.message : 'No pudimos enviar tu mensaje');
@@ -405,6 +414,23 @@ export default function RecuerdosContent() {
       )}
 
       <StandardFooter showHomeLink />
+
+      {isSending && (
+        <div className="recuerdos-sending" role="status" aria-live="polite">
+          <div className="recuerdos-sending-card">
+            <span className="recuerdos-sending-icon">
+              <Loader2 className="recuerdos-sending-ring" size={64} strokeWidth={1} />
+              <Heart className="recuerdos-sending-heart" size={24} strokeWidth={1.5} />
+            </span>
+            <h2>Enviando tu recuerdo</h2>
+            <p>
+              {sendStage === 'preparing'
+                ? 'Preparando tu mensaje...'
+                : 'Subiendo tus archivos, no cierres esta página...'}
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
