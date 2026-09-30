@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { AlertCircle, Camera, Heart, Loader2, Mic, RotateCcw, Send, Square, Trash2, X } from 'lucide-react';
+import { AlertCircle, Camera, Heart, ImagePlus, Loader2, Mic, RotateCcw, Send, Square, Trash2, X } from 'lucide-react';
 import StandardFooter from '@/components/StandardFooter';
 import StandardHeader, { OrnamentalDivider } from '@/components/StandardHeader';
 import {
@@ -31,6 +31,7 @@ export default function RecuerdosContent() {
   const [texto, setTexto] = useState('');
 
   const [canRecord, setCanRecord] = useState(true);
+  const [hasCamera, setHasCamera] = useState(false);
   const [recorderState, setRecorderState] = useState<RecorderState>('idle');
   const [seconds, setSeconds] = useState(0);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -48,10 +49,13 @@ export default function RecuerdosContent() {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const timerRef = useRef<number | null>(null);
-  const selfieInputRef = useRef<HTMLInputElement | null>(null);
+  const cameraInputRef = useRef<HTMLInputElement | null>(null);
+  const galleryInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     setCanRecord(isAudioRecordingSupported());
+    // `capture` solo abre la cámara en móviles; en escritorio se ignora.
+    setHasCamera(window.matchMedia('(pointer: coarse)').matches);
   }, []);
 
   useEffect(() => () => {
@@ -318,7 +322,16 @@ export default function RecuerdosContent() {
           <div className="mesas-panel recuerdos-panel">
             <p className="mesas-eyebrow">Selfie (opcional)</p>
             <input
-              ref={selfieInputRef}
+              ref={cameraInputRef}
+              className="recuerdos-file"
+              type="file"
+              accept="image/*"
+              capture="user"
+              onChange={handleSelfieChange}
+              disabled={isSending || processingSelfie}
+            />
+            <input
+              ref={galleryInputRef}
               className="recuerdos-file"
               type="file"
               accept="image/*"
@@ -334,16 +347,34 @@ export default function RecuerdosContent() {
                   <X size={16} />
                 </button>
               </div>
+            ) : processingSelfie ? (
+              <div className="recuerdos-selfie-picker">
+                <Loader2 className="mesas-spin" size={22} />
+                <span>Procesando foto...</span>
+              </div>
             ) : (
-              <button
-                type="button"
-                className="recuerdos-selfie-picker"
-                onClick={() => selfieInputRef.current?.click()}
-                disabled={isSending || processingSelfie}
-              >
-                {processingSelfie ? <Loader2 className="mesas-spin" size={22} /> : <Camera size={22} strokeWidth={1.5} />}
-                <span>{processingSelfie ? 'Procesando foto...' : 'Tomar o elegir foto'}</span>
-              </button>
+              <div className="recuerdos-selfie-options">
+                {hasCamera && (
+                  <button
+                    type="button"
+                    className="recuerdos-selfie-picker"
+                    onClick={() => cameraInputRef.current?.click()}
+                    disabled={isSending}
+                  >
+                    <Camera size={22} strokeWidth={1.5} />
+                    <span>Tomar selfie</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="recuerdos-selfie-picker"
+                  onClick={() => galleryInputRef.current?.click()}
+                  disabled={isSending}
+                >
+                  <ImagePlus size={22} strokeWidth={1.5} />
+                  <span>{hasCamera ? 'Elegir de galería' : 'Elegir foto'}</span>
+                </button>
+              </div>
             )}
 
             {selfieError && <p className="recuerdos-notice"><AlertCircle size={16} /> {selfieError}</p>}
