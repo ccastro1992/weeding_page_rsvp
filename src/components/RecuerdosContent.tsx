@@ -19,7 +19,7 @@ import {
   toTitleCase,
 } from '@/lib/recuerdos';
 
-type RecorderState = 'idle' | 'recording' | 'recorded';
+type RecorderState = 'idle' | 'recording' | 'finalizing' | 'recorded';
 type SendStatus = 'idle' | 'sending' | 'sent';
 
 function formatTime(totalSeconds: number) {
@@ -38,6 +38,7 @@ export default function RecuerdosContent() {
   const [seconds, setSeconds] = useState(0);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [previewState, setPreviewState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [micError, setMicError] = useState<string | null>(null);
 
   const [selfieBlob, setSelfieBlob] = useState<Blob | null>(null);
@@ -84,12 +85,19 @@ export default function RecuerdosContent() {
   }, [stopStream]);
 
   const stopRecording = useCallback(() => {
-    if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
+    if (recorderRef.current?.state !== 'recording') return;
+    setRecorderState('finalizing');
+    if (timerRef.current !== null) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    recorderRef.current.stop();
   }, []);
 
   const clearAudio = () => {
     setAudioBlob(null);
     setAudioUrl(null);
+    setPreviewState('loading');
     setSeconds(0);
     setRecorderState('idle');
   };
@@ -194,6 +202,7 @@ export default function RecuerdosContent() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (recorderState === 'recording' || recorderState === 'finalizing') return;
     setFormError(null);
 
     if (!nombre.trim()) {
@@ -234,6 +243,7 @@ export default function RecuerdosContent() {
 
   const isSending = status === 'sending';
   const isRecording = recorderState === 'recording';
+  const isFinalizing = recorderState === 'finalizing';
 
   return (
     <main className="mesas-page recuerdos-page animate-fade-in">
@@ -290,13 +300,13 @@ export default function RecuerdosContent() {
                       type="button"
                       className={`recuerdos-record ${isRecording ? 'is-recording' : ''}`}
                       onClick={isRecording ? stopRecording : startRecording}
-                      disabled={isSending}
-                      aria-label={isRecording ? 'Detener grabación' : 'Comenzar grabación'}
+                      disabled={isSending || isFinalizing}
+                      aria-label={isFinalizing ? 'Preparando audio' : isRecording ? 'Detener grabación' : 'Comenzar grabación'}
                     >
-                      {isRecording ? <Square size={22} fill="currentColor" /> : <Mic size={26} strokeWidth={1.5} />}
+                      {isFinalizing ? <Loader2 className="mesas-spin" size={26} /> : isRecording ? <Square size={22} fill="currentColor" /> : <Mic size={26} strokeWidth={1.5} />}
                     </button>
                     <p className="recuerdos-timer" aria-live="polite">
-                      {isRecording
+                      {isFinalizing ? 'Preparando audio...' : isRecording
                         ? `${formatTime(seconds)} / ${formatTime(MAX_AUDIO_SECONDS)}`
                         : `Toca para grabar (máx. ${formatTime(MAX_AUDIO_SECONDS)})`}
                     </p>
@@ -305,7 +315,24 @@ export default function RecuerdosContent() {
 
                 {recorderState === 'recorded' && audioUrl && (
                   <div className="recuerdos-preview">
-                    <audio controls src={audioUrl} preload="metadata" />
+                    <audio
+                      key={audioUrl}
+                      controls={previewState === 'ready'}
+                      src={audioUrl}
+                      preload="auto"
+                      onCanPlay={() => setPreviewState('ready')}
+                      onError={() => setPreviewState('error')}
+                    />
+                    {previewState === 'loading' && (
+                      <p className="recuerdos-notice" role="status">
+                        <Loader2 className="mesas-spin" size={16} /> Preparando audio...
+                      </p>
+                    )}
+                    {previewState === 'error' && (
+                      <p className="recuerdos-notice" role="alert">
+                        <AlertCircle size={16} /> No pudimos reproducir el audio. Puedes grabarlo de nuevo o enviar la grabación.
+                      </p>
+                    )}
                     <div className="recuerdos-actions">
                       <button type="button" onClick={startRecording} disabled={isSending}>
                         <RotateCcw size={14} /> Grabar de nuevo
@@ -405,7 +432,7 @@ export default function RecuerdosContent() {
           )}
 
           <div className="recuerdos-submit">
-            <button type="submit" className="mesas-primary" disabled={isSending || isRecording || processingSelfie}>
+            <button type="submit" className="mesas-primary" disabled={isSending || isRecording || isFinalizing || processingSelfie}>
               {isSending ? <Loader2 className="mesas-spin" size={16} /> : <Send size={16} />}
               {isSending ? 'Enviando...' : 'Enviar recuerdo'}
             </button>
