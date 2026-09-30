@@ -111,7 +111,7 @@ export default function RecuerdosContent() {
     try {
       // El procesamiento de llamada (eco/ruido) recorta la voz con el micrófono integrado del celular.
       stream = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true },
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
       });
     } catch (error) {
       const denied = error instanceof DOMException && error.name === 'NotAllowedError';
