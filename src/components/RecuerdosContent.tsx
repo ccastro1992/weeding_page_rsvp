@@ -40,7 +40,7 @@ export default function RecuerdosContent() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [previewState, setPreviewState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [micError, setMicError] = useState<string | null>(null);
-  const [inputLevel, setInputLevel] = useState(0);
+
 
   const [selfieBlob, setSelfieBlob] = useState<Blob | null>(null);
   const [selfieUrl, setSelfieUrl] = useState<string | null>(null);
@@ -53,13 +53,10 @@ export default function RecuerdosContent() {
 
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
   const recordingSessionRef = useRef<object | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
   const recordingErrorRef = useRef<string | null>(null);
   const stopRequestedRef = useRef(false);
   const timerRef = useRef<number | null>(null);
-  const levelTimerRef = useRef<number | null>(null);
   const audioInputRef = useRef<HTMLInputElement | null>(null);
   const cameraInputRef = useRef<HTMLInputElement | null>(null);
   const galleryInputRef = useRef<HTMLInputElement | null>(null);
@@ -94,17 +91,9 @@ export default function RecuerdosContent() {
     });
     streamRef.current = null;
     recorder?.stream.getTracks().forEach((track) => track.stop());
-    const context = audioContextRef.current;
-    audioContextRef.current = null;
-    analyserRef.current = null;
-    if (context && context.state !== 'closed') void context.close().catch(() => {});
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
-    }
-    if (levelTimerRef.current !== null) {
-      window.clearInterval(levelTimerRef.current);
-      levelTimerRef.current = null;
     }
   }, []);
 
@@ -114,14 +103,9 @@ export default function RecuerdosContent() {
     if (recorderRef.current?.state !== 'recording') return;
     stopRequestedRef.current = true;
     setRecorderState('finalizing');
-    setInputLevel(0);
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
-    }
-    if (levelTimerRef.current !== null) {
-      window.clearInterval(levelTimerRef.current);
-      levelTimerRef.current = null;
     }
     recorderRef.current.stop();
   }, []);
@@ -131,7 +115,6 @@ export default function RecuerdosContent() {
     setAudioUrl(null);
     setPreviewState('loading');
     setSeconds(0);
-    setInputLevel(0);
     setRecorderState('idle');
   };
 
@@ -168,31 +151,10 @@ export default function RecuerdosContent() {
       return;
     }
 
-    // Create AudioContext AFTER getUserMedia so the OS audio session is already
-    // in recording mode. Creating it before causes a mode-switch conflict on
-    // mobile (especially without headphones) that makes the UI freeze.
-    let context: AudioContext | undefined;
-    try {
-      context = new AudioContext();
-      audioContextRef.current = context;
-    } catch {
-      context = undefined;
-    }
 
     const mimeType = pickRecorderMime();
     let recorder: MediaRecorder;
     streamRef.current = stream;
-    try {
-      if (context) {
-        const source = context.createMediaStreamSource(stream);
-        const analyser = context.createAnalyser();
-        analyser.fftSize = 256;
-        source.connect(analyser);
-        analyserRef.current = analyser;
-      }
-    } catch {
-      analyserRef.current = null;
-    }
     try {
       recorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
     } catch {
@@ -211,7 +173,6 @@ export default function RecuerdosContent() {
       const failure = recordingErrorRef.current
         || (!stopRequestedRef.current ? 'El micrófono se interrumpió. Vuelve a grabar o adjunta un audio del teléfono.' : null);
       stopStream();
-      setInputLevel(0);
       if (failure) {
         setMicError(failure);
         setRecorderState('idle');
@@ -255,23 +216,11 @@ export default function RecuerdosContent() {
     setRecorderState('recording');
 
     const startedAt = performance.now();
-    // Lightweight 1-second timer: only updates the counter and checks the limit.
     timerRef.current = window.setInterval(() => {
       const elapsed = (performance.now() - startedAt) / 1000;
       setSeconds(Math.min(elapsed, MAX_AUDIO_SECONDS));
       if (elapsed >= MAX_AUDIO_SECONDS) stopRecording();
     }, 1000);
-    // Separate, lower-frequency level meter: 250 ms, only 256 samples.
-    // On mobile without headphones the OS audio subsystem is stressed on recording
-    // start; keeping this interval slow and small avoids UI jank.
-    const levelSamples = new Float32Array(256);
-    levelTimerRef.current = window.setInterval(() => {
-      if (audioContextRef.current?.state !== 'running') return;
-      levelSamples.fill(0);
-      analyserRef.current?.getFloatTimeDomainData(levelSamples);
-      const rms = Math.sqrt(levelSamples.reduce((sum, s) => sum + s * s, 0) / levelSamples.length);
-      setInputLevel(Math.min(1, rms * 16));
-    }, 250);
   };
 
   const handleAudioChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -440,9 +389,7 @@ export default function RecuerdosContent() {
                         ? `${formatTime(seconds)} / ${formatTime(MAX_AUDIO_SECONDS)}`
                         : `Toca para grabar (máx. ${formatTime(MAX_AUDIO_SECONDS)})`}
                     </p>
-                    {isRecording && (
-                      <meter className="recuerdos-level" min={0} max={1} value={inputLevel} aria-label="Nivel del micrófono" />
-                    )}
+
                   </div>
                 )}
 
