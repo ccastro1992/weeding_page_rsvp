@@ -22,6 +22,14 @@ export function baseMime(mime: string): string {
   return mime.split(';')[0].trim().toLowerCase();
 }
 
+export function toTitleCase(text: string): string {
+  return text
+    .trim()
+    .replace(/\s+/g, ' ')
+    .toLocaleLowerCase('es')
+    .replace(/(^|[\s-])(\p{L})/gu, (_, separator: string, letter: string) => separator + letter.toLocaleUpperCase('es'));
+}
+
 export function isAudioRecordingSupported(): boolean {
   return (
     typeof window !== 'undefined' &&
@@ -75,7 +83,6 @@ export async function compressSelfie(file: File, maxSide = 1600): Promise<Blob> 
 }
 
 interface InitResponse {
-  id: string;
   audioUploadUrl: string | null;
   selfieUploadUrl: string | null;
 }
@@ -122,6 +129,4 @@ export async function submitRecuerdo({ nombre, texto, audio, selfie }: SubmitRec
     audio && audioMime && init.audioUploadUrl ? uploadToDrive(init.audioUploadUrl, audio, audioMime) : null,
     selfie && init.selfieUploadUrl ? uploadToDrive(init.selfieUploadUrl, selfie, 'image/jpeg') : null,
   ]);
-
-  await postJson('/api/recuerdos/complete', { id: init.id });
 }

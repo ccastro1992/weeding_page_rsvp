@@ -15,6 +15,7 @@ import {
   MAX_TEXT_LENGTH,
   pickRecorderMime,
   submitRecuerdo,
+  toTitleCase,
 } from '@/lib/recuerdos';
 
 type RecorderState = 'idle' | 'recording' | 'recorded';
@@ -225,7 +226,7 @@ export default function RecuerdosContent() {
         <section className="mesas-results" aria-live="polite">
           <div className="mesas-panel recuerdos-thanks">
             <Heart className="recuerdos-accent" size={30} strokeWidth={1.5} />
-            <h2>¡Gracias, {nombre.trim()}!</h2>
+            <h2>¡Gracias, {toTitleCase(nombre)}!</h2>
             <OrnamentalDivider />
             <p>Tu mensaje ya forma parte de nuestros recuerdos. Lo guardaremos con mucho cariño.</p>
             <button type="button" className="mesas-primary" onClick={sendAnother}>
