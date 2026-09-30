@@ -147,14 +147,6 @@ export default function RecuerdosContent() {
     stopRequestedRef.current = false;
 
     let stream: MediaStream;
-    let context: AudioContext | undefined;
-    try {
-      context = new AudioContext();
-      audioContextRef.current = context;
-      void context.resume().catch(() => {});
-    } catch {
-      context = undefined;
-    }
     try {
       stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
@@ -174,6 +166,17 @@ export default function RecuerdosContent() {
           : 'No pudimos acceder al micrófono. Puedes dejarnos un mensaje de texto.'
       );
       return;
+    }
+
+    // Create AudioContext AFTER getUserMedia so the OS audio session is already
+    // in recording mode. Creating it before causes a mode-switch conflict on
+    // mobile (especially without headphones) that makes the UI freeze.
+    let context: AudioContext | undefined;
+    try {
+      context = new AudioContext();
+      audioContextRef.current = context;
+    } catch {
+      context = undefined;
     }
 
     const mimeType = pickRecorderMime();
