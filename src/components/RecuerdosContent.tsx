@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AlertCircle, Camera, Heart, ImagePlus, Loader2, Mic, Paperclip, RotateCcw, Send, Square, Trash2, X } from 'lucide-react';
 import StandardFooter from '@/components/StandardFooter';
 import StandardHeader, { OrnamentalDivider } from '@/components/StandardHeader';
@@ -107,6 +107,40 @@ export default function RecuerdosContent() {
       timerRef.current = null;
     }
     recorderRef.current.stop();
+  }, []);
+
+  // En Chromium/Android, los archivos WebM creados por MediaRecorder se guardan como live streams
+  // sin duración en la cabecera (duration = Infinity), lo que hace que la barra de reproducción
+  // no avance hasta el final. Forzar un seek al final (1e101) obliga al demuxer del navegador a
+  // calcular la duración real inmediatamente y restaurar la barra de tiempo.
+  const handleAudioLoadedMetadata = useCallback((event: SyntheticEvent<HTMLAudioElement>) => {
+    const audio = event.currentTarget;
+    if (!Number.isFinite(audio.duration) || audio.duration === 0) {
+      let settled = false;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        audio.currentTime = 0;
+        setPreviewState('ready');
+      };
+
+      const onTimeUpdate = () => {
+        audio.removeEventListener('timeupdate', onTimeUpdate);
+        finish();
+      };
+
+      audio.addEventListener('timeupdate', onTimeUpdate, { once: true });
+      const timeoutId = window.setTimeout(finish, 300);
+
+      try {
+        audio.currentTime = 1e101;
+      } catch {
+        window.clearTimeout(timeoutId);
+        finish();
+      }
+    } else {
+      setPreviewState('ready');
+    }
   }, []);
 
   const clearAudio = () => {
@@ -243,7 +277,7 @@ export default function RecuerdosContent() {
       stopRecording();
     };
     try {
-      recorder.start(1000);
+      recorder.start();
     } catch {
       stopStream();
       setRecorderState('idle');
@@ -436,6 +470,7 @@ export default function RecuerdosContent() {
                       controls={previewState === 'ready'}
                       src={audioUrl}
                       preload="auto"
+                      onLoadedMetadata={handleAudioLoadedMetadata}
                       onCanPlay={() => setPreviewState('ready')}
                       onError={() => setPreviewState('error')}
                     />
