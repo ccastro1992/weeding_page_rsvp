@@ -9,6 +9,9 @@ export const AUDIO_EXTENSIONS: Record<string, string> = {
   'audio/mp4': 'm4a',
   'audio/ogg': 'ogg',
   'audio/mpeg': 'mp3',
+  'audio/wav': 'wav',
+  'audio/aac': 'aac',
+  'audio/3gpp': '3gp',
 };
 
 const RECORDER_MIME_CANDIDATES = [
@@ -34,6 +37,7 @@ export function isAudioRecordingSupported(): boolean {
   return (
     typeof window !== 'undefined' &&
     typeof window.MediaRecorder !== 'undefined' &&
+    typeof window.AudioContext !== 'undefined' &&
     Boolean(navigator.mediaDevices?.getUserMedia)
   );
 }

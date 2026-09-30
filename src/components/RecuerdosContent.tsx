@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { AlertCircle, Camera, Heart, ImagePlus, Loader2, Mic, RotateCcw, Send, Square, Trash2, X } from 'lucide-react';
+import { AlertCircle, Camera, Heart, ImagePlus, Loader2, Mic, Paperclip, RotateCcw, Send, Square, Trash2, X } from 'lucide-react';
 import StandardFooter from '@/components/StandardFooter';
 import StandardHeader, { OrnamentalDivider } from '@/components/StandardHeader';
 import {
@@ -19,7 +19,7 @@ import {
   toTitleCase,
 } from '@/lib/recuerdos';
 
-type RecorderState = 'idle' | 'recording' | 'finalizing' | 'recorded';
+type RecorderState = 'idle' | 'starting' | 'recording' | 'finalizing' | 'recorded';
 type SendStatus = 'idle' | 'sending' | 'sent';
 
 function formatTime(totalSeconds: number) {
@@ -40,6 +40,7 @@ export default function RecuerdosContent() {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [previewState, setPreviewState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [micError, setMicError] = useState<string | null>(null);
+  const [inputLevel, setInputLevel] = useState(0);
 
   const [selfieBlob, setSelfieBlob] = useState<Blob | null>(null);
   const [selfieUrl, setSelfieUrl] = useState<string | null>(null);
@@ -53,7 +54,12 @@ export default function RecuerdosContent() {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const recordingErrorRef = useRef<string | null>(null);
+  const stopRequestedRef = useRef(false);
+  const peakLevelRef = useRef(0);
   const timerRef = useRef<number | null>(null);
+  const audioInputRef = useRef<HTMLInputElement | null>(null);
   const cameraInputRef = useRef<HTMLInputElement | null>(null);
   const galleryInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -72,11 +78,25 @@ export default function RecuerdosContent() {
   }, [selfieUrl]);
 
   const stopStream = useCallback(() => {
-    streamRef.current?.getTracks().forEach((track) => track.stop());
+    const recorder = recorderRef.current;
+    recorderRef.current = null;
+    if (recorder) {
+      recorder.ondataavailable = null;
+      recorder.onstop = null;
+      recorder.onerror = null;
+      if (recorder.state !== 'inactive') recorder.stop();
+    }
+    streamRef.current?.getTracks().forEach((track) => {
+      track.onended = null;
+      track.onmute = null;
+      track.stop();
+    });
     streamRef.current = null;
-    recorderRef.current?.stream.getTracks().forEach((track) => track.stop());
+    recorder?.stream.getTracks().forEach((track) => track.stop());
     const context = audioContextRef.current;
     audioContextRef.current = null;
+    analyserRef.current = null;
+    if (context) context.onstatechange = null;
     if (context && context.state !== 'closed') void context.close().catch(() => {});
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
@@ -84,14 +104,13 @@ export default function RecuerdosContent() {
     }
   }, []);
 
-  useEffect(() => () => {
-    if (recorderRef.current?.state === 'recording') recorderRef.current.stop();
-    stopStream();
-  }, [stopStream]);
+  useEffect(() => stopStream, [stopStream]);
 
   const stopRecording = useCallback(() => {
     if (recorderRef.current?.state !== 'recording') return;
+    stopRequestedRef.current = true;
     setRecorderState('finalizing');
+    setInputLevel(0);
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
@@ -99,19 +118,40 @@ export default function RecuerdosContent() {
     recorderRef.current.stop();
   }, []);
 
+  const interruptRecording = useCallback((message: string) => {
+    if (recorderRef.current?.state !== 'recording') return;
+    recordingErrorRef.current = message;
+    stopRecording();
+  }, [stopRecording]);
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        interruptRecording('La grabación se interrumpió al salir de la página. Vuelve a grabar o adjunta un audio del teléfono.');
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, [interruptRecording]);
+
   const clearAudio = () => {
     setAudioBlob(null);
     setAudioUrl(null);
     setPreviewState('loading');
     setSeconds(0);
+    setInputLevel(0);
     setRecorderState('idle');
   };
 
   const startRecording = async () => {
-    if (audioContextRef.current) return;
+    if (audioContextRef.current || status === 'sending') return;
     setMicError(null);
     setFormError(null);
     clearAudio();
+    setRecorderState('starting');
+    recordingErrorRef.current = null;
+    stopRequestedRef.current = false;
+    peakLevelRef.current = 0;
 
     let stream: MediaStream;
     let context: AudioContext;
@@ -120,16 +160,17 @@ export default function RecuerdosContent() {
       audioContextRef.current = context;
       await context.resume();
       if (audioContextRef.current !== context) return;
-      // El procesamiento de llamada (eco/ruido) recorta la voz con el micrófono integrado del celular.
       stream = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+        audio: true,
       });
       if (audioContextRef.current !== context) {
         stream.getTracks().forEach((track) => track.stop());
         return;
       }
     } catch (error) {
+      if (!audioContextRef.current) return;
       stopStream();
+      setRecorderState('idle');
       const denied = error instanceof DOMException && error.name === 'NotAllowedError';
       setMicError(
         denied
@@ -144,16 +185,21 @@ export default function RecuerdosContent() {
     streamRef.current = stream;
     try {
       const source = context.createMediaStreamSource(stream);
+      const analyser = context.createAnalyser();
+      analyser.fftSize = 2048;
+      source.connect(analyser);
+      analyserRef.current = analyser;
       const destination = context.createMediaStreamDestination();
       destination.channelCount = 1;
-      const silence = context.createConstantSource();
-      silence.offset.value = 0;
       source.connect(destination);
-      silence.connect(destination);
-      silence.start();
+      const monitor = context.createGain();
+      monitor.gain.value = 0;
+      source.connect(monitor);
+      monitor.connect(context.destination);
       recorder = new MediaRecorder(destination.stream, mimeType ? { mimeType } : undefined);
     } catch {
       stopStream();
+      setRecorderState('idle');
       setMicError('Tu navegador no permite grabar audio. Puedes dejarnos un mensaje de texto.');
       return;
     }
@@ -163,7 +209,16 @@ export default function RecuerdosContent() {
       if (event.data.size > 0) chunks.push(event.data);
     };
     recorder.onstop = () => {
+      if (recorderRef.current !== recorder) return;
+      const failure = recordingErrorRef.current
+        || (!stopRequestedRef.current ? 'El micrófono se interrumpió. Vuelve a grabar o adjunta un audio del teléfono.' : null);
       stopStream();
+      setInputLevel(0);
+      if (failure || peakLevelRef.current === 0) {
+        setMicError(failure || 'No recibimos señal del micrófono. Vuelve a grabar o adjunta un audio del teléfono.');
+        setRecorderState('idle');
+        return;
+      }
       const type = baseMime(recorder.mimeType || mimeType || chunks[0]?.type || '');
       const blob = new Blob(chunks, { type });
 
@@ -185,24 +240,73 @@ export default function RecuerdosContent() {
 
     recorderRef.current = recorder;
     stream.getAudioTracks().forEach((track) => {
-      track.onended = stopRecording;
+      track.onended = () => interruptRecording('El micrófono se desconectó. Vuelve a grabar o adjunta un audio del teléfono.');
+      track.onmute = () => interruptRecording('El teléfono interrumpió el micrófono. Vuelve a grabar o adjunta un audio del teléfono.');
     });
-    recorder.onerror = stopRecording;
+    context.onstatechange = () => {
+      if (context.state !== 'running') {
+        interruptRecording('El teléfono suspendió la captura de audio. Vuelve a grabar o adjunta un audio del teléfono.');
+      }
+    };
+    recorder.onerror = () => {
+      recordingErrorRef.current = 'La grabación falló. Vuelve a grabar o adjunta un audio del teléfono.';
+      stopRecording();
+    };
     try {
+      if (context.state !== 'running' || document.hidden || stream.getAudioTracks().some((track) => track.muted || track.readyState !== 'live')) {
+        throw new Error('Microphone unavailable');
+      }
       recorder.start();
     } catch {
       stopStream();
+      setRecorderState('idle');
       setMicError('No pudimos iniciar la grabación. Intenta de nuevo o escribe tu mensaje.');
       return;
     }
     setRecorderState('recording');
 
-    const startedAt = Date.now();
+    const startedAt = performance.now();
+    const samples = new Float32Array(2048);
     timerRef.current = window.setInterval(() => {
-      const elapsed = (Date.now() - startedAt) / 1000;
+      analyserRef.current?.getFloatTimeDomainData(samples);
+      const rms = Math.sqrt(samples.reduce((sum, sample) => sum + sample * sample, 0) / samples.length);
+      peakLevelRef.current = Math.max(peakLevelRef.current, rms);
+      setInputLevel(Math.min(1, rms * 8));
+      const elapsed = (performance.now() - startedAt) / 1000;
       setSeconds(Math.min(elapsed, MAX_AUDIO_SECONDS));
       if (elapsed >= MAX_AUDIO_SECONDS) stopRecording();
-    }, 250);
+    }, 100);
+  };
+
+  const handleAudioChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file || audioContextRef.current || status === 'sending') return;
+    setMicError(null);
+    const aliases: Record<string, string> = {
+      'audio/x-m4a': 'audio/mp4',
+      'audio/mp3': 'audio/mpeg',
+      'audio/x-wav': 'audio/wav',
+      'audio/wave': 'audio/wav',
+    };
+    const suppliedType = baseMime(file.type);
+    const extension = file.name.split('.').pop()?.toLowerCase();
+    const inferredType = Object.entries(AUDIO_EXTENSIONS).find(([, value]) => value === extension)?.[0];
+    const type = aliases[suppliedType] || suppliedType || inferredType || '';
+    if (!Object.hasOwn(AUDIO_EXTENSIONS, type)) {
+      setMicError('Formato no compatible. Elige un audio M4A, MP3, WAV, AAC, OGG o WebM.');
+      return;
+    }
+    if (file.size === 0 || file.size > MAX_AUDIO_BYTES) {
+      setMicError('El audio debe contener datos y pesar como máximo 10 MB.');
+      return;
+    }
+    clearAudio();
+    setFormError(null);
+    const blob = file.type === type ? file : new Blob([file], { type });
+    setAudioBlob(blob);
+    setAudioUrl(URL.createObjectURL(blob));
+    setRecorderState('recorded');
   };
 
   const handleSelfieChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -231,7 +335,7 @@ export default function RecuerdosContent() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (recorderState === 'recording' || recorderState === 'finalizing') return;
+    if (audioContextRef.current || recorderState === 'starting' || recorderState === 'recording' || recorderState === 'finalizing') return;
     setFormError(null);
 
     if (!nombre.trim()) {
@@ -273,6 +377,8 @@ export default function RecuerdosContent() {
   const isSending = status === 'sending';
   const isRecording = recorderState === 'recording';
   const isFinalizing = recorderState === 'finalizing';
+  const isStarting = recorderState === 'starting';
+  const isAudioBusy = isStarting || isRecording || isFinalizing;
 
   return (
     <main className="mesas-page recuerdos-page animate-fade-in">
@@ -316,29 +422,31 @@ export default function RecuerdosContent() {
           <div className="mesas-panel recuerdos-panel">
             <p className="mesas-eyebrow">Mensaje de voz</p>
 
-            {!canRecord ? (
+            {!canRecord && (
               <p className="recuerdos-notice">
-                <AlertCircle size={16} /> Tu navegador no permite grabar audio. Ábrelo en Safari, Chrome o
-                Firefox, o déjanos un mensaje de texto.
+                <AlertCircle size={16} /> Tu navegador no permite grabar audio. Puedes adjuntar una grabación o escribir un mensaje.
               </p>
-            ) : (
+            )}
               <>
-                {recorderState !== 'recorded' && (
+                {canRecord && recorderState !== 'recorded' && (
                   <div className="recuerdos-recorder">
                     <button
                       type="button"
                       className={`recuerdos-record ${isRecording ? 'is-recording' : ''}`}
                       onClick={isRecording ? stopRecording : startRecording}
-                      disabled={isSending || isFinalizing}
-                      aria-label={isFinalizing ? 'Preparando audio' : isRecording ? 'Detener grabación' : 'Comenzar grabación'}
+                      disabled={isSending || isStarting || isFinalizing}
+                      aria-label={isStarting ? 'Conectando micrófono' : isFinalizing ? 'Preparando audio' : isRecording ? 'Detener grabación' : 'Comenzar grabación'}
                     >
-                      {isFinalizing ? <Loader2 className="mesas-spin" size={26} /> : isRecording ? <Square size={22} fill="currentColor" /> : <Mic size={26} strokeWidth={1.5} />}
+                      {isStarting || isFinalizing ? <Loader2 className="mesas-spin" size={26} /> : isRecording ? <Square size={22} fill="currentColor" /> : <Mic size={26} strokeWidth={1.5} />}
                     </button>
                     <p className="recuerdos-timer" aria-live="polite">
-                      {isFinalizing ? 'Preparando audio...' : isRecording
+                      {isStarting ? 'Conectando micrófono...' : isFinalizing ? 'Preparando audio...' : isRecording
                         ? `${formatTime(seconds)} / ${formatTime(MAX_AUDIO_SECONDS)}`
                         : `Toca para grabar (máx. ${formatTime(MAX_AUDIO_SECONDS)})`}
                     </p>
+                    {isRecording && (
+                      <meter className="recuerdos-level" min={0} max={1} value={inputLevel} aria-label="Nivel del micrófono" />
+                    )}
                   </div>
                 )}
 
@@ -363,7 +471,7 @@ export default function RecuerdosContent() {
                       </p>
                     )}
                     <div className="recuerdos-actions">
-                      <button type="button" onClick={startRecording} disabled={isSending}>
+                      <button type="button" onClick={startRecording} disabled={isSending || !canRecord}>
                         <RotateCcw size={14} /> Grabar de nuevo
                       </button>
                       <button type="button" onClick={clearAudio} disabled={isSending}>
@@ -373,9 +481,23 @@ export default function RecuerdosContent() {
                   </div>
                 )}
               </>
-            )}
 
-            {micError && <p className="recuerdos-notice"><AlertCircle size={16} /> {micError}</p>}
+            <input
+              ref={audioInputRef}
+              className="recuerdos-file"
+              type="file"
+              accept="audio/*,.m4a,.mp3,.wav,.aac,.ogg,.webm,.3gp"
+              onChange={handleAudioChange}
+              disabled={isSending || isAudioBusy}
+              aria-label="Adjuntar archivo de audio"
+            />
+            <div className="recuerdos-actions">
+              <button type="button" onClick={() => audioInputRef.current?.click()} disabled={isSending || isAudioBusy}>
+                <Paperclip size={14} /> Adjuntar audio
+              </button>
+            </div>
+
+            {micError && <p className="recuerdos-notice" role="alert"><AlertCircle size={16} /> {micError}</p>}
           </div>
 
           <div className="mesas-panel recuerdos-panel">
@@ -461,7 +583,7 @@ export default function RecuerdosContent() {
           )}
 
           <div className="recuerdos-submit">
-            <button type="submit" className="mesas-primary" disabled={isSending || isRecording || isFinalizing || processingSelfie}>
+            <button type="submit" className="mesas-primary" disabled={isSending || isAudioBusy || processingSelfie}>
               {isSending ? <Loader2 className="mesas-spin" size={16} /> : <Send size={16} />}
               {isSending ? 'Enviando...' : 'Enviar recuerdo'}
             </button>
