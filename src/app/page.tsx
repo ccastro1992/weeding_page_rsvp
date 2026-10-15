@@ -4,7 +4,7 @@ import HomeContent from '@/components/HomeContent';
 
 export const metadata: Metadata = {
   title: 'Kari & Cris | Nuestra Boda',
-  description: 'Consulta las mesas, el menú, el programa y la información de regalos.',
+  description: 'Consulta las mesas, el menú, el programa y más.',
 };
 
 export default function HomePage() {
